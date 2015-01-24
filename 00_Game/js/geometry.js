@@ -217,10 +217,10 @@ var Rectangle = function(x, y, w, h)
 
 Rectangle.prototype.contains = function( vector )
 {
-    return (   vector.x > this.x 
-            && vector.x < this.x + this.w
-            && vector.y > this.y
-            && vector.y < this.y + this.h );
+    return (   vector.x >= this.x 
+            && vector.x <= this.x + this.w
+            && vector.y >= this.y
+            && vector.y <= this.y + this.h );
 }
 
 Rectangle.prototype.distanceTo = function( vector )
@@ -229,22 +229,35 @@ Rectangle.prototype.distanceTo = function( vector )
     
     var edges = [];
     //top 
-    edges.push( Math.max( this.y - vector.y, 0 ) );
-    //bottom
-    edges.push( Math.max( vector.y - this.y + this.h , 0 ) );
-    //left
-    edges.push( Math.max( this.x - vector.x, 0 ) );
+    edges.push( this.y - vector.y );
     //right
-    edges.push( Math.max( vector.x - this.x + this.w , 0 ) );
+    edges.push( vector.x - (this.x + this.w) );
+    //bottom
+    edges.push( vector.y - (this.y + this.h) );
+    //left
+    edges.push( this.x - vector.x );
+    
+    for(var i = 0; i < edges.length; ++i)
+    {
+        var amount = (i % 2 == 0) ? this.h : this.w; 
+        
+        if( edges[i] < 0)
+        {
+            var dist = Math.abs( edges[i] );
+            edges[i] = (dist > amount) ? dist - amount : 0;
+        }
+    }
     
     var distances = [];
     
     for(var i = 0; i < edges.length; ++i)
     {
-        for(var j = i + 1; j < edges.length; ++j)
-        {
-            distances.push( Math.sqrt( edges[i] * edges[i] + edges[j] * edges[j] ) );
-        }
+        var j = i + 1;
+        if(j == edges.length) j = 0;
+
+        //if(edges[i] < 0 && edges[j] < 0)  
+        //    continue;
+        distances.push( Math.sqrt( edges[i] * edges[i] + edges[j] * edges[j] ) );
     }
     
     distances.sort(function(a, b){return a-b});

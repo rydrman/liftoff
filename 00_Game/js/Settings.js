@@ -21,8 +21,8 @@ var Settings = {
    
     //for world generation
     worldSize : {
-        x: 20,
-        y: 20
+        x: 200,
+        y: 200
     },
     
     //browser / device info

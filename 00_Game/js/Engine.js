@@ -8,6 +8,7 @@ var Engine = function()
     //classes
     this.renderer;
     this.player;
+    this.ship;
     this.world;
 }
 
@@ -21,6 +22,7 @@ Engine.prototype.init = function()
     //classes
     this.renderer = new Renderer();
     this.player = new Player();
+    this.ship = new Ship();
     
     //TODO get to inventory
     this.world = this.generator.generate();
@@ -43,6 +45,7 @@ Engine.prototype.begin = function()
     
     //set 
     this.input.addListener( Input.eventTypes.MOUSEDOWN, this.onMouseDown, this );
+    this.input.addListener(Input.eventTypes.RIGHTMOUSEDOWN, this.onRMouseDown, this);
     
     window.requestAnimationFrame( this.frameCallback );
 }
@@ -56,8 +59,19 @@ Engine.prototype.onMouseDown = function( mousePos )
     
     var result = this.world.sample( worldPos );
     
-    //TODO use other options
-    this.player.goal.copy( result.position );
+    // Update player / ship stuff
+    if (this.player.inShip) {
+        this.ship.goal.copy(result.position);
+    } else {
+        this.player.goal.copy( result.position );
+    }
+}
+
+Engine.prototype.onRMouseDown = function( mousePos) {
+    var worldPos = this.renderer.unProject( mousePos );
+    if (this.ship.checkClickIntersect(worldPos) && (this.player.inShip || this.ship.position.clone().sub(this.player.position).length() < 2)) {
+        this.player.toggleShipStatus(this.ship);
+    }
 }
 
 Engine.prototype.frameCallback = function()
@@ -70,10 +84,18 @@ Engine.prototype.update = function()
     this.timer.tick();
     
     this.player.update( this.timer );
+    this.ship.update(this.timer);
+    
+    //wrap if necessary
+    var obj = this.player.inShip ? this.ship : this.player;
+    if(!this.world.bounds.contains(obj.position))
+    {
+        obj.wrapValues( this.world.bounds );
+    }
     
     //other class updates
     
-    this.renderer.render( this.world, this.player, this.timer );
+    this.renderer.render( this.world, this.player, this.ship, this.timer );
     
     window.requestAnimationFrame( this.frameCallback );
 }

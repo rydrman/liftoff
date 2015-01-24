@@ -20,12 +20,12 @@ Renderer.prototype.init = function( canvas )
     this.ctx = this.canvas.getContext('2d');
 }
 
-Renderer.prototype.render = function( world, player, timer )
+Renderer.prototype.render = function( world, player, ship, timer )
 {
     this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
     
     //calculate world viewport first
-    var center = player.position.clone();
+    var center = player.inShip ? ship.position.clone() : player.position.clone();
     //var centerPixel = this.worldToPixel2( center );
     var viewportSize = this.pixelToWorld2( new Vector2( this.canvas.width, this.canvas.height ) );
     this.viewport.x = center.x - viewportSize.x * 0.5;
@@ -60,7 +60,7 @@ Renderer.prototype.render = function( world, player, timer )
         
         //draw thicker edge lines
         this.ctx.lineWidth = 5;
-        var origin = this.project( new Vector2( 0, 0 ) );
+        var origin = this.project( this.wrapWorldCoords(new Vector2( 0, 0 )) );
         this.ctx.beginPath();
         this.ctx.moveTo( 0, origin.y );
         this.ctx.lineTo( this.canvas.width, origin.y );
@@ -71,13 +71,29 @@ Renderer.prototype.render = function( world, player, timer )
         this.ctx.fillStyle = "#FFF";
         this.ctx.fillText(timer.framerate.toFixed(2), 10, 10);
         
-        //debug player position
-        this.ctx.fillText("x: " + engine.player.position.x.toFixed(2) + ", y: " + engine.player.position.y.toFixed(2), 10, 30);
-        //player goal
-        var goal = this.project( player.goal );
+        //player / ship goal
+        var goal = (player.inShip) ? this.project(ship.goal) : this.project( player.goal );
+        this.ctx.fillStyle = "#F00";
         this.ctx.beginPath();
         this.ctx.arc(goal.x, goal.y, 10, 0, Math.PI * 2, false);
         this.ctx.fill();
+        
+        //debug player position
+        this.ctx.fillStyle = "#FFF";
+        var pos = player.inShip ? ship.position : player.position;
+        this.ctx.fillText("x: " + pos.x.toFixed(2) + ", y: " + pos.y.toFixed(2), 10, 30);
+        
+        // Ship position
+        var shipPos = this.project(ship.position);
+        this.ctx.fillRect(shipPos.x - 25, shipPos.y - 25, 50, 50);
+        // Player Position
+        if (!player.inShip) {
+            this.ctx.fillStyle = "#0F0";
+            var playerPos = this.project(player.position);
+            this.ctx.beginPath();
+            this.ctx.arc(playerPos.x, playerPos.y, 10, 0, Math.PI * 2, false);
+            this.ctx.fill();
+        }
         
     }
     
@@ -88,7 +104,7 @@ Renderer.prototype.render = function( world, player, timer )
     for(var i in world.planets)
     {
         p = world.planets[i];
-        pos = this.wrapWorldCoords( this.project( p.position ) );
+        pos = this.project( this.wrapWorldCoords( p.position ) );
         rad = this.worldToPixel( p.radius );
         this.ctx.moveTo(pos.x, pos.y);
         this.ctx.arc(pos.x, pos.y, rad, 0, Math.PI * 2, false );
@@ -145,6 +161,12 @@ Renderer.prototype.wrapWorldCoords = function( worldAbs )
     
     var options = [];
     
+    //try normal
+    var norm = worldAbs.clone();
+    options.push({
+        pos : norm,
+        dist : this.viewport.distanceTo( norm )
+    });
     //try top
     var top = worldAbs.clone();
     top.y -= Settings.worldSize.y;

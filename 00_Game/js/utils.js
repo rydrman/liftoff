@@ -61,3 +61,16 @@ function checkParams( params )
     return true;
 }
 
+
+function wrap( value, min, max )
+{
+    if(max < min) throw new Mesage.Error("Cannot wrap when min > max");
+    
+    var range = max - min;
+    
+    if (value < min)
+        value += range * Math.floor((Math.abs(value - min) / range) + 1);
+
+    return min + (value - min) % range;
+    
+}

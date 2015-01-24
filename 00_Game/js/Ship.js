@@ -1,21 +1,21 @@
-var Player = function() {
+var Ship = function() {
+    // Position
     this.position = new Vector2();
-    this.speed = 4; // units per second - 1 unit = 50px;
-    
     this.goal = new Vector2();
-    
-    this.inShip = true;
+    this.speed = 5; //units per second - 1 unit = 50px
     
     // Variables
-    this.oxygen = 100;
-    this.comfort = 100;
+    this.damage = 100;
+    this.fuel = 100;
+    
+    // parts
 }
 
-Player.prototype.init = function() {
+Ship.prototype.init = function() {
     
 }
 
-Player.prototype.update = function( timer ) {
+Ship.prototype.update = function(timer) {
     if( !this.position.compare( this.goal ) ) {
         var offset = this.goal.clone().sub( this.position);
         if (offset.length() < 0.05) {
@@ -28,13 +28,12 @@ Player.prototype.update = function( timer ) {
     }
 }
 
-Player.prototype.toggleShipStatus = function(ship) {
-    this.inShip = !this.inShip;
-    this.goal.copy(ship.position)
-    this.position.copy(ship.position);
+Ship.prototype.checkClickIntersect = function(clickPos) {
+    // TODO - modules on ship change its bounding box
+    return (Math.abs(clickPos.x - this.position.x) < 0.5 && Math.abs(clickPos.y - this.position.y) < 0.5)
 }
 
-Player.prototype.wrapValues = function( bounds )
+Ship.prototype.wrapValues = function( bounds )
 {
     //position
     this.position.x = wrap( this.position.x, bounds.x, bounds.x + bounds.w );
