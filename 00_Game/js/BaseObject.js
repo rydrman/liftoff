@@ -3,6 +3,8 @@ var BaseObject = function( item )
     this.name = item.name;
     this.image = new Image();
     
+    var self = this;
+    
     var loader = new AsyncLoader()
     loader.addImageCall( item.img, this.image );
     loader.runCalls();
