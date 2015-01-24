@@ -1,20 +1,127 @@
 [
+    {
+        "name" : "tree",
+        "niceName" : "Tree",
+        "img" : "assets/items/Tree.png",
+        "probabilities" : {
+            "grassy" : 1,
+            "desert" : 0,
+            "rocky" : 0.3,
+            "swamp" :  0.5,
+            "volcanic" :  0,
+            "cow" :  1
+        }
+    },
+    {
+        "name" : "lgroundg",
+        "niceName" : "Loose Ground (Grass)",
+        "img" : "assets/items/LooseGroundGrass.png",
+        "probabilities" : {
+            "grassy" : 1,
+            "desert" : 0,
+            "rocky" : 0,
+            "swamp" :  0,
+            "volcanic" :  0,
+            "cow" :  1
+        }
+    },
+    {
+        "name" : "lgrounda",
+        "niceName" : "Loose Ground (Arid)",
+        "img" : "assets/items/LooseGroundArid.png",
+        "probabilities" : {
+            "grassy" : 0,
+            "desert" : 1,
+            "rocky" : 1,
+            "swamp" :  0,
+            "volcanic" :  1,
+            "cow" :  0
+        }
+    },
+    {
+        "name" : "lgrounds",
+        "niceName" : "Loose Ground (Swamp)",
+        "img" : "assets/items/LooseGroundSwamp.png",
+        "probabilities" : {
+            "grassy" : 0.2,
+            "desert" : 0,
+            "rocky" : 0,
+            "swamp" :  1,
+            "volcanic" :  0,
+            "cow" :  0.2
+        }
+    },
+    {
+        "name" : "lava",
+        "niceName" : "Lava Pit",
+        "img" : "assets/items/LavaPit.png",
+        "probabilities" : {
+            "grassy" : 0,
+            "desert" : 0.1,
+            "rocky" : 0.1,
+            "swamp" :  0,
+            "volcanic" :  1,
+            "cow" :  0
+        }
+    },
+    {
+        "name" : "cow",
+        "niceName" : "Cow",
+        "img" : "assets/items/Cow.png",
+        "probabilities" : {
+            "grassy" : 1,
+            "desert" : 0,
+            "rocky" : 0,
+            "swamp" :  0,
+            "volcanic" :  0,
+            "cow" :  1
+        }
+    },
+    {
+        "name" : "alien",
+        "niceName" : "Alien",
+        "img" : "assets/items/Alien.png",
+        "probabilities" : {
+            "grassy" : 0.2,
+            "desert" : 0.2,
+            "rocky" : 0.2,
+            "swamp" :  0.5,
+            "volcanic" :  0.2,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "lwreck",
+        "niceName" : "Wreck (Land)",
+        "img" : "assets/items/LandWreck.png",
+        "probabilities" : {
+            "grassy" : 0.1,
+            "desert" : 0.1,
+            "rocky" : 0.2,
+            "swamp" :  0.2,
+            "volcanic" :  0.1,
+            "cow" :  0.1
+        }
+    },
+
+
+
 
     {
         "name" : "ore",
         "niceName" : "Ore",
         "img" : "assets/items/Ore.png",
         "probabilities" : {
-            "grassy" : 0.5,
+            "grassy" : 0,
             "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
+            "rocky" : 0.8,
+            "swamp" :  0.2,
+            "volcanic" :  0.8,
             "cow" :  0.5
         }
     },
     {
-        "name" : "ore",
+        "name" : "cardboard",
         "niceName" : "Ore",
         "img" : "assets/items/Ore.png",
         "probabilities" : {
@@ -199,6 +306,73 @@
         "name" : "bolts",
         "niceName" : "Bolts",
         "img" : "assets/items/Bolts.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+
+
+    {
+        "name" : "bcockpit",
+        "niceName" : "Basic Cockpit",
+        "img" : "assets/items/BasicCockpit.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "barmaments",
+        "niceName" : "Basic Armaments",
+        "img" : "assets/items/BasicArmaments.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "bsciencebay",
+        "niceName" : "Basic Science Bay",
+        "img" : "assets/items/BasicScienceBay.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "bcargobay",
+        "niceName" : "Basic Cargo Bay",
+        "img" : "assets/items/BasicCargoBay.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "bthrusters",
+        "niceName" : "Basic Thrusters",
+        "img" : "assets/items/BasicThrusters.png",
         "probabilities" : {
             "grassy" : 0.5,
             "desert" : 0.5,
