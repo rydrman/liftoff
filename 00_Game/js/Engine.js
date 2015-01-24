@@ -74,6 +74,12 @@ Engine.prototype.onMouseDown = function( mousePos )
         // Open Ship Menu
     } else if (result) {
         console.log("WORLD ELEMENT CLICKED");
+        // check if player is close enough to pick up object
+        if (this.player.position.clone().sub(this.world.planets[result.planetIndex].position.clone().add(result.objectData.position)).length() < 0.4) {
+            // Add to player inventory and remove from world
+            if (this.player.addToInventory(result.objectData))
+                this.world.planets[result.planetIndex].removeItem(result.objectData);
+        }
     } else if (this.player.inShip) { // Update player / ship position
         if (this.ship.landed)
             this.ship.launch();
