@@ -1,0 +1,13 @@
+[
+
+    {
+        "name" : "goo",
+        "niceName" : "Goo",
+        "img" : "assets/items/Goo.png",
+        "probabilities" : {
+            "grassy" : 0.5
+        }
+    }
+
+
+]

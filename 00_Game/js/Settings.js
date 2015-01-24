@@ -24,6 +24,8 @@ var Settings = {
         x: 200,
         y: 200
     },
+    planetMinRad: 2,
+    planetMaxRad: 6,
     
     //browser / device info
     browser: (typeof(chrome) != 'undefined')                ? 'chrome' :

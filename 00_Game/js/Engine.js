@@ -28,19 +28,23 @@ Engine.prototype.init = function()
     //TODO get to inventory
     this.world = this.generator.generate();
     this.ui = new UI();
-    
+
     //load everythign that needs loading
     var loader = new AsyncLoader()
     loader.onCompleteContext = this;
     loader.onComplete = this.begin;
     
     loader.addClassCall( this.renderer );
+    loader.addClassCall( this.generator );
     
     loader.runCalls();
 }
 
 Engine.prototype.begin = function()
 {
+    //get world 
+    this.world = this.generator.generate();
+    
     //initialize stuff
     this.renderer.init( canvas );
     this.player.init();
@@ -52,6 +56,7 @@ Engine.prototype.begin = function()
     
     this.input.addListener(Input.eventTypes.MOUSEMOVE_ABS, this.onMouseMove, this);
     
+    onResize();
     window.requestAnimationFrame( this.frameCallback );
 }
 
