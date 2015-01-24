@@ -171,7 +171,7 @@ Input.prototype.onMouseDown = function(e)
     var newMouse = Settings.pointerLocked ? this.lastMouse : this.getMousePos(e);
     
     //check for a listener
-    var toCall = this.listeners[Input.eventTypes.MOUSEDOWN];
+    var toCall = (e.which == 1) ? this.listeners[Input.eventTypes.MOUSEDOWN] : this.listeners[Input.eventTypes.RIGHTMOUSEDOWN];
     for(var i in toCall)
     {
         if(this.checkModifiers(toCall[i]))
@@ -375,7 +375,9 @@ Input.eventTypes = {
     MOUSEMOVE_DELTA : 5,
     MOUSEMOVE_ABS : 6,
     POINTER_LOCKED: 7,
-    POINTER_UNLOCKED: 8
+    POINTER_UNLOCKED: 8,
+    RIGHTMOUSEDOWN: 9,
+    RIGHTMOUSEUP: 10
 }
 
 //this object can be used to easily look up key codes

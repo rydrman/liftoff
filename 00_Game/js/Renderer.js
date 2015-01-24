@@ -20,12 +20,12 @@ Renderer.prototype.init = function( canvas )
     this.ctx = this.canvas.getContext('2d');
 }
 
-Renderer.prototype.render = function( world, player, timer )
+Renderer.prototype.render = function( world, player, ship, timer )
 {
     this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
     
     //calculate world viewport first
-    var center = player.position;
+    var center = (player.inShip) ? ship.position : player.position;
     //var centerPixel = this.worldToPixel2( center );
     var viewportSize = this.pixelToWorld2( new Vector2( this.canvas.width, this.canvas.height ) );
     this.viewport.x = center.x - viewportSize.x * 0.5;
@@ -71,13 +71,28 @@ Renderer.prototype.render = function( world, player, timer )
         this.ctx.fillStyle = "#FFF";
         this.ctx.fillText(timer.framerate.toFixed(2), 10, 10);
         
-        //debug player position
-        this.ctx.fillText("x: " + engine.player.position.x.toFixed(2) + ", y: " + engine.player.position.y.toFixed(2), 10, 30);
-        //player goal
-        var goal = this.project( player.goal );
+        //player / ship goal
+        var goal = (player.inShip) ? this.project(ship.goal) : this.project( player.goal );
+        this.ctx.fillStyle = "#F00";
         this.ctx.beginPath();
         this.ctx.arc(goal.x, goal.y, 10, 0, Math.PI * 2, false);
         this.ctx.fill();
+        
+        //debug player position
+        this.ctx.fillStyle = "#FFF";
+        this.ctx.fillText("x: " + engine.player.position.x + ", y: " + engine.player.position.y, 10, 30);
+        
+        // Ship position
+        var shipPos = this.project(ship.position);
+        this.ctx.fillRect(shipPos.x - 25, shipPos.y - 25, 50, 50);
+        // Player Position
+        if (!player.inShip) {
+            this.ctx.fillStyle = "#0F0";
+            var playerPos = this.project(player.position);
+            this.ctx.beginPath();
+            this.ctx.arc(playerPos.x, playerPos.y, 10, 0, Math.PI * 2, false);
+            this.ctx.fill();
+        }
         
     }
     
