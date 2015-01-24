@@ -2,7 +2,7 @@ var Renderer = function()
 {
     AsyncLoadable.call(this);
     
-    this.zoom = 1.0;
+    this.zoom = 1.0; // TODO - a "Goal" type system like player
     this.viewport = new Rectangle();
     
     this.canvas;
@@ -38,6 +38,7 @@ Renderer.prototype.render = function( world, player, ship, timer )
         //debug lines
         var x = 0,
             y = 0;
+        this.ctx.strokeStyle = "#000";
         this.ctx.lineWidth = 1;
         var step = this.worldToPixel( 1 );
         var offsetPixel = this.worldToPixel2( center );
@@ -109,6 +110,27 @@ Renderer.prototype.render = function( world, player, ship, timer )
         this.ctx.arc(pos.x, pos.y, rad, 0, Math.PI * 2, false );
     }
     this.ctx.fill();
+    
+    
+    // UI Components TEST
+    this.ctx.save();
+    
+    this.ctx.fillStyle = "#FFF";
+    this.ctx.arc(70, 70, 25, 2*Math.PI, false);
+    this.ctx.closePath();
+    this.ctx.clip();
+    this.ctx.fillStyle = '#000';
+    this.ctx.fillRect(40, 95, 50, -50);
+    this.ctx.fillStyle = '#13a8a4';
+    this.ctx.fillRect(40, 95, 60, map(player.oxygen, 0, 100, 0, -50));
+    
+    this.ctx.restore();
+    this.ctx.strokeStyle = "#ddd";
+    this.ctx.lineWidth = 2;
+    this.ctx.beginPath();
+    this.ctx.arc(70, 70, 25, 2*Math.PI, false);
+    this.ctx.stroke();
+    this.ctx.closePath();
 }
 
 Renderer.prototype.resize = function( w, h )

@@ -1,14 +1,20 @@
 var Player = function() {
     this.position = new Vector2();
-    this.speed = 4; // units per second - 1 unit = 50px;
+    this.speed = 2; // units per second - 1 unit = 50px;
     
     this.goal = new Vector2();
     
     this.inShip = true;
     
     // Variables
-    this.oxygen = 100;
+    this.oxygen = 90;
     this.comfort = 100;
+    
+    // Equipment
+    
+    
+    // Inventory
+    this.inventory = [null, null, null, null, null];
 }
 
 Player.prototype.init = function() {
@@ -32,4 +38,15 @@ Player.prototype.toggleShipStatus = function(ship) {
     this.inShip = !this.inShip;
     this.goal.copy(ship.position)
     this.position.copy(ship.position);
+}
+
+Player.prototype.addToInventory = function(objToAdd) {
+    for (i=0; i < this.inventory.length; i++) {
+        if (this.inventory[i] == null) {
+            // Add object to inventory
+            // TODO
+        } else {
+            // Error message to user that inventory is full
+        }
+    }
 }
