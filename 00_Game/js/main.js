@@ -8,6 +8,9 @@ var canvas,
 //utils
 var messenger;
 
+var missingImg = new Image();
+missingImg.src = "assets/missing.png";
+
 function onLoad()
 {
     canvas = $("#game-canvas")[0];

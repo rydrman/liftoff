@@ -3,6 +3,7 @@ var Planet = function( options )
     this.radius = options.radius ? options.radius : 1;
     this.position = options.position ? new Vector2().copy(options.position) : new Vector2();
     this.type = options.type ? options.type : "grassy";
+    this.color = options.color ? options.color : "#FFF";
     
     this.items = [];
 }

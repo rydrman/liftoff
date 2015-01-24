@@ -116,12 +116,15 @@ Renderer.prototype.render = function( world, player, ship, timer )
         this.ctx.save();
         this.ctx.translate( pos.x, pos.y );
         //draw shell
+        this.ctx.fillStyle = p.color;
         this.ctx.beginPath();
         this.ctx.arc(0, 0, rad, 0, Math.PI * 2, false );
         this.ctx.fill();
         //draw items
         for(var i in p.items)
         {
+            if(!p.items[i].image.complete) continue;
+            
             this.ctx.save();
             this.ctx.rotate( p.items[i].planetPosition );
             this.ctx.translate(0, rad)

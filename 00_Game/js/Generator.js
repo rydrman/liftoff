@@ -45,7 +45,7 @@ Generator.prototype.generate = function()
     
     for(var i = 0; i < 100; ++i)
     {
-        var planet = this.spawPlanet( world );
+        var planet = this.spawnPlanet( world );
         if( planet == null )
             continue;
         
@@ -57,7 +57,7 @@ Generator.prototype.generate = function()
     return world;
 }
 
-Generator.prototype.spawPlanet = function( world )
+Generator.prototype.spawnPlanet = function( world )
 {
     //initial stuff
     var rad = Settings.planetMinRad + Math.random() * Settings.planetMaxRad,
@@ -68,13 +68,13 @@ Generator.prototype.spawPlanet = function( world )
         distSq;
 
     //pick a type
-    var type = null;
-    while( type == null )
+    var selected = null;
+    while( selected == null )
     {
         var prob = Math.random();
         var attempt = this.planets[ Math.floor( Math.random() * this.planets.length ) ];
         if(prob < attempt.probability) 
-            type = attempt.type;
+            selected = attempt;
     }
 
     //find a position
@@ -108,7 +108,12 @@ Generator.prototype.spawPlanet = function( world )
         return null;
     }
 
-    var planet = new Planet( {position: position, radius: rad, type: type} );
+    var planet = new Planet( {
+        position: position, 
+        radius: rad, 
+        type: selected.type,
+        color: selected.color
+    } );
     return planet
 }
 
@@ -120,7 +125,9 @@ Generator.prototype.populatePlanet = function( planet )
     var selectionList = [];
     for(var i in this.items)
     {
-        if(this.items[i].probabilities[planet.type] > 0)
+        if( !this.item[i].probabilities ) continue;
+        if( this.items[i].probabilities[planet.type]
+           && this.items[i].probabilities[planet.type] > 0)
             selectionList.push(this.items[i]);
     }
     if(selectionList.length == 0)
