@@ -125,7 +125,9 @@ Generator.prototype.populatePlanet = function( planet )
     var selectionList = [];
     for(var i in this.items)
     {
-        if(this.items[i].probabilities[planet.type] > 0)
+        if( !this.item[i].probabilities ) continue;
+        if( this.items[i].probabilities[planet.type]
+           && this.items[i].probabilities[planet.type] > 0)
             selectionList.push(this.items[i]);
     }
     if(selectionList.length == 0)
