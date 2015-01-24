@@ -25,7 +25,7 @@ Renderer.prototype.render = function( world, player, ship, timer )
     this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
     
     //calculate world viewport first
-    var center = (player.inShip) ? ship.position : player.position;
+    var center = player.inShip ? ship.position.clone() : player.position.clone();
     //var centerPixel = this.worldToPixel2( center );
     var viewportSize = this.pixelToWorld2( new Vector2( this.canvas.width, this.canvas.height ) );
     this.viewport.x = center.x - viewportSize.x * 0.5;
@@ -61,7 +61,7 @@ Renderer.prototype.render = function( world, player, ship, timer )
         
         //draw thicker edge lines
         this.ctx.lineWidth = 5;
-        var origin = this.project( new Vector2( 0, 0 ) );
+        var origin = this.project( this.wrapWorldCoords(new Vector2( 0, 0 )) );
         this.ctx.beginPath();
         this.ctx.moveTo( 0, origin.y );
         this.ctx.lineTo( this.canvas.width, origin.y );
@@ -81,7 +81,8 @@ Renderer.prototype.render = function( world, player, ship, timer )
         
         //debug player position
         this.ctx.fillStyle = "#FFF";
-        this.ctx.fillText("x: " + engine.player.position.x + ", y: " + engine.player.position.y, 10, 30);
+        var pos = player.inShip ? ship.position : player.position;
+        this.ctx.fillText("x: " + pos.x.toFixed(2) + ", y: " + pos.y.toFixed(2), 10, 30);
         
         // Ship position
         var shipPos = this.project(ship.position);
@@ -104,7 +105,7 @@ Renderer.prototype.render = function( world, player, ship, timer )
     for(var i in world.planets)
     {
         p = world.planets[i];
-        pos = this.project( p.position );
+        pos = this.project( this.wrapWorldCoords( p.position ) );
         rad = this.worldToPixel( p.radius );
         this.ctx.moveTo(pos.x, pos.y);
         this.ctx.arc(pos.x, pos.y, rad, 0, Math.PI * 2, false );
@@ -174,4 +175,67 @@ Renderer.prototype.project = function( worldPos )
     var x = map( worldPos.x, this.viewport.x, this.viewport.x + this.viewport.w, 0, this.canvas.width  )
     var y = map( worldPos.y, this.viewport.y, this.viewport.y + this.viewport.h, 0, this.canvas.height );
     return new Vector2( x, y );
+}
+
+Renderer.prototype.wrapWorldCoords = function( worldAbs )
+{
+    //if it's in viewport, return it
+    if( this.viewport.contains( worldAbs ) ) 
+        return worldAbs;
+    
+    var options = [];
+    
+    //try normal
+    var norm = worldAbs.clone();
+    options.push({
+        pos : norm,
+        dist : this.viewport.distanceTo( norm )
+    });
+    //try top
+    var top = worldAbs.clone();
+    top.y -= Settings.worldSize.y;
+    options.push({
+        pos : top,
+        dist : this.viewport.distanceTo( top )
+    });
+    //try left
+    var left = worldAbs.clone();
+    left.x -= Settings.worldSize.x;
+    options.push({
+        pos : left,
+        dist : this.viewport.distanceTo( left )
+    });
+    //try bottom
+    var bottom = worldAbs.clone();
+    bottom.y += Settings.worldSize.y;
+    options.push({
+        pos : bottom,
+        dist : this.viewport.distanceTo( bottom )
+    });
+    //try right
+    var right = worldAbs.clone();
+    right.x += Settings.worldSize.x;
+    options.push({
+        pos : right,
+        dist : this.viewport.distanceTo( right )
+    });
+    //try both-
+    var bothNeg = worldAbs.clone();
+    bothNeg.x -= Settings.worldSize.x;
+    bothNeg.y -= Settings.worldSize.y;
+    options.push({
+        pos : bothNeg,
+        dist : this.viewport.distanceTo( bothNeg )
+    });
+    var bothPos = worldAbs.clone();
+    bothPos.x += Settings.worldSize.x;
+    bothPos.y += Settings.worldSize.y;
+    options.push({
+        pos : bothPos,
+        dist : this.viewport.distanceTo( bothPos )
+    });
+    
+    options.sort(function(a, b){return a.dist-b.dist});
+    return options[0].pos;
+    
 }

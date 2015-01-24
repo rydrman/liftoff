@@ -217,5 +217,49 @@ var Rectangle = function(x, y, w, h)
 
 Rectangle.prototype.contains = function( vector )
 {
-    debugger;
+    return (   vector.x >= this.x 
+            && vector.x <= this.x + this.w
+            && vector.y >= this.y
+            && vector.y <= this.y + this.h );
+}
+
+Rectangle.prototype.distanceTo = function( vector )
+{
+    if(this.contains(vector)) return 0;
+    
+    var edges = [];
+    //top 
+    edges.push( this.y - vector.y );
+    //right
+    edges.push( vector.x - (this.x + this.w) );
+    //bottom
+    edges.push( vector.y - (this.y + this.h) );
+    //left
+    edges.push( this.x - vector.x );
+    
+    for(var i = 0; i < edges.length; ++i)
+    {
+        var amount = (i % 2 == 0) ? this.h : this.w; 
+        
+        if( edges[i] < 0)
+        {
+            var dist = Math.abs( edges[i] );
+            edges[i] = (dist > amount) ? dist - amount : 0;
+        }
+    }
+    
+    var distances = [];
+    
+    for(var i = 0; i < edges.length; ++i)
+    {
+        var j = i + 1;
+        if(j == edges.length) j = 0;
+
+        //if(edges[i] < 0 && edges[j] < 0)  
+        //    continue;
+        distances.push( Math.sqrt( edges[i] * edges[i] + edges[j] * edges[j] ) );
+    }
+    
+    distances.sort(function(a, b){return a-b});
+    return distances[0];
 }

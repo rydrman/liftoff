@@ -55,3 +55,14 @@ Player.prototype.addToInventory = function(objToAdd) {
         }
     }
 }
+
+Player.prototype.wrapValues = function( bounds )
+{
+    //position
+    this.position.x = wrap( this.position.x, bounds.x, bounds.x + bounds.w );
+    this.position.y = wrap( this.position.y, bounds.y, bounds.y + bounds.h );
+    
+    //goal
+    this.goal.x = wrap( this.goal.x, bounds.x, bounds.x + bounds.w );
+    this.goal.y = wrap( this.goal.y, bounds.y, bounds.y + bounds.h );
+}

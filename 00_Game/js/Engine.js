@@ -145,6 +145,13 @@ Engine.prototype.update = function()
         }
     }
     
+    //wrap if necessary
+    var obj = this.player.inShip ? this.ship : this.player;
+    if(!this.world.bounds.contains(obj.position))
+    {
+        obj.wrapValues( this.world.bounds );
+    }
+    
     //other class updates
     
     this.renderer.render( this.world, this.player, this.ship, this.timer );
