@@ -122,8 +122,8 @@
     },
     {
         "name" : "cardboard",
-        "niceName" : "Ore",
-        "img" : "assets/items/Ore.png",
+        "niceName" : "Cardboard",
+        "img" : "assets/items/Cardboard.png",
         "probabilities" : {
             "grassy" : 0.2,
             "desert" : 0,
