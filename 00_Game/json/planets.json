@@ -2,5 +2,30 @@
     {
         "type" : "grassy",
         "probability" : 1
+    },
+
+    {
+        "type" : "desert",
+        "probability" : 1
+    },
+
+    {
+        "type" : "rocky",
+        "probability" : 1
+    },
+
+    {
+        "type" : "swamp",
+        "probability" : 1
+    },
+
+    {
+        "type" : "volcanic",
+        "probability" : 1
+    },
+
+    {
+        "type" : "cow",
+        "probability" : 1
     }
 ]

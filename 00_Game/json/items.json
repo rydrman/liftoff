@@ -1,13 +1,211 @@
 [
 
     {
+        "name" : "ore",
+        "niceName" : "Ore",
+        "img" : "assets/items/Ore.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "ore",
+        "niceName" : "Ore",
+        "img" : "assets/items/Ore.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },   
+    {
         "name" : "goo",
         "niceName" : "Goo",
         "img" : "assets/items/Goo.png",
         "probabilities" : {
-            "grassy" : 0.5
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "sand",
+        "niceName" : "Sand",
+        "img" : "assets/items/Sand.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "carbon",
+        "niceName" : "Carbon",
+        "img" : "assets/items/Carbon.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "fibre",
+        "niceName" : "Fibre",
+        "img" : "assets/items/Fibre.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "rubber",
+        "niceName" : "Rubber",
+        "img" : "assets/items/Rubber.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "ppaste",
+        "niceName" : "Protein Paste",
+        "img" : "assets/items/ProteinPaste.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "spice",
+        "niceName" : "Spice",
+        "img" : "assets/items/Spice.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "rooster",
+        "niceName" : "Rooster",
+        "img" : "assets/items/Rooster.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "plasma",
+        "niceName" : "Plasma",
+        "img" : "assets/items/Plasma.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "metal",
+        "niceName" : "Metal",
+        "img" : "assets/items/Metal.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "glass",
+        "niceName" : "Glass",
+        "img" : "assets/items/Glass.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "crystal",
+        "niceName" : "Crystal",
+        "img" : "assets/items/Crystal.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "cfibre",
+        "niceName" : "Carbon Fibre",
+        "img" : "assets/items/CarbonFibre.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "bolts",
+        "niceName" : "Bolts",
+        "img" : "assets/items/Bolts.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
         }
     }
-
-
 ]
