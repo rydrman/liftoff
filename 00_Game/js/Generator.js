@@ -1,6 +1,6 @@
 var Generator = function()
 {
-    this.universeSize = new Vector2( 100, 100 );
+    //this.universeSize = new Vector2().copy(Settings.worldSize);
 }
 
 Generator.prototype.generate = function()
@@ -15,8 +15,8 @@ Generator.prototype.generate = function()
     {
         var options = {
             position: {
-                x: Math.random() * this.universeSize.x,
-                y: Math.random() * this.universeSize.y
+                x: Math.random() * Settings.worldSize.xx,
+                y: Settings.worldSize.y - 10
             },
             radius: Math.random() * 10
         };

@@ -20,7 +20,10 @@ var Settings = {
     aspectH : 9,
    
     //for world generation
-
+    worldSize : {
+        x: 20,
+        y: 20
+    },
     
     //browser / device info
     browser: (typeof(chrome) != 'undefined')                ? 'chrome' :
