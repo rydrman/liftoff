@@ -2,6 +2,8 @@ var World = function()
 {
     this.width;
     this.height;
+    
+    this.planets = [];
 }
 
 World.prototype.init = function( width, height ) 

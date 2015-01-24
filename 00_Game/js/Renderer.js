@@ -38,18 +38,19 @@ Renderer.prototype.render = function( world, player, timer )
         //debug lines
         var x = 0,
             y = 0;
+        this.ctx.lineWidth = 1;
         var step = this.worldToPixel( 1 );
         var offsetPixel = this.worldToPixel2( center );
         offsetPixel = new Vector2( offsetPixel.x % step, offsetPixel.y % step );
         offsetPixel.negate();
         this.ctx.beginPath();
-        while( x < this.canvas.width )
+        while( x < this.canvas.width + step )
         {
             this.ctx.moveTo( x + offsetPixel.x, 0 );
             this.ctx.lineTo( x + offsetPixel.x, this.canvas.height );
             x += step;
         }
-        while( y < this.canvas.height )
+        while( y < this.canvas.height + step )
         {
             this.ctx.moveTo( 0, y + offsetPixel.y );
             this.ctx.lineTo( this.canvas.width, y + offsetPixel.y );
@@ -57,11 +58,21 @@ Renderer.prototype.render = function( world, player, timer )
         }
         this.ctx.stroke();
         
+        //draw thicker edge lines
+        this.ctx.lineWidth = 5;
+        var origin = this.project( new Vector2( 0, 0 ) );
+        this.ctx.beginPath();
+        this.ctx.moveTo( 0, origin.y );
+        this.ctx.lineTo( this.canvas.width, origin.y );
+        this.ctx.moveTo( origin.x, 0 );
+        this.ctx.lineTo( origin.x, this.canvas.height );
+        this.ctx.stroke();
+        
         this.ctx.fillStyle = "#FFF";
         this.ctx.fillText(timer.framerate.toFixed(2), 10, 10);
         
         //debug player position
-        this.ctx.fillText("x: " + engine.player.position.x + ", y: " + engine.player.position.y, 10, 30);
+        this.ctx.fillText("x: " + engine.player.position.x.toFixed(2) + ", y: " + engine.player.position.y.toFixed(2), 10, 30);
         //player goal
         var goal = this.project( player.goal );
         this.ctx.beginPath();
@@ -69,6 +80,20 @@ Renderer.prototype.render = function( world, player, timer )
         this.ctx.fill();
         
     }
+    
+    //draw planets
+    this.ctx.fillStyle = "#F00";
+    this.ctx.beginPath();
+    var p, pos, rad;
+    for(var i in world.planets)
+    {
+        p = world.planets[i];
+        pos = this.project( p.position );
+        rad = this.worldToPixel( p.radius );
+        this.ctx.moveTo(pos.x, pos.y);
+        this.ctx.arc(pos.x, pos.y, rad, 0, Math.PI * 2, false );
+    }
+    this.ctx.fill();
 }
 
 Renderer.prototype.resize = function( w, h )

@@ -3,6 +3,7 @@ var Engine = function()
     //usefull stuff
     this.timer;
     this.input;
+    this.generator;
     
     //classes
     this.renderer;
@@ -15,13 +16,14 @@ Engine.prototype.init = function()
     //usefull stuff
     this.timer = new GameTimer();
     this.input= new Input();
+    this.generator = new Generator();
     
     //classes
     this.renderer = new Renderer();
     this.player = new Player();
     
     //TODO get to inventory
-    this.world = new World();
+    this.world = this.generator.generate();
     
     //load everythign that needs loading
     var loader = new AsyncLoader()
