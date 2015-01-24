@@ -61,7 +61,10 @@ Engine.prototype.onMouseDown = function( mousePos )
     
     // Update player / ship stuff
     if (this.player.inShip) {
-        this.ship.goal.copy(result.position);
+        if (this.ship.landed)
+            this.ship.launch();
+        else
+            this.ship.goal.copy(result.position);
     } else {
         this.player.goal.copy( result.position );
     }
@@ -69,8 +72,14 @@ Engine.prototype.onMouseDown = function( mousePos )
 
 Engine.prototype.onRMouseDown = function( mousePos) {
     var worldPos = this.renderer.unProject( mousePos );
+    
+    //Check UI elements first
+    
+    
+    // Check Gameplay elements
     if (this.ship.checkClickIntersect(worldPos) && (this.player.inShip || this.ship.position.clone().sub(this.player.position).length() < 2)) {
         this.player.toggleShipStatus(this.ship);
+        this.renderer.zoom = (this.player.inShip) ? 1.0 : 2.0;
     }
 }
 
@@ -84,7 +93,29 @@ Engine.prototype.update = function()
     this.timer.tick();
     
     this.player.update( this.timer );
-    this.ship.update(this.timer);
+    
+    // Check collisions between ship / player and planets
+    if (!this.ship.landed) {
+        this.ship.update(this.timer);
+        var checkDist = false;
+        for (p in this.world.planets) {
+            var planet = this.world.planets[p];
+            var distance = planet.position.clone().sub(this.ship.position).length();
+            if (distance < planet.radius + 0.5) { // TODO: Change to fit ship size
+                this.ship.landed = true;
+                console.log("CRASH!");
+                checkDist = true;
+            } else if (distance < 5 + planet.radius) {
+                // add gravity force to the movement
+                this.ship.force = planet.position.clone().sub(this.ship.position).normalize().multiplyScalar(0.1);
+                console.log("GRAVITY");
+                checkDist = true;
+            }
+        }
+        if (!checkDist) {
+            this.ship.force = new Vector2();
+        }
+    }
     
     //wrap if necessary
     var obj = this.player.inShip ? this.ship : this.player;
