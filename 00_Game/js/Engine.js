@@ -3,10 +3,12 @@ var Engine = function()
     //usefull stuff
     this.timer;
     this.input;
+    this.generator;
     
     //classes
     this.renderer;
     this.player;
+    this.ship;
     this.world;
 }
 
@@ -15,13 +17,15 @@ Engine.prototype.init = function()
     //usefull stuff
     this.timer = new GameTimer();
     this.input= new Input();
+    this.generator = new Generator();
     
     //classes
     this.renderer = new Renderer();
     this.player = new Player();
+    this.ship = new Ship();
     
     //TODO get to inventory
-    this.world = new World();
+    this.world = this.generator.generate();
     
     //load everythign that needs loading
     var loader = new AsyncLoader()
@@ -41,6 +45,7 @@ Engine.prototype.begin = function()
     
     //set 
     this.input.addListener( Input.eventTypes.MOUSEDOWN, this.onMouseDown, this );
+    this.input.addListener(Input.eventTypes.RIGHTMOUSEDOWN, this.onRMouseDown, this);
     
     window.requestAnimationFrame( this.frameCallback );
 }
@@ -54,8 +59,28 @@ Engine.prototype.onMouseDown = function( mousePos )
     
     var result = this.world.sample( worldPos );
     
-    //TODO use other options
-    this.player.goal.copy( result.position );
+    // Update player / ship stuff
+    if (this.player.inShip) {
+        if (this.ship.landed)
+            this.ship.launch();
+        else
+            this.ship.goal.copy(result.position);
+    } else {
+        this.player.goal.copy( result.position );
+    }
+}
+
+Engine.prototype.onRMouseDown = function( mousePos) {
+    var worldPos = this.renderer.unProject( mousePos );
+    
+    //Check UI elements first
+    
+    
+    // Check Gameplay elements
+    if (this.ship.checkClickIntersect(worldPos) && (this.player.inShip || this.ship.position.clone().sub(this.player.position).length() < 2)) {
+        this.player.toggleShipStatus(this.ship);
+        this.renderer.zoom = (this.player.inShip) ? 1.0 : 2.0;
+    }
 }
 
 Engine.prototype.frameCallback = function()
@@ -67,11 +92,69 @@ Engine.prototype.update = function()
 {
     this.timer.tick();
     
-    this.player.update( this.timer );
+    // Check collisions between ship and planets
+    if (!this.ship.landed) {
+        this.ship.update(this.timer);
+        var checkDist = false;
+        for (p in this.world.planets) {
+            var planet = this.world.planets[p];
+            var distance = planet.position.clone().sub(this.ship.position).length();
+            if (distance < planet.radius + 0.5) { // TODO: Change to fit ship size
+                this.ship.landed = true;
+                console.log("CRASH!");
+                checkDist = true;
+            } else if (distance < 5 + planet.radius) {
+                // add gravity force to the movement
+                this.ship.force = planet.position.clone().sub(this.ship.position).normalize().multiplyScalar(0.1);
+                console.log("GRAVITY");
+                checkDist = true;
+            }
+        }
+        if (!checkDist) {
+            this.ship.force = new Vector2();
+        }
+    }
+    if (!this.player.inShip) {
+        // Player / planet collision
+        this.player.update( this.timer );
+        
+        var checkDist = false;
+        for (p in this.world.planets) {
+            var planet = this.world.planets[p];
+            var distance = planet.position.clone().sub(this.player.position).length();
+            if (distance < planet.radius + 0.5) { // TODO: Change to fit ship size
+                // Player is on the surface - controls should behave
+                checkDist = false; // don't want the force to continue acting
+                
+                // Set player position to exactly radius + 0.5 along that vector
+                this.player.position.copy(planet.position.clone().add(planet.position.clone().sub(this.player.position).negate().normalize().multiplyScalar(planet.radius + 0.4)));
+                // set player goal to be 0.5 along its current vector
+                this.player.goal.copy(planet.position.clone().add(planet.position.clone().sub(this.player.goal).negate().normalize().multiplyScalar(planet.radius + 0.4)));
+                this.player.goal
+                break;
+            } else if (distance < 5 + planet.radius) {
+                // add gravity force to the movement
+                this.player.force = planet.position.clone().sub(this.player.position).normalize().multiplyScalar(0.1);
+                console.log("GRAVITY on Player");
+                checkDist = true;
+                break;
+            }
+        }
+        if (!checkDist) {
+            this.player.force = new Vector2();
+        }
+    }
+    
+    //wrap if necessary
+    var obj = this.player.inShip ? this.ship : this.player;
+    if(!this.world.bounds.contains(obj.position))
+    {
+        obj.wrapValues( this.world.bounds );
+    }
     
     //other class updates
     
-    this.renderer.render( this.world, this.player, this.timer );
+    this.renderer.render( this.world, this.player, this.ship, this.timer );
     
     window.requestAnimationFrame( this.frameCallback );
 }
