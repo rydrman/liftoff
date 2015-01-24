@@ -106,6 +106,10 @@ Renderer.prototype.render = function( world, player, ship, timer )
     for(var i in world.planets)
     {
         p = world.planets[i];
+        
+        if( this.viewport.distanceTo( p.position ) > p.radius + 5 )
+            continue;
+        
         pos = this.project( this.wrapWorldCoords( p.position ) );
         rad = this.worldToPixel( p.radius );
         
