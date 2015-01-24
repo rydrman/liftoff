@@ -92,9 +92,7 @@ Engine.prototype.update = function()
 {
     this.timer.tick();
     
-    this.player.update( this.timer );
-    
-    // Check collisions between ship / player and planets
+    // Check collisions between ship and planets
     if (!this.ship.landed) {
         this.ship.update(this.timer);
         var checkDist = false;
@@ -114,6 +112,36 @@ Engine.prototype.update = function()
         }
         if (!checkDist) {
             this.ship.force = new Vector2();
+        }
+    }
+    if (!this.player.inShip) {
+        // Player / planet collision
+        this.player.update( this.timer );
+        
+        var checkDist = false;
+        for (p in this.world.planets) {
+            var planet = this.world.planets[p];
+            var distance = planet.position.clone().sub(this.player.position).length();
+            if (distance < planet.radius + 0.5) { // TODO: Change to fit ship size
+                // Player is on the surface - controls should behave
+                checkDist = false; // don't want the force to continue acting
+                
+                // Set player position to exactly radius + 0.5 along that vector
+                this.player.position.copy(planet.position.clone().add(planet.position.clone().sub(this.player.position).negate().normalize().multiplyScalar(planet.radius + 0.4)));
+                // set player goal to be 0.5 along its current vector
+                this.player.goal.copy(planet.position.clone().add(planet.position.clone().sub(this.player.goal).negate().normalize().multiplyScalar(planet.radius + 0.4)));
+                this.player.goal
+                break;
+            } else if (distance < 5 + planet.radius) {
+                // add gravity force to the movement
+                this.player.force = planet.position.clone().sub(this.player.position).normalize().multiplyScalar(0.1);
+                console.log("GRAVITY on Player");
+                checkDist = true;
+                break;
+            }
+        }
+        if (!checkDist) {
+            this.player.force = new Vector2();
         }
     }
     
