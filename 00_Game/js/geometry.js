@@ -215,6 +215,15 @@ var Rectangle = function(x, y, w, h)
     this.h = h ? h : 0;
 }
 
+Rectangle.prototype = {
+    get center(){
+        return new Vector2(
+            this.x + this.w * 0.5,
+            this.y + this.h * 0.5
+        );
+    }
+}
+
 Rectangle.prototype.contains = function( vector )
 {
     return (   vector.x >= this.x 

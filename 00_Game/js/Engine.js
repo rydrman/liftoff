@@ -36,6 +36,7 @@ Engine.prototype.init = function()
     
     loader.addClassCall( this.renderer );
     loader.addClassCall( this.generator );
+    loader.addClassCall( this.ui );
     
     loader.runCalls();
 }
@@ -198,7 +199,7 @@ Engine.prototype.update = function()
     
     //other class updates
     
-    this.renderer.render( this.world, this.player, this.ship, this.timer );
+    this.renderer.render( this.world, this.player, this.ship, this.ui, this.timer );
     
     window.requestAnimationFrame( this.frameCallback );
 }

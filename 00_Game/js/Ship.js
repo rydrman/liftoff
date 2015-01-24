@@ -10,11 +10,11 @@ var Ship = function() {
     
     // parts
     
-    this.engine;
-    this.cockpit;
-    this.cargo;
-    this.science;
-    this.armaments;
+    this.engine = null;
+    this.cockpit = null;
+    this.cargo = null;
+    this.science = null;
+    this.engineering = null;
     
     this.inMenu = false;
     this.landed = false;
