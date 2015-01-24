@@ -1,6 +1,6 @@
 var Player = function() {
     this.position = new Vector2();
-    this.speed = 2; // units per second - 1 unit = 50px;
+    this.speed = 1.2; // units per second - 1 unit = 50px;
     this.force = new Vector2();
     
     this.goal = new Vector2();

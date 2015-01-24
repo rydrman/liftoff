@@ -17,6 +17,8 @@ World.prototype.init = function( width, height )
 World.prototype.sample = function( worldPos )
 {
     //TODO parse other options
+    return null; // debug
+    
     return {
         position: worldPos
     };

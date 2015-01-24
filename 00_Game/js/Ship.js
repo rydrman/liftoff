@@ -18,6 +18,7 @@ var Ship = function() {
     
     this.inMenu = false;
     this.landed = false;
+    this.landing = false;
 }
 Ship.prototype = new Player();
 
@@ -36,6 +37,13 @@ Ship.prototype.launch = function() {
     this.goal.copy(this.force.clone().negate().multiplyScalar(50).add(this.position));
     this.position.add(this.goal.clone().sub( this.position).multiplyScalar(0.1));
     this.landed = false;
+    this.landing = false;
+}
+
+Ship.prototype.takeDamage = function(amount) {
+    this.damage -= amount;
+    
+    // TODO Check 0 condition
 }
 
 Ship.prototype.wrapValues = function( bounds )
