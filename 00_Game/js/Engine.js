@@ -24,21 +24,22 @@ Engine.prototype.init = function()
     this.player = new Player();
     this.ship = new Ship();
     
-    //TODO get to inventory
-    this.world = this.generator.generate();
-    
     //load everythign that needs loading
     var loader = new AsyncLoader()
     loader.onCompleteContext = this;
     loader.onComplete = this.begin;
     
     loader.addClassCall( this.renderer );
+    loader.addClassCall( this.generator );
     
     loader.runCalls();
 }
 
 Engine.prototype.begin = function()
 {
+    //get world 
+    this.world = this.generator.generate();
+    
     //initialize stuff
     this.renderer.init( canvas );
     this.player.init();
@@ -47,6 +48,7 @@ Engine.prototype.begin = function()
     this.input.addListener( Input.eventTypes.MOUSEDOWN, this.onMouseDown, this );
     this.input.addListener(Input.eventTypes.RIGHTMOUSEDOWN, this.onRMouseDown, this);
     
+    onResize();
     window.requestAnimationFrame( this.frameCallback );
 }
 

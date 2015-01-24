@@ -65,6 +65,8 @@ AsyncLoader.prototype.runCalls = function()
                 call.object.percChange = function(data){call.percChange(call.object, data)};
             }
         }
+        else 
+            debugger;
     }
 }
 
@@ -80,7 +82,20 @@ AsyncLoader.prototype.addJSONCall = function(filePath, callback)
     this.calls.push( new AsyncCall(
         index,
         filePath,
-        {context: this, complete: function(data){self.callback(index, data.responseJSON)}, dataType: 'json'},
+        {
+            context: this, 
+            complete: function(data){
+                var obj = null;
+                try{
+                    obj = JSON.parse(data.responseText);
+                }
+                catch(err){
+                    console.warn('JSON did not parse: ', err);
+                }
+                self.callback(index, obj);
+            },
+            dataType: 'text'
+        },
         callback
     ) );
 }

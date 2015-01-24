@@ -5,6 +5,7 @@ var Renderer = function()
     this.zoom = 1.0; // TODO - a "Goal" type system like player
     this.viewport = new Rectangle();
     
+    this.initialized = false;
     this.canvas;
     this.ctx;
     
@@ -18,6 +19,7 @@ Renderer.prototype.init = function( canvas )
 {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
+    this.initialized = true;
 }
 
 Renderer.prototype.render = function( world, player, ship, timer )
@@ -100,17 +102,33 @@ Renderer.prototype.render = function( world, player, ship, timer )
     
     //draw planets
     this.ctx.fillStyle = "#F00";
-    this.ctx.beginPath();
     var p, pos, rad;
     for(var i in world.planets)
     {
         p = world.planets[i];
         pos = this.project( this.wrapWorldCoords( p.position ) );
         rad = this.worldToPixel( p.radius );
-        this.ctx.moveTo(pos.x, pos.y);
-        this.ctx.arc(pos.x, pos.y, rad, 0, Math.PI * 2, false );
+        
+        this.ctx.save();
+        this.ctx.translate( pos.x, pos.y );
+        //draw shell
+        this.ctx.beginPath();
+        this.ctx.arc(0, 0, rad, 0, Math.PI * 2, false );
+        this.ctx.fill();
+        //draw items
+        for(var i in p.items)
+        {
+            this.ctx.save();
+            this.ctx.rotate( p.items[i].planetPosition );
+            this.ctx.translate(0, rad)
+            this.ctx.rotate( Math.PI )
+            this.ctx.scale( 0.5, 0.5 );
+            this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75);
+            this.ctx.restore();
+        }
+        this.ctx.restore()
     }
-    this.ctx.fill();
+    
     
     
     // UI Components TEST
@@ -138,6 +156,8 @@ Renderer.prototype.render = function( world, player, ship, timer )
 
 Renderer.prototype.resize = function( w, h )
 {
+    if(!this.initialized) return;
+    
     this.canvas.width = w;
     this.canvas.height = h;
 }
