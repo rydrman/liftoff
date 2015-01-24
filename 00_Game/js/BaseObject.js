@@ -9,6 +9,8 @@ var BaseObject = function( item )
     loader.addImageCall( item.img, this.image );
     loader.runCalls();
     
+    this.quantity = 1; // stacks
+    
     //to know where it is
     //and how to draw it
     this.planet = null;

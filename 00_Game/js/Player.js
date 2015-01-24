@@ -46,13 +46,26 @@ Player.prototype.toggleShipStatus = function(ship) {
 }
 
 Player.prototype.addToInventory = function(objToAdd) {
+    var index = -1;
     for (i=0; i < this.inventory.length; i++) {
-        if (this.inventory[i] == null) {
-            // Add object to inventory
-            // TODO
-        } else {
-            // Error message to user that inventory is full
+        // find index
+        var firstEmptyIndex = -1;
+        if (this.inventory[i] !== null && this.inventory[i].name == objToAdd.name)
+            index = i;
+        else if (this.inventory[i] == null) {
+            firstEmptyIndex = i;
         }
+    }
+    
+    if (index !== -1) {
+        this.inventory[index].quantity ++;
+        return true;
+    } else if (firstEmptyIndex !== -1) {
+        this.inventory[firstEmptyIndex] = objToAdd;
+        return true;
+    } else {
+        // Error message to user that inventory is full
+        return false;
     }
 }
 

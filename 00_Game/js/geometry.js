@@ -137,6 +137,14 @@ Vector2.prototype.compare = function( vector )
     return ( this.x == vector.x && this.y == vector.y );
 }
 
+Vector2.prototype.fromRotation = function( rotation, radius )
+{
+    // rotation in rads
+    this.x = Math.sin(rotation) * -1 * radius;
+    this.y = Math.cos(rotation) * radius;
+    return this;
+}
+
 //////////////////////////
 //         LINE         //
 //////////////////////////
