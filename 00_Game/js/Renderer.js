@@ -169,8 +169,10 @@ Renderer.prototype.renderUI = function( ui, ship )
     if(null != ship.parts.cockpit)
     {
         var center = ui.shipMenu.cockpit.center;
+        var scale = (ui.shipMenu.cockpit.w * this.canvas.width) / ship.parts.cockpit.image.width;
         this.ctx.save();
         this.ctx.translate( center.x * this.canvas.width, center.y * this.canvas.height );
+        this.ctx.scale( scale, scale );
         this.ctx.drawImage(ship.parts.cockpit.image,
                            -ship.parts.cockpit.image.width * 0.5,
                            -ship.parts.cockpit.image.height * 0.5);
