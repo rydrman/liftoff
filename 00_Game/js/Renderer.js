@@ -136,6 +136,7 @@ Renderer.prototype.render = function( world, player, ship, timer )
     
     
     // UI Components TEST
+    
     /*
     this.ctx.save();
     
@@ -156,6 +157,13 @@ Renderer.prototype.render = function( world, player, ship, timer )
     this.ctx.stroke();
     this.ctx.closePath();
     */
+    
+    // Player Inventory
+    this.ctx.fillStyle = "#eee";
+    for (var i=0; i < player.inventory.length; i++) {
+        this.ctx.fillRect(200 + (75*i), this.canvas.height - 60, 50, 50);
+    }
+    
 }
 
 Renderer.prototype.resize = function( w, h )
