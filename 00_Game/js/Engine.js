@@ -26,7 +26,6 @@ Engine.prototype.init = function()
     this.ship = new Ship();
     
     //TODO get to inventory
-    this.world = this.generator.generate();
     this.ui = new UI();
 
     //load everythign that needs loading
@@ -50,6 +49,7 @@ Engine.prototype.begin = function()
     this.renderer.init( canvas );
     this.player.init();
     this.ui.init(canvas, this.player, null);
+    this.ship.init();
     
     //set 
     this.input.addListener( Input.eventTypes.MOUSEDOWN, this.onMouseDown, this );

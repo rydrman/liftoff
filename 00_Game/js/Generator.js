@@ -23,7 +23,8 @@ Generator.prototype.load = function()
         self.planets = data;
     });
     loader.addJSONCall( 'json/items.json', function(data){
-        self.items = data;
+        for(var i in data)
+            self.items[data[i].name] = data[i];
     });
     
     loader.runCalls();

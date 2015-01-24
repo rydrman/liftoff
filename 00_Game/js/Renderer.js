@@ -130,7 +130,14 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
             this.ctx.translate(0, rad)
             this.ctx.rotate( Math.PI )
             this.ctx.scale( 0.5, 0.5 );
-            this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75);
+            try{
+                this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75);
+            }
+            catch(err)
+            {
+                console.warn("image does not exist: " + p.items[i].image.src);
+                p.items[i].image = missingImg;
+            }
             this.ctx.restore();
         }
         this.ctx.restore()
@@ -159,8 +166,15 @@ Renderer.prototype.renderUI = function( ui, ship )
                        ui.shipMenu.cockpit.w * this.canvas.width,
                        ui.shipMenu.cockpit.h * this.canvas.height
                       );
-    if(null != ship.cockpit)
+    if(null != ship.parts.cockpit)
     {
+        var center = ui.shipMenu.cockpit.center;
+        this.ctx.save();
+        this.ctx.translate( center.x * this.canvas.width, center.y * this.canvas.height );
+        this.ctx.drawImage(ship.parts.cockpit.image,
+                           -ship.parts.cockpit.image.width * 0.5,
+                           -ship.parts.cockpit.image.height * 0.5);
+        this.ctx.restore();
     }
     //engineering
     this.ctx.drawImage(ui.backSquareImg, 
@@ -169,7 +183,7 @@ Renderer.prototype.renderUI = function( ui, ship )
                        ui.shipMenu.engineering.w * this.canvas.width,
                        ui.shipMenu.engineering.h * this.canvas.height
                       );
-    if(null != ship.engineering)
+    if(null != ship.parts.engineering)
     {
     }
     //science
@@ -179,7 +193,7 @@ Renderer.prototype.renderUI = function( ui, ship )
                        ui.shipMenu.science.w * this.canvas.width,
                        ui.shipMenu.science.h * this.canvas.height
                       );
-    if(null != ship.science)
+    if(null != ship.parts.science)
     {
     }
     //cargo
@@ -189,7 +203,7 @@ Renderer.prototype.renderUI = function( ui, ship )
                        ui.shipMenu.cargo.w * this.canvas.width,
                        ui.shipMenu.cargo.h * this.canvas.height
                       );
-    if(null != ship.cargo)
+    if(null != ship.parts.cargo)
     {
     }
     //engine
@@ -199,7 +213,7 @@ Renderer.prototype.renderUI = function( ui, ship )
                        ui.shipMenu.engine.w * this.canvas.width,
                        ui.shipMenu.engine.h * this.canvas.height
                       );
-    if(null != ship.engine)
+    if(null != ship.parts.engine)
     {
     }
     
