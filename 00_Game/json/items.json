@@ -34,7 +34,7 @@
             "desert" : 1,
             "rocky" : 1,
             "swamp" :  0,
-            "volcanic" :  1,
+            "volcanic" :  0.5,
             "cow" :  0
         }
     },
@@ -49,6 +49,19 @@
             "swamp" :  1,
             "volcanic" :  0,
             "cow" :  0.2
+        }
+    },
+     {
+        "name" : "rockpile",
+        "niceName" : "Rock Pile",
+        "img" : "assets/items/RockPile.png",
+        "probabilities" : {
+            "grassy" : 0,
+            "desert" : 0.2,
+            "rocky" : 1,
+            "swamp" :  0,
+            "volcanic" :  0.5,
+            "cow" :  0
         }
     },
     {
@@ -68,6 +81,19 @@
         "name" : "cow",
         "niceName" : "Cow",
         "img" : "assets/items/Cow.png",
+        "probabilities" : {
+            "grassy" : 1,
+            "desert" : 0,
+            "rocky" : 0,
+            "swamp" :  0,
+            "volcanic" :  0,
+            "cow" :  1
+        }
+    },
+     {
+        "name" : "sheep",
+        "niceName" : "Sheep",
+        "img" : "assets/items/Sheep.png",
         "probabilities" : {
             "grassy" : 1,
             "desert" : 0,
