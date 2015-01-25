@@ -37,7 +37,7 @@ Player.prototype.updateMovement = function(timer) {
             offset.add(this.force);
             offset.multiplyScalar(this.speed * timer.deltaTimeS);
             this.position.add( offset );
-            this.rotation = offset.toRotation();
+            this.rotation = (this.landing) ? offset.toRotation() + Math.PI : offset.toRotation();
         }
     } else if (this.force.length() > 0) {
         this.position.add(this.force);
