@@ -179,14 +179,14 @@ Line.prototype.distanceToPoint = function( point, clamp )
     return result.sub( point ).length();
 }
 
-Line.prototype.closestPoint = function( point, clamp )
+Line.prototype.closestPoint = function( point, clampTest )
 {
     var ap = new Vector2().copy(point).sub(this.a),
         ab = new Vector2().copy(point).sub(this.b);
     
-    var perc = (ap.x * ab.x + ap.y * ab.y) / ab.legthSq();
+    var perc = (ap.x * ab.x + ap.y * ab.y) / ab.lengthSqd();
     
-    if(clamp) clamp(perc, 0, 1);
+    if(clampTest) clamp(perc, 0, 1);
     
     return this.getPosition( perc );
 }
@@ -280,7 +280,7 @@ Rectangle.prototype.distanceTo = function( vector )
     
     var edges = this.edges;
     
-    for(var i in edges.length)
+    for(var i = 0; i < edges.length; i++)
     {
         edges[i].dist = edges[i].distanceToPoint( vector, true );
     }
