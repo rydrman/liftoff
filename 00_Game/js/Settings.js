@@ -9,7 +9,7 @@ should be used for settings, window sizes, client info etc.
 
 var Settings = {
     
-    debug: false,
+    debug: true,
     
     renderWidth: 1920,
     renderHeight: 1080,

@@ -130,3 +130,11 @@ Ship.prototype.construct = function( renderer )
         renderer.pixelToWorld( this.renderHeight * this.renderScale )
     );
 }
+
+Ship.parts = {
+    engine : 'engine',
+    cargo : 'cargo',
+    science : 'science',
+    engineering : 'engineering',
+    cockpit : 'cockpit'
+}

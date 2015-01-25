@@ -12,6 +12,7 @@ Planet.prototype.addItem = function( item )
 {
     // update position
     item.position = item.position.fromRotation(item.planetPosition, this.radius);
+    item.planet = this;
     
     // add to array
     this.items.push( item );

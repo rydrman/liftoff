@@ -79,7 +79,7 @@ Crafting.prototype.constructInventory = function(player, ship) {
                   
     }
     
-    if (ship !== undefined) {
+    if (ship != null) {
         for (var i in ship.inventory) {
             if (inventory.hasOwnProperty(i))
                 inventory[i].quantity += ship.inventory[i].quantity;
