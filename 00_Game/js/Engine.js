@@ -25,6 +25,8 @@ Engine.prototype.init = function()
     this.generator = new Generator();
     this.crafting = new Crafting();
     
+    this.draggedItem = null;
+    
     //classes
     this.renderer = new Renderer();
     this.player = new Player();
@@ -53,7 +55,7 @@ Engine.prototype.begin = function()
     //initialize stuff
     this.renderer.init( canvas );
     this.player.init( this.timer );
-    this.ui.init(canvas, this.player, null);
+    this.ui.init(this.crafting);
     
     //DEBUG create a ship
     this.player.ship = new Ship();
@@ -68,6 +70,8 @@ Engine.prototype.begin = function()
     
     this.input.addListener(Input.eventTypes.MOUSEMOVE_ABS, this.onMouseMove, this);
     
+    this.input.addListener(Input.eventTypes.MOUSEUP, this.onMouseUp, this);
+    
     onResize();
     window.requestAnimationFrame( this.frameCallback );
 }
@@ -78,11 +82,32 @@ Engine.prototype.onMouseDown = function( mousePos )
     var worldPos = this.renderer.unProject( mousePos );
     
     //TODO try ui first, then ship / player, then world
-    var uiResult = this.ui.sample(mousePos);
+    var uiResult = this.ui.sample(mousePos, this.player);
     var result = this.world.sample( worldPos );
     if (uiResult) 
     {
         console.log ("UI ELEMENT CLICKED");
+        this.mouseLTarget = "ui";
+        if (uiResult.name == "playerInv") {
+            if (uiResult.slotNo != null && this.draggedItem == null) { // pick it up
+                this.draggedItem = this.player.getInventoryByIndex(uiResult.slotNo);
+                // remove it from inventory
+                if (this.draggedItem) {
+                    this.draggedItem.position = worldPos;
+                    delete this.player.inventory[this.draggedItem.name];
+                }
+            }
+        } else if (uiResult.name == "shipInv") {
+            if (uiResult.slotNo != null && this.draggedItem == null) { // pick it up
+                this.draggedItem = this.player.ship.getInventoryByIndex(uiResult.slotNo);
+                // remove it from inventory
+                if (this.draggedItem) {
+                    this.draggedItem.position = worldPos;
+                    delete this.player.ship.inventory[this.draggedItem.name];
+                }
+            }
+        }
+        
     } 
     //else if (this.ship.isInBounds(worldPos)) 
     //{
@@ -90,15 +115,18 @@ Engine.prototype.onMouseDown = function( mousePos )
     //} 
     else if (result) 
     {
+        //console.log("World Element Clicked");
         if(result instanceof Ship)
         {
             this.ui.openShip( result );
         }
         else if(result instanceof Planet)
         {
+            console.log("planet clicked");
         }
         else
         {
+            console.log("item clicked", result.objectData);
             //item on a planet
             this.mouseLTarget = "world";
             // check if player is close enough to pick up object
@@ -129,7 +157,7 @@ Engine.prototype.onRMouseDown = function( mousePos)
     var worldPos = this.renderer.unProject( mousePos );
     
     //Check UI elements first
-    var uiResult = this.ui.sample(mousePos);
+    var uiResult = this.ui.sample(mousePos, this.player);
     var result = this.world.sample( worldPos );
     if (uiResult) 
     {
@@ -164,14 +192,17 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
     // Don't fire sustained right away - give a few milliseconds in case it's a click
     
     this.timer.endSubTick("mouseDown_L");
-    if (this.timer.subTicks["mouseDown_L"].deltaMS > 250) {
+    if (this.timer.subTicks["mouseDown_L"].deltaMS > 150) {
         var worldPos = this.renderer.unProject( mousePos );
 
         //TODO try ui first, then ship / player, then world
-        var uiResult = this.ui.sample(mousePos);
+        var uiResult = this.ui.sample(mousePos, this.player);
         var result = this.world.sample( worldPos );
         if (uiResult && this.mouseLTarget == "ui") {
             console.log ("UI ELEMENT SUSTAINED");
+            if (this.draggedItem) {
+                this.draggedItem.position = worldPos;
+            }
         }
         /*if (this.ship.isInBounds(worldPos)) {
             // Open Ship Menu
@@ -199,6 +230,23 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
         }
     }
 }
+Engine.prototype.onMouseUp = function(mousePos) {
+    // Get target if we need to
+    if (this.draggedItem != null) {
+        var uiResult = this.ui.sample(mousePos);
+        if (uiResult.name == "playerInv") {
+            if (this.player.addToInventory(this.draggedItem))
+                this.draggedItem = null;
+        } else if (uiResult.name == "shipInv") {
+            if (this.player.ship.addToInventory(this.draggedItem))
+                this.draggedItem = null;
+        } else {
+            // add back to inventory
+            if (!this.player.addToInventory(this.draggedItem))
+                this.player.ship.addToInventory(this.draggedItem);
+        }
+    }
+}
 
 Engine.prototype.frameCallback = function()
 {
@@ -211,7 +259,7 @@ Engine.prototype.update = function()
     this.input.update();
     
     //update world
-    this.world.update( this.timer );
+    this.world.update( this.timer, this.player );
     
     // Check mousemove timer for hovers
     this.timer.endSubTick("mouseMove");
