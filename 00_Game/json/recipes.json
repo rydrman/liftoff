@@ -1,12 +1,690 @@
 [
     {
-        "result" : "name",
-        "requiredPiece": "name/id?",
+        "result" : "metal",
+        "requiredPiece": ["refiningchamber"],
         "ingredients" : {
-            "ingredientName" : quantity,
-            "ingredientName" : quantity,
+            "ore" : 2
         }
-        
-    }
+    },
+    {
+        "result" : "glass",
+        "requiredPiece": ["refiningchamber"],
+        "ingredients" : {
+            "sand" : 2
+        }
+    },
+    {
+        "result" : "crystal",
+        "requiredPiece": ["refiningchamber"],
+        "ingredients" : {
+            "carbon" : 2,
+            "plasma" : 1
+        }
+    },
+    {
+        "result" : "cfibre",
+        "requiredPiece": ["refiningchamber"],
+        "ingredients" : {
+            "carbon" : 1,
+            "metal" : 1,
+            "fibre" : 1
+        }
+    },
+    {
+        "result" : "bolts",
+        "requiredPiece": ["refiningchamber"],
+        "ingredients" : {
+            "metal" : 2
+        }
+    },
 
+
+
+    {
+        "result" : "ore",
+        "requiredPiece": ["alchemylab"],
+        "ingredients" : {
+            "cardboard" : 2
+        }
+    },
+    {
+        "result" : "cardboard",
+        "requiredPiece": ["alchemylab"],
+        "ingredients" : {
+            "plasma" : 1
+        }
+    },
+    {
+        "result" : "goo",
+        "requiredPiece": ["alchemylab"],
+        "ingredients" : {
+            "rooster" : 1
+        }
+    },
+    {
+        "result" : "sand",
+        "requiredPiece": ["alchemylab"],
+        "ingredients" : {
+            "goo" : 2
+        }
+    },
+    {
+        "result" : "carbon",
+        "requiredPiece": ["alchemylab"],
+        "ingredients" : {
+            "ppaste" : 2
+        }
+    },
+    {
+        "result" : "fibre",
+        "requiredPiece": ["alchemylab"],
+        "ingredients" : {
+            "rubber" : 2
+        }
+    },
+    {
+        "result" : "rubber",
+        "requiredPiece": ["alchemylab"],
+        "ingredients" : {
+            "carbon" : 1
+        }
+    },
+    {
+        "result" : "ppaste",
+        "requiredPiece": ["alchemylab"],
+        "ingredients" : {
+            "spice" : 1
+        }
+    },
+    {
+        "result" : "spice",
+        "requiredPiece": ["alchemylab"],
+        "ingredients" : {
+            "sand" : 4
+        }
+    },
+    {
+        "result" : "rooster",
+        "requiredPiece": ["alchemylab"],
+        "ingredients" : {
+            "ore" : 2
+        }
+    },
+    {
+        "result" : "plasma",
+        "requiredPiece": ["alchemylab"],
+        "ingredients" : {
+            "fibre" : 4
+        }
+    },
+
+
+
+
+
+
+
+
+    {
+        "result" : "bcockpit",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "cardboard" : 2,
+            "goo" : 1,
+            "rooster" : 1
+        }
+    },
+    {
+        "result" : "acockpit",
+        "requiredPiece": ["bcockpit"],
+        "ingredients" : {
+            "metal" : 2,
+            "glass" : 2,
+            "bolts" : 1,
+            "carbon" : 1,
+            "rooster" : 1
+        }
+    },
+    {
+        "result" : "vcockpit",
+        "requiredPiece": ["bcockpit","acockpit"],
+        "ingredients" : {
+            "cfibre" : 2,
+            "glass" :  2,
+            "crystal" :  1,
+            "rooster" :  1
+        }
+    },
+    {
+        "result" : "barmaments",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "cardboard" : 2,
+            "goo" : 1,
+            "rubber" : 1 
+        }
+    },
+    {
+        "result" : "aarmaments",
+        "requiredPiece": ["barmaments"],
+        "ingredients" : {
+            "metal" : 2,
+            "bolts" : 2,
+            "carbon" : 1,
+            "rubber" : 1
+        }
+    },
+    {
+        "result" : "varmaments",
+        "requiredPiece": ["barmaments","aarmaments"],
+        "ingredients" : {
+            "cfibre" : 2,
+            "crystal" : 1,
+            "plasma" :  1
+        }
+    },
+    {
+        "result" : "bsciencebay",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "cardboard" : 2,
+            "goo" :  1,
+            "bolts" :  1
+        }
+    },
+    {
+        "result" : "asciencebay",
+        "requiredPiece": ["bsciencebay"],
+        "ingredients" : {
+            "metal" : 2,
+            "glass" : 1,
+            "bolts" : 1
+        }
+    },
+    {
+        "result" : "vsciencebay",
+        "requiredPiece": ["bsciencebay","asciencebay"],
+        "ingredients" : {
+            "cfibre" : 1,
+            "crystal" : 1,
+            "plasma" : 1,
+            "glass" : 2
+        }
+    },
+    {
+        "result" : "bcargobay",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "cardboard" : 2,
+            "goo" : 1,
+            "fibre" : 1
+        }
+    },
+    {
+        "result" : "acargobay",
+        "requiredPiece": ["bcargobay"],
+        "ingredients" : {
+            "metal" : 2,
+            "bolts" : 1,
+            "fibre" : 2
+        }
+    },
+    {
+        "result" : "vcargobay",
+        "requiredPiece": ["bcargobay","acargobay"],
+        "ingredients" : {
+            "cfibre" : 4,
+            "rubber" : 2,
+            "bolts" : 2
+        }
+    },
+    {
+        "result" : "bthrusters",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "ore" : 2,
+            "cardboard" : 1,
+            "goo" : 1
+        }
+    },
+    {
+        "result" : "athrusters",
+        "requiredPiece": ["bthrusters"],
+        "ingredients" : {
+            "metal" : 2,
+            "rubber" : 2,
+            "carbon" : 2
+        }
+    },
+    {
+        "result" : "vthrusters",
+        "requiredPiece": ["bthrusters","athrusters"],
+        "ingredients" : {
+            "cfibre" : 2,
+            "plasma" : 2,
+            "crystal" : 1
+        }
+    },
+
+
+
+    {
+        "result" : "radar",
+        "requiredPiece": ["vcockpit"],
+        "ingredients" : {
+            "glass" : 1,
+            "crystal" : 1,
+            "cfibre" : 1
+        }
+    },
+    {
+        "result" : "obcomputer",
+        "requiredPiece": ["vcockpit"],
+        "ingredients" : {
+            "glass" : 1,
+            "cfibre" : 2
+        }
+    },
+    {
+        "result" : "petpod",
+        "requiredPiece": ["vcockpit", "acockpit"],
+        "ingredients" : {
+            "glass" : 2,
+            "cardboard" : 1,
+            "ppaste" : 1
+        }
+    },
+    {
+        "result" : "cchair",
+        "requiredPiece": ["vcockpit","acockpit"],
+        "ingredients" : {
+            "cardboard" : 1,
+            "fibre" : 2,
+            "goo" : 1
+        }
+    },
+    {
+        "result" : "cbed",
+        "requiredPiece": ["vcockpit","acockpit"],
+        "ingredients" : {
+            "cardboard" : 2,
+            "fibre" : 2,
+            "rooster" : 1
+        }
+    },
+    {
+        "result" : "hseat",
+        "requiredPiece": ["vcockpit"],
+        "ingredients" : {
+            "fibre" : 2,
+            "rooster" : 1,
+            "metal" : 1
+        }
+    },
+    {
+        "result" : "pillow",
+        "requiredPiece": ["vcockpit","acockpit","bcockpit"],
+        "ingredients" : {
+            "fibre" : 4
+        }
+    },
+
+    {
+        "result" : "pflames",
+        "requiredPiece": ["vcockpit","acockpit"],
+        "ingredients" : {
+            "rooster" : 1,
+            "spice" : 1
+        }
+    },
+
+
+
+    {
+        "result" : "somnitool",
+        "requiredPiece": ["varmaments","aarmaments","barmaments"],
+        "ingredients" : {
+            "metal" : 1,
+            "bolts" : 2
+        }
+    },
+    {
+        "result" : "snet",
+        "requiredPiece": ["somnitool"],
+        "ingredients" : {
+            "metal" : 1,
+            "fibre" : 2
+        }
+    },
+    {
+        "result" : "sdrill",
+        "requiredPiece": ["somnitool"],
+        "ingredients" : {
+            "metal" : 2,
+            "carbon" : 1
+        }
+    },
+    {
+        "result" : "svacuum",
+        "requiredPiece": ["somnitool"],
+        "ingredients" : {
+            "metal" : 2,
+            "bolts" : 1
+        }
+    },
+    {
+        "result" : "lasergun",
+        "requiredPiece": ["varmaments","aarmaments","barmaments"],
+        "ingredients" : {
+            "metal" : 1,
+            "rubber" : 1
+        }
+    },
+    {
+        "result" : "alienlaser",
+        "requiredPiece": ["lasergun"],
+        "ingredients" : {
+            "carbon" : 2,
+            "rubber" : 1,
+            "plasma" : 1
+        }
+    },
+    {
+        "result" : "particlebeam",
+        "requiredPiece": ["lasergun","alienlaser"],
+        "ingredients" : {
+            "cfibre" : 2,
+            "rubber" : 1,
+            "plasma" : 2
+        }
+    },
+    {
+        "result" : "callibratedguns",
+        "requiredPiece": ["alienlaser","particlebeam"],
+        "ingredients" : {
+            "cfibre" : 2,
+            "crystal" : 1,
+            "spice" : 1
+        }
+    },
+    {
+        "result" : "repulsors",
+        "requiredPiece": ["varmaments","aarmaments"],
+        "ingredients" : {
+            "rubber" : 2,
+            "bolts" : 2
+        }
+    },
+    {
+        "result" : "forcefield",
+        "requiredPiece": ["varmaments"],
+        "ingredients" : {
+            "plasma" : 1,
+            "cfibre" : 1
+        }
+    },
+    {
+        "result" : "rplating",
+        "requiredPiece": ["varmaments","aarmaments"],
+        "ingredients" : {
+            "metal" : 2,
+            "bolts" : 2
+        }
+    },
+    {
+        "result" : "suspensors",
+        "requiredPiece": ["varmaments","aarmaments"],
+        "ingredients" : {
+            "metal" : 2,
+            "goo" : 1,
+            "rubber" : 1
+        }
+    },
+
+
+
+    {
+        "result" : "refiningchamber",
+        "requiredPiece": ["vsciencebay","asciencebay","bsciencebay"],
+        "ingredients" : {
+            "ore" : 2,
+            "sand" : 2,
+            "rubber" : 1
+        }
+    },
+    {
+        "result" : "alchemylab",
+        "requiredPiece": ["vsciencebay","asciencebay"],
+        "ingredients" : {
+            "metal" : 1,
+            "glass" : 1,
+            "crystal" : 1
+        }
+    },
+    {
+        "result" : "researchcentre",
+        "requiredPiece": ["vsciencebay","asciencebay"],
+        "ingredients" : {
+            "glass" : 2,
+            "rubber" : 2,
+            "metal" : 1,
+            "plasma" : 1
+        }
+    },
+    {
+        "result" : "minifridge",
+        "requiredPiece": ["vsciencebay","asciencebay"],
+        "ingredients" : {
+            "rubber" : 2,
+            "metal" : 2,
+            "ppaste" : 4
+        }
+    },
+    {
+        "result" : "aicecream",
+        "requiredPiece": ["vsciencebay","asciencebay"],
+        "ingredients" : {
+            "ppaste" : 2,
+            "spice" : 1
+        }
+    },
+    {
+        "result" : "stasispod",
+        "requiredPiece": ["vsciencebay"],
+        "ingredients" : {
+            "rubber" : 2,
+            "metal" : 2,
+            "cfibre" : 1,
+            "plasma" : 1
+        }
+    },
+
+
+
+    {
+        "result" : "equipmentshelf",
+        "requiredPiece": ["vcargobay","acargobay"],
+        "ingredients" : {
+            "cardboard" : 2,
+            "metal" : 1,
+            "bolts" : 1
+        }
+    },
+    {
+        "result" : "quantumchest",
+        "requiredPiece": ["vcargobay"],
+        "ingredients" : {
+            "metal" : 2,
+            "plasma" : 1,
+            "cfibre" : 1
+        }
+    },
+    {
+        "result" : "bigpetpen",
+        "requiredPiece": ["vcargobay","acargobay"],
+        "ingredients" : {
+            "fibre" : 4,
+            "metal" : 2,
+            "ppaste" : 2,
+            "spice" : 1
+        }
+    },
+    {
+        "result" : "picnicbasket",
+        "requiredPiece": ["vcargobay","acargobay","bcargobay"],
+        "ingredients" : {
+            "cardboard" : 1,
+            "ppaste" : 2,
+            "spice" : 1
+        }
+    },
+
+
+
+    {
+        "result" : "boosters",
+        "requiredPiece": ["vthrusters","athrusters"],
+        "ingredients" : {
+            "metal" : 4,
+            "crystal" : 1,
+            "plasma" : 2
+        }
+    },
+    {
+        "result" : "erecycler",
+        "requiredPiece": ["vthrusters","athrusters","bthrusters"],
+        "ingredients" : {
+            "ore" : 2,
+            "carbon" : 2,
+            "rubber" : 2
+        }
+    },
+    {
+        "result" : "econverter",
+        "requiredPiece": ["vthrusters","athrusters"],
+        "ingredients" : {
+            "metal" : 2,
+            "plasma" : 1,
+            "glass" : 2,
+            "cardboard" : 2
+        }
+    },
+    {
+        "result" : "fpfilter",
+        "requiredPiece": ["vthrusters","athrusters"],
+        "ingredients" : {
+            "metal" : 2,
+            "cfibre" : 2
+        }
+    },
+    {
+        "result" : "qreactor",
+        "requiredPiece": ["vthrusters"],
+        "ingredients" : {
+            "metal" : 2,
+            "cfibre" : 2,
+            "plasma" : 1,
+            "crystal" : 1
+        }
+    },
+    {
+        "result" : "oilchange",
+        "requiredPiece": ["vthrusters","athrusters","bthrusters"],
+        "ingredients" : {
+            "metal" : 1,
+            "goo" : 2,
+            "carbon" : 1
+        }
+    },
+
+
+
+    {
+        "result" : "coolhat",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "fibre" : 2,
+            "rooster" : 1
+        }
+    },
+    {
+        "result" : "oxygenmask",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "rubber" : 2,
+            "metal" : 1
+        }
+    },
+    {
+        "result" : "ominousmask",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "carbon" : 1,
+            "rubber" : 1,
+            "rooster" : 1
+        }
+    },
+    {
+        "result" : "redshirt",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "fibre" : 3,
+            "rooster" : 1,
+            "ore" : 1
+        }
+    },
+    {
+        "result" : "comfysweater",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "fibre" : 4,
+            "rooster" : 1
+        }
+    },
+    {
+        "result" : "hazmatsuit",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "fibre" : 4,
+            "cfibre" : 1,
+            "rubber" : 2
+        }
+    },
+    {
+        "result" : "sonicshovel",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "metal" : 1,
+            "rubber" : 1,
+            "carbon" : 1
+        }
+    },
+    {
+        "result" : "simplegun",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "metal" : 2,
+            "rubber" : 1
+        }
+    },
+    {
+        "result" : "blaster",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "carbon" : 2,
+            "metal" : 1,
+            "rubber" : 1,
+            "plasma" : 1
+        }
+    },
+    {
+        "result" : "cricketgun",
+        "requiredPiece": [""],
+        "ingredients" : {
+            "cfibre" : 2,
+            "plasma" : 2,
+            "crystal" : 1,
+            "rubber" : 1
+        }
+    }
 ]
