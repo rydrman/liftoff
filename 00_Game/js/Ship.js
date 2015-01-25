@@ -22,8 +22,8 @@ var Ship = function() {
     }
     
     this.inMenu = false;
-    this.landed = false;
-    this.landing = false;
+    this.landed = true;
+    this.landing = true;;
     
     this.renderScale = 0.35;
     this.renderHeight = 0;
@@ -41,9 +41,9 @@ Ship.prototype.init = function(timer)
     
     
     //debug throw in some cardboard stuff
-    this.parts.cockpit = new BaseObject( engine.generator.items.bcockpit );
+    //this.parts.cockpit = new BaseObject( engine.generator.items.bcockpit );
     //this.parts.cargo = new BaseObject( engine.generator.items.bcargobay );
-    this.parts.engine = new BaseObject( engine.generator.items.bthrusters );
+    //this.parts.engine = new BaseObject( engine.generator.items.bthrusters );
 }
 
 Ship.prototype.update = function(timer, player) {
@@ -79,10 +79,14 @@ Ship.prototype.isInBounds = function( pos )
 }
 
 Ship.prototype.launch = function() {
+    // Can only happen if the ship has both a cockpit and an engine
+    if (this.parts.engine == null || this.parts.cockpit == null)
+        return;
+    
     // Basically - set the goal vector to outside the gravitational influence
     // Also, move the position slightly along that vector to prevent immediate crashing
     this.goal.copy(this.force.clone().negate().multiplyScalar(50).add(this.position));
-    this.position.add(this.goal.clone().sub( this.position).multiplyScalar(0.1));
+    this.position.add(this.goal.clone().sub( this.position).normalize());
     this.landed = false;
     this.landing = false;
 }

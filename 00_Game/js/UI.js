@@ -134,7 +134,7 @@ var UI = function(canvas)
     this.craftSelection = null;
     this.recipeSelection = null;
     
-    this.items = [];
+    this.items = {};
     
     this.loaded = false;
 }
@@ -255,14 +255,10 @@ UI.prototype.sample = function( mousePosCanvas, player )
             return true;
     }
     
-    this.shipOpen = false;
-    this.craftOpen = false;
-    this.currentShip = null;
-    
     // Check against all UI elements
     for (var i in this.shipMenu) {
         if (this.shipMenu[i].contains(relativePos))
-            return {name: this.shipMenu[i]}
+            return {name: i}
     }
     for (var i in this.playerShipStats) {
          if (this.playerShipStats[i].contains(relativePos))
@@ -289,7 +285,9 @@ UI.prototype.sample = function( mousePosCanvas, player )
         return { name: "shipInv", slotNo: slot};
     }
     
-    
+    this.shipOpen = false;
+    this.craftOpen = false;
+    this.currentShip = null;
     return false;
     
 }

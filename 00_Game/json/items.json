@@ -306,6 +306,12 @@
             "swamp" :  0.05,
             "volcanic" :  0.2,
             "cow" :  0.05
+        },
+        "consume" : {
+            "fuel" : 5,
+            "oxygen" : 0,
+            "damage" : 10,
+            "comfort" : 0
         }
     },
     {
@@ -321,6 +327,12 @@
             "swamp" :  0.1,
             "volcanic" :  0,
             "cow" :  0.1
+        },
+        "consume" : {
+            "fuel" : 10,
+            "oxygen" : 0,
+            "damage" : 5,
+            "comfort" : 0
         }
     },   
     {
@@ -336,6 +348,12 @@
             "swamp" :  0.2,
             "volcanic" :  0.1,
             "cow" :  0.2
+        },
+        "consume" : {
+            "fuel" : 10,
+            "oxygen" : 0,
+            "damage" : 10,
+            "comfort" : 0
         }
     },
     {
@@ -366,6 +384,12 @@
             "swamp" :  0.05,
             "volcanic" :  0.2,
             "cow" :  0.05
+        },
+        "consume" : {
+            "fuel" : 15,
+            "oxygen" : 0,
+            "damage" : 20,
+            "comfort" : 0
         }
     },
     {
@@ -381,6 +405,12 @@
             "swamp" :  0.05,
             "volcanic" :  0,
             "cow" :  0.2
+        },
+        "consume" : {
+            "fuel" : 5,
+            "oxygen" : 0,
+            "damage" : 0,
+            "comfort" : 5
         }
     },
     {
@@ -396,6 +426,12 @@
             "swamp" :  0.2,
             "volcanic" :  0.1,
             "cow" :  0.05
+        },
+        "consume" : {
+            "fuel" : 0,
+            "oxygen" : 0,
+            "damage" : 10,
+            "comfort" : 0
         }
     },
     {
@@ -411,6 +447,12 @@
             "swamp" :  0.1,
             "volcanic" :  0,
             "cow" :  0.2
+        },
+        "consume" : {
+            "fuel" : 0,
+            "oxygen" : 20,
+            "damage" : 0,
+            "comfort" : 10
         }
     },
     {
@@ -426,6 +468,12 @@
             "swamp" :  0,
             "volcanic" :  0,
             "cow" :  0
+        },
+        "consume" : {
+            "fuel" : 20,
+            "oxygen" : 40,
+            "damage" : 0,
+            "comfort" : 20
         }
     },
     {
@@ -441,6 +489,12 @@
             "swamp" :  0,
             "volcanic" :  0,
             "cow" :  1
+        },
+        "consume" : {
+            "fuel" : 10,
+            "oxygen" : 10,
+            "damage" : 0,
+            "comfort" : 5
         }
     },
     {
@@ -456,6 +510,12 @@
             "swamp" :  0,
             "volcanic" :  0.1,
             "cow" :  0
+        },
+        "consume" : {
+            "fuel" : 50,
+            "oxygen" : 0,
+            "damage" : 20,
+            "comfort" : 0
         }
     },
     {
@@ -471,6 +531,12 @@
             "swamp" :  0.05,
             "volcanic" :  0.2,
             "cow" :  0.05
+        },
+        "consume" : {
+            "fuel" : 10,
+            "oxygen" : 0,
+            "damage" : 20,
+            "comfort" : 0
         }
     },
     {
@@ -486,6 +552,12 @@
             "swamp" :  0,
             "volcanic" :  0.1,
             "cow" :  0
+        },
+        "consume" : {
+            "fuel" : 0,
+            "oxygen" : 0,
+            "damage" : 10,
+            "comfort" : 0
         }
     },
     {
@@ -501,6 +573,12 @@
             "swamp" :  0,
             "volcanic" :  0.05,
             "cow" :  0
+        },
+        "consume" : {
+            "fuel" : 30,
+            "oxygen" : 0,
+            "damage" : 0,
+            "comfort" : 20
         }
     },
     {
@@ -516,6 +594,12 @@
             "swamp" :  0,
             "volcanic" :  0.05,
             "cow" :  0
+        },
+        "consume" : {
+            "fuel" : 0,
+            "oxygen" : 0,
+            "damage" : 50,
+            "comfort" : 0
         }
     },
     {
@@ -531,6 +615,12 @@
             "swamp" :  0.05,
             "volcanic" :  0,
             "cow" :  0.1
+        },
+        "consume" : {
+            "fuel" : 0,
+            "oxygen" : 0,
+            "damage" : 30,
+            "comfort" : 0
         }
     },
 

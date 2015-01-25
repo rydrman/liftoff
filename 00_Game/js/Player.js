@@ -105,7 +105,7 @@ Player.prototype.updateMovement = function(timer)
             offset.add(this.force);
             offset.multiplyScalar(this.speed * timer.deltaTimeS);
             this.position.add( offset );
-            this.rotation = (this.landing) ? offset.toRotation() + Math.PI : offset.toRotation();
+            this.rotation = (this.landing) ? offset.toRotation() : offset.toRotation();
         }
     } 
     else if (this.force.length() > 0) 
@@ -176,8 +176,11 @@ Player.prototype.addToInventory = function(objToAdd) {
     //check tool, helmet etc
     if(this[ objToAdd.type ] == null)
     {
-        this[objToAdd.type] = objToAdd;
-        return true;
+        if(-1 != ["tool", "suit", "helmet", "weapon"].indexOf(objToAdd.type))
+        {
+            this[objToAdd.type] = objToAdd;
+            return true;
+        }
     }
     
     if (index !== -1) {

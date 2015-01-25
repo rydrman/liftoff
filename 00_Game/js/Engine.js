@@ -91,8 +91,14 @@ Engine.prototype.onMouseDown = function( mousePos )
     this.timer.startSubTick("mouseDown_L");
     var worldPos = this.renderer.unProject( mousePos );
     
-    //TODO try ui first, then ship / player, then world
+    var checkUI = false;
+    if ((this.ui.craftOpen || this.ui.shipOpen))
+        checkUI = true;
     var uiResult = this.ui.sample(mousePos, this.player);
+    if (checkUI && !uiResult)
+        return;
+    
+    //try ui first, then ship / player, then world
     var result = this.world.sample( worldPos );
     if (uiResult) 
     {
@@ -206,11 +212,12 @@ Engine.prototype.onRMouseDown = function( mousePos)
     
     //Check UI elements first
     var uiResult = this.ui.sample(mousePos, this.player);
+
     var result = this.world.sample( worldPos );
     if (uiResult) 
     {
         console.log ("UI ELEMENT CLICKED");
-    } 
+    }
     else if (this.player.isInBounds(worldPos)) 
     {
         //open crafting menu
@@ -254,11 +261,11 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
         var worldPos = this.renderer.unProject( mousePos );
 
         //TODO try ui first, then ship / player, then world
-        var uiResult = this.ui.sample(mousePos, this.player);
+        //var uiResult = this.ui.sample(mousePos, this.player);
         var result = this.world.sample( worldPos );
         if (this.draggedItem) {
                 this.draggedItem.position = mousePos;
-        } else if (uiResult && this.mouseLTarget == "ui") {
+        } else if (/*uiResult &&*/ this.mouseLTarget == "ui") {
             console.log ("UI ELEMENT SUSTAINED");
         }
         /*if (this.ship.isInBounds(worldPos)) {
@@ -324,11 +331,21 @@ Engine.prototype.onMouseUp = function(mousePos) {
         } else if (uiResult.name == "shipInv") {
             if (this.player.ship.addToInventory(this.draggedItem))
                 this.draggedItem = null;
+        } else if (uiResult.name == this.draggedItem.type) { // if target is a ship ui
+            this.player.ship.parts[this.draggedItem.type] = this.draggedItem;
+            this.draggedItem = null;
         } else {
             // drop in world
             // make new planet position
-            
-            if (this.player.planet != null) {
+            var types = ["cockpit", "cargo", "engine", "science", "engineering"];
+            if (types.indexOf(this.draggedItem.type) > -1 ) {
+                var newShip = new Ship();
+                newShip.init(this.timer);
+                newShip.position = this.player.position.clone();
+                newShip.force.add(this.world.getGravity( newShip.position ));
+                newShip.parts[this.draggedItem.type] = this.draggedItem;
+                this.world.ships.push(newShip);
+            } else if (this.player.planet != null) {
                 this.draggedItem.planetPosition = this.player.planetPosition - (Math.PI /2);
                 this.player.planet.addItem(this.draggedItem);
             } else {
@@ -397,7 +414,6 @@ Engine.prototype.update = function()
                 this.player.position.copy(planet.position.clone().add(planet.position.clone().sub(this.player.position).negate().normalize().multiplyScalar(planet.radius + 0.3)));
                 // set player goal to be 0.5 along its current vector
                 this.player.goal.copy(planet.position.clone().add(planet.position.clone().sub(this.player.goal).negate().normalize().multiplyScalar(planet.radius + 0.3)));
-                this.player.goal
                 break;
             } 
             else{

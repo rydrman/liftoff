@@ -44,7 +44,7 @@ Generator.prototype.generate = function()
     
     world.init( width, height );
     
-    for(var i = 0; i < 1; ++i)
+    for(var i = 0; i < 100; ++i)
     {
         var planet = this.spawnPlanet( world );
         if( planet == null )
