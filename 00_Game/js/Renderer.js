@@ -186,6 +186,47 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
     {
         this.renderShip( player.ship );
     }
+    //draw player
+    if(!player.ship)
+    {
+        this.renderPlayer( player );
+    }
+}
+
+Renderer.prototype.renderPlayer = function( player )
+{
+    if(player.planet)
+    {
+        //var offset = player.position.clone().sub(player.planet.position);
+        //player.rotation = offset.toRotation();
+    }
+    
+    var center = this.project( player.position );
+    
+    this.ctx.save();
+    
+    this.ctx.translate(center.x, center.y);
+    this.ctx.rotate( player.rotation - Math.PI * 0.5 );
+    this.ctx.scale( player.renderScale, player.renderScale );
+    
+    try{
+        this.ctx.drawImage( player.image, 
+                        this.worldToPixel( player.bounds.x ),
+                        this.worldToPixel( player.bounds.y - player.bounds.h * 0.1 ),
+                        this.worldToPixel( player.bounds.w ),
+                        this.worldToPixel( player.bounds.h )
+                      );
+    }
+    catch(err){
+         this.ctx.drawImage( missingImg, 
+                        this.worldToPixel( player.bounds.x ),
+                        this.worldToPixel( player.bounds.y ),
+                        this.worldToPixel( player.bounds.w ),
+                        this.worldToPixel( player.bounds.h )
+                      );
+    }
+    
+    this.ctx.restore();
 }
 
 Renderer.prototype.renderUI = function( ui, player )
