@@ -175,12 +175,165 @@ Renderer.prototype.renderUI = function( ui, ship )
         for(var i in ship.parts)
         {
             //draw top row of menu items
-            this.ctx.drawImage(ui.backSquareImg, 
+            this.ctx.drawImage(ui.shipIcons[i], 
                                ui.craftingMenu.topRow[i].x * this.canvas.width,
                                ui.craftingMenu.topRow[i].y * this.canvas.height,
                                ui.craftingMenu.topRow[i].w * this.canvas.width,
                                ui.craftingMenu.topRow[i].h * this.canvas.height
                               );
+        }
+        
+        if(Settings.debug)
+        {
+            //craft are back
+            this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+            this.ctx.fillRect(ui.craftingMenu.recipesArea.x * this.canvas.width,
+                               ui.craftingMenu.recipesArea.y * this.canvas.height,
+                               ui.craftingMenu.recipesArea.w * this.canvas.width,
+                               ui.craftingMenu.recipesArea.h * this.canvas.height
+                              );
+        }
+        
+        //recies area
+        var recipes = ui.getCraftingOptions();
+        
+        var x = ui.craftingMenu.recipesArea.x * this.canvas.width, 
+            y = ui.craftingMenu.recipesArea.y * this.canvas.height,
+            w = ui.craftingMenu.recipesArea.w * this.canvas.width,
+            h = ui.craftingMenu.recipesArea.h * this.canvas.height;
+        var bw = ui.craftingMenu.recipeBlock.w * this.canvas.width,
+            bh = ui.craftingMenu.recipeBlock.h * this.canvas.height;
+        var buffer = ui.craftingMenu.recipeBuffer.clone();
+        buffer.x *= this.canvas.width;
+        buffer.y *= this.canvas.height;
+        var curY = y,
+            curX = x;
+        for(var i in recipes)
+        {
+            if(Settings.debug)
+            {
+                //craft are back
+                this.ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+                this.ctx.fillRect(curX, curY, bw, bh);
+            }
+            
+            var item = ui.items[ recipes[i].result ];
+            try{
+                var scale = Math.min( bh * 0.9 / item.image.height, bw * 0.9 / item.image.width );
+                var center = new Vector2(
+                    curX + bw * 0.5,
+                    curY + bh * 0.5
+                );
+                var dim = new Vector2(
+                    item.image.width * scale,
+                    item.image.height * scale
+                );
+                this.ctx.drawImage( item.image, center.x - dim.x * 0.5, center.y - dim.y * 0.5, dim.x, dim.y );
+            }
+            catch(err)
+            {
+                this.ctx.drawImage( missingImg, curX, curY, bw, bh );
+            }
+            
+            curX += (bw + buffer.x);
+            if(curX + bw + buffer.x > x + w)
+            {
+                curX = x;
+                curY += (bh + buffer.y);
+            }
+        }
+        
+        //details area
+        if(Settings.debug)
+        {
+            //craft are back
+            this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+            this.ctx.fillRect(ui.craftingMenu.detailArea.x * this.canvas.width,
+                               ui.craftingMenu.detailArea.y * this.canvas.height,
+                               ui.craftingMenu.detailArea.w * this.canvas.width,
+                               ui.craftingMenu.detailArea.h * this.canvas.height
+                              );
+        }
+        if(ui.recipeSelection != null)
+        {
+            var x = ui.craftingMenu.detailIcon.x * this.canvas.width,
+                y = ui.craftingMenu.detailIcon.y * this.canvas.height,
+                bw = ui.craftingMenu.detailIcon.w * this.canvas.width,
+                bh = ui.craftingMenu.detailIcon.h * this.canvas.height;
+            var item = ui.items[ ui.recipeSelection.result ];
+            try{
+                var scale = Math.min( bw * 0.9 / item.image.height, bw * 0.9 / item.image.width );
+                var center = new Vector2(
+                    x + bw * 0.5,
+                    y + bh * 0.5
+                );
+                var dim = new Vector2(
+                    item.image.width * scale,
+                    item.image.height * scale
+                );
+                this.ctx.drawImage( item.image, center.x - dim.x * 0.5, center.y - dim.y * 0.5, dim.x, dim.y );
+            }
+            catch(err)
+            {
+                this.ctx.drawImage( missingImg, x, y, bw, bh );
+            }
+            //title
+            this.ctx.fillStyle = "#FFF";
+            this.ctx.textAlign = 'left';
+            var fontSize = ui.craftingMenu.detailFontSize * this.canvas.width;
+            this.ctx.font = fontSize.toFixed(2)  + "px " + Settings.fontFamily;
+            this.ctx.fillText( item.niceName, 
+                              ui.craftingMenu.detailTitle.x * this.canvas.width ,
+                              ui.craftingMenu.detailTitle.y * this.canvas.height);
+            
+            //ingredients
+            curX = ui.craftingMenu.detailRequire.x * this.canvas.width;
+            curY = ui.craftingMenu.detailRequire.y * this.canvas.height;
+            bw = ui.craftingMenu.recipeBlock.w * this.canvas.width;
+            bh = ui.craftingMenu.recipeBlock.h * this.canvas.height;
+            for(var i in ui.recipeSelection.ingredients)
+            {
+                var ingredient = ui.items[ i ];
+                var center = new Vector2(
+                    curX + bw * 0.5,
+                    curY + bh * 0.5
+                );
+                try{
+                    var scale = Math.min( bw * 0.9 / ingredient.image.height, bw * 0.9 / ingredient.image.width );
+                    var dim = new Vector2(
+                        ingredient.image.width * scale,
+                        ingredient.image.height * scale
+                    );
+                    this.ctx.drawImage( ingredient.image, center.x - dim.x * 0.5, center.y - dim.y * 0.5, dim.x, dim.y );
+                }
+                catch(err)
+                {
+                    this.ctx.drawImage( missingImg, x, y, bw, bh );
+                }
+                this.ctx.textAlign = 'center';
+                this.ctx.fillStyle = "#FFF";
+                this.ctx.font = (fontSize * 0.75).toFixed(2) + "px " + Settings.fontFamily;
+                this.ctx.fillText( ui.recipeSelection.ingredients[i], center.x, curY + bh + 5);
+                curX += bw + buffer.x;
+            }
+            
+            //build button
+            //back
+            this.ctx.fillStyle = "#383838";
+            this.ctx.fillRect(ui.craftingMenu.buildButton.x * this.canvas.width,
+                               ui.craftingMenu.buildButton.y * this.canvas.height,
+                               ui.craftingMenu.buildButton.w * this.canvas.width,
+                               ui.craftingMenu.buildButton.h * this.canvas.height
+                              );
+            //text
+            var center = new Vector2(
+                ui.craftingMenu.buildButton.x * this.canvas.width + 0.5 * ui.craftingMenu.buildButton.w * this.canvas.width,
+                ui.craftingMenu.buildButton.y * this.canvas.height + 0.5 * ui.craftingMenu.buildButton.h * this.canvas.height + 0.6 * fontSize
+            );
+            this.ctx.textAlign = 'center';
+            this.ctx.fillStyle = ui.recipeSelection.craftable ? "#FFF" : "#888";
+            this.ctx.font = (fontSize * 2).toFixed(2) + "px " + Settings.fontFamily;
+            this.ctx.fillText( "BUILD" , center.x, center.y);
         }
     }
     
@@ -191,7 +344,7 @@ Renderer.prototype.renderUI = function( ui, ship )
     for(var i in ship.parts)
     {
         //draw background square
-        this.ctx.drawImage(ui.backSquareImg, 
+        this.ctx.drawImage(ui.shipIcons[i], 
                            ui.shipMenu[i].x * this.canvas.width,
                            ui.shipMenu[i].y * this.canvas.height,
                            ui.shipMenu[i].w * this.canvas.width,

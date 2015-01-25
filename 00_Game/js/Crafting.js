@@ -53,6 +53,24 @@ Crafting.prototype.update = function(player, ship) {
     this.recipes[r].visible = visible;
 }
 
+Crafting.prototype.getAvailable = function(category)
+{
+    if(!category) 
+    {
+        console.warn("no category given to get recipes, empty array returned");
+        return [];
+    }
+    var list = [];
+    for(var i in this.recipes)
+    {
+        if(/*this.recipes[i].craftable &&*/ this.recipes[i].category == category)
+        {
+            list.push( this.recipes[i] );
+        }
+    }
+    return list;
+}
+
 Crafting.prototype.constructInventory = function(player, ship) {
     var inventory = player.inventory;
     
@@ -67,15 +85,15 @@ Crafting.prototype.constructInventory = function(player, ship) {
     return inventory;
 }
 
-Crafting.prototype.craft = function(player, ship, recipe, items) { // generator.items
-    var inventory = this.constructInventory(player, ship);
+Crafting.prototype.craft = function(player, recipe, items) { // generator.items
+    var inventory = this.constructInventory(player, player.ship);
     for (var i in recipe.ingredients) {
         var cost = recipe.ingredients[i];
         // Remove from player inventory then ship inventory if not enough
         cost = this.removeFromInventory(cost, i, player);
         
         if (cost > 0)
-            cost = this.removeFromInventory(cost, i, ship);
+            cost = this.removeFromInventory(cost, i, player.ship);
         
         if (cost > 0) {
             console.log( "ERROR - CRAFTING DID NOT HAVE ENOUGH INGREDIENTS");
@@ -92,7 +110,12 @@ Crafting.prototype.craft = function(player, ship, recipe, items) { // generator.
         }
     }
     if (!player.addToInventory(newItem))
-        ship.addToInventory(newItem);
+    {
+        if( player.ship != null )
+            player.ship.addToInventory(newItem);
+        else
+            console.warn("TODO no space for item!!!");
+    }
 }
  
 Crafting.prototype.removeFromInventory = function(cost, resource, entity) {
