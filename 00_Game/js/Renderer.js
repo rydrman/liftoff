@@ -253,7 +253,38 @@ Renderer.prototype.renderUI = function( ui, player )
                           );
     }
     
-    //draw inventory 
+    //draw inventory
+    
+    this.ctx.drawImage(ui.playerInventoryImg,
+                       ui.playerInv.background.x * this.canvas.width,
+                       ui.playerInv.background.y * this.canvas.height,
+                       ui.playerInv.background.w * this.canvas.width,
+                       ui.playerInv.background.h * this.canvas.height );
+    this.ctx.fillStyle = "#555";
+    for (i = 0; i < ui.playerInv.slots.length; i++) {
+        this.ctx.fillRect(ui.playerInv.slots[i].x * this.canvas.width,
+                          ui.playerInv.slots[i].y * this.canvas.height,
+                          ui.playerInv.slots[i].w * this.canvas.width,
+                          ui.playerInv.slots[i].h * this.canvas.height);
+    }
+    var slot = 0;
+    this.ctx.fillStyle = "#fff";
+    for (var i in player.inventory) {
+        this.ctx.drawImage(player.inventory[i].image,
+                          ui.playerInv.slots[slot].x * this.canvas.width,
+                          ui.playerInv.slots[slot].y * this.canvas.height,
+                          ui.playerInv.slots[slot].w * this.canvas.width,
+                          ui.playerInv.slots[slot].h * this.canvas.height);
+        // Render quantity if above 1
+        if (player.inventory[i].quantity > 1) {
+            this.ctx.fontSize = (ui.playerInv.fontSize * this.canvas.width).toFixed(2);
+            this.ctx.fillText(player.inventory[i].quantity,
+                              (ui.playerInv.slots[slot].x * this.canvas.width) + (ui.playerInv.fontTranslate.x * this.canvas.width),
+                              (ui.playerInv.slots[slot].y * this.canvas.height) + (ui.playerInv.fontTranslate.y * this.canvas.height));
+        }
+        
+        slot ++;
+    }
     
     //draw crafting
     if( ui.craftOpen )

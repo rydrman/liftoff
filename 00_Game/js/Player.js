@@ -17,8 +17,8 @@ var Player = function() {
     
     
     // Inventory
-    this.inventory = {}; // "name" : quantity
-    this.inventorySize = 5;
+    this.inventory = {}; // "name" : {quantity, image}
+    this.inventorySize = 4;
 }
 
 Player.prototype.init = function(timer) {
@@ -98,10 +98,10 @@ Player.prototype.addToInventory = function(objToAdd) {
     }
     
     if (index !== -1) {
-        this.inventory[index] ++;
+        this.inventory[index].quantity ++;
         return true;
     } else if (Object.keys(this.inventory).length < this.inventorySize) {
-        this.inventory[objToAdd.name] = 1;
+        this.inventory[objToAdd.name] = { quantity: 1, image: objToAdd.image };
         return true;
     } else {
         // Error message to user that inventory is full
