@@ -129,7 +129,7 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
         //draw items
         for(var i in p.items)
         {
-            if(!p.items[i].image.complete) continue;
+            if(this.zoom > 2 || !p.items[i].image.complete) continue;
             
             this.ctx.save();
             this.ctx.rotate( p.items[i].planetPosition );
