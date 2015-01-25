@@ -58,10 +58,18 @@ Engine.prototype.begin = function()
     this.ui.init(this.crafting);
     
     //DEBUG create a ship
-    this.player.ship = new Ship();
-    this.player.inShip = true;
-    this.player.ship.init( this.timer );
-    this.world.ships.push(this.player.ship);
+    //this.player.ship = new Ship();
+    //this.player.inShip = true;
+    //this.player.ship.init( this.timer );
+    //this.world.ships.push(this.player.ship);
+    
+    //place player near planet
+    var basePlanet = this.world.getInitialPlanet();
+    this.player.position.set( basePlanet.position.x, basePlanet.position.y + basePlanet.radius + 0.2 );
+    this.player.goal.copy(this.player.position);
+    //set zoom
+    this.renderer.zoom = (this.player.inShip) ? 1.0 : 2.5;
+    
     
     //set 
     this.input.addListener( Input.eventTypes.MOUSEDOWN, this.onMouseDown, this );
@@ -97,7 +105,7 @@ Engine.prototype.onMouseDown = function( mousePos )
                     delete this.player.inventory[this.draggedItem.name];
                 }
             }
-        } else if (uiResult.name == "shipInv") {
+        } else if (uiResult.name == "shipInv" && this.player.inShip) {
             if (uiResult.slotNo != null && this.draggedItem == null) { // pick it up
                 this.draggedItem = this.player.ship.getInventoryByIndex(uiResult.slotNo);
                 // remove it from inventory
@@ -118,7 +126,10 @@ Engine.prototype.onMouseDown = function( mousePos )
         //console.log("World Element Clicked");
         if(result instanceof Ship)
         {
-            this.ui.openShip( result );
+            if (this.player.inShip) {
+                this.crafting.update(this.player);
+                this.ui.openShip( result );
+            }
         }
         else if(result instanceof Planet)
         {
@@ -130,7 +141,7 @@ Engine.prototype.onMouseDown = function( mousePos )
             //item on a planet
             this.mouseLTarget = "world";
             // check if player is close enough to pick up object
-            if (this.player.position.clone().sub(this.world.planets[result.planetIndex].position.clone().add(result.objectData.position)).length() < 0.4)
+            if (this.player.position.clone().sub(result.objectData.position).length() < 0.4)
             {
                 // Add to player inventory and remove from world
                 if (this.player.addToInventory(result.objectData))
@@ -171,8 +182,10 @@ Engine.prototype.onRMouseDown = function( mousePos)
     {
         if(result instanceof Ship)
         {
-            this.player.toggleShipStatus(result);
-            this.renderer.zoom = (this.player.inShip) ? 1.0 : 2.5;
+            if (this.player.position.clone().sub(result.position).length() < 1) {
+                this.player.toggleShipStatus(result);
+                this.renderer.zoom = (this.player.inShip) ? 1.0 : 2.5;
+            }
         }
         else if( result instanceof Planet )
         {
@@ -217,7 +230,7 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
             //console.log("WORLD ELEMENT SUSTAINED");
             // check if player is close enough to pick up object
             // TODO - timer subtick
-            if (this.player.position.clone().sub(this.world.planets[result.planetIndex].position.clone().add(result.objectData.position)).length() < 0.4) {
+            if (this.player.position.clone().sub(this.world.planets[result.planetIndex].position.clone().add(result.objectData.position)).length() < 0.8) {
                 // Add to player inventory and remove from world
                 if (this.player.addToInventory(result.objectData))
                     this.world.planets[result.planetIndex].removeItem(result.objectData);
@@ -244,6 +257,7 @@ Engine.prototype.onMouseUp = function(mousePos) {
             // add back to inventory
             if (!this.player.addToInventory(this.draggedItem))
                 this.player.ship.addToInventory(this.draggedItem);
+            this.draggedItem = null;
         }
     }
 }
@@ -275,16 +289,21 @@ Engine.prototype.update = function()
     {
         // Player / planet collision
         var gravity = this.world.getGravity( this.player.position );
+        //this.player.force.add(gravity)
         
         var closest = this.world.getClosestPlanet( this.player.position );
         
         var checkDist = false;
-        for (var p in this.world.planets) {
+        for (var p in this.world.planets) 
+        {
             var planet = this.world.planets[p];
             var distance = planet.position.clone().sub(this.player.position).length();
-            if (distance < planet.radius + 0.4) { // TODO: Change to fit ship size
+            if (distance < planet.radius + 0.4) // TODO: Change to fit ship size
+            { 
                 // Player is on the surface - controls should behave
                 checkDist = false; // don't want the force to continue acting
+                
+                this.player.planet = planet;
                 
                 // Set player position to exactly radius + 0.5 along that vector
                 this.player.position.copy(planet.position.clone().add(planet.position.clone().sub(this.player.position).negate().normalize().multiplyScalar(planet.radius + 0.3)));
@@ -292,13 +311,18 @@ Engine.prototype.update = function()
                 this.player.goal.copy(planet.position.clone().add(planet.position.clone().sub(this.player.goal).negate().normalize().multiplyScalar(planet.radius + 0.3)));
                 this.player.goal
                 break;
-            } else if (distance < 5 + planet.radius) {
+            } 
+            else{
+                this.player.planet = null;
+            }
+            /*else if (distance < 5 + planet.radius) 
+            {
                 // add gravity force to the movement
-                this.player.force = planet.position.clone().sub(this.player.position).normalize().multiplyScalar(0.1);
+                //this.player.force = planet.position.clone().sub(this.player.position).normalize().multiplyScalar(0.1);
                 console.log("GRAVITY on Player");
                 checkDist = true;
                 break;
-            }
+            }*/
         }
         if (!checkDist) {
             this.player.force = new Vector2();

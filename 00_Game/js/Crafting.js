@@ -22,9 +22,9 @@ Crafting.prototype.load = function() {
     loader.runCalls();
 }
 
-Crafting.prototype.update = function(player, ship) {
+Crafting.prototype.update = function(player) {
     // Check player (and ship if applicable) inventories against craftable recipes
-    
+    var ship = player.ship;
     // Construct aggregate inventory
     var inventory = this.constructInventory(player, ship);
     
@@ -33,28 +33,26 @@ Crafting.prototype.update = function(player, ship) {
     // TODO - check against ship crafting abilities
     var craftable = true,
         visible = false;
-    if (ship.hasPiece(recipe.requiredPiece)) {
-        visible = true;
-        for (var r in this.recipes) {
-            for (var ing in this.recipes[r].ingredients) {
-                if (inventory.hasOwnProperty(ing)) {
-                    // check quantity
-                    if (inventory[ing].quantity <= this.recipes[r].ingredients[ing])
-                        craftable = false
-                } else {
-                    craftable = false; // we don't have any of the item
-                }
+    
+    visible = true;
+    for (var r in this.recipes) {
+        for (var ing in this.recipes[r].ingredients) {
+            if (inventory.hasOwnProperty(ing)) {
+                // check quantity
+                if (inventory[ing].quantity < this.recipes[r].ingredients[ing])
+                    craftable = false
+            } else {
+                craftable = false; // we don't have any of the item
             }
         }
-    } else {
-        craftable = false;
+        this.recipes[r].craftable = craftable;
+        this.recipes[r].visible = visible;
     }
-    this.recipes[r].craftable = craftable;
-    this.recipes[r].visible = visible;
 }
 
 Crafting.prototype.getAvailable = function(category)
 {
+
     if(!category) 
     {
         console.warn("no category given to get recipes, empty array returned");
@@ -63,7 +61,7 @@ Crafting.prototype.getAvailable = function(category)
     var list = [];
     for(var i in this.recipes)
     {
-        if(/*this.recipes[i].craftable &&*/ this.recipes[i].category == category)
+        if(this.recipes[i].visible && this.recipes[i].category == category)
         {
             list.push( this.recipes[i] );
         }
@@ -72,14 +70,23 @@ Crafting.prototype.getAvailable = function(category)
 }
 
 Crafting.prototype.constructInventory = function(player, ship) {
-    var inventory = player.inventory;
+    var inventory = {};
+    for (var i in player.inventory) {
+        inventory[player.inventory[i]] = {};
+        for (var j in player.inventory[i]) {
+            inventory[player.inventory[i]][j] = player.inventory[i][j];
+        }
+                  
+    }
     
     if (ship !== undefined) {
         for (var i in ship.inventory) {
             if (inventory.hasOwnProperty(i))
-                inventory[i].quantity += ship.inventory[i];
-            else
-                inventory[i].quantity = ship.inventory[i];
+                inventory[i].quantity += ship.inventory[i].quantity;
+            else {
+                inventory[i] = {};
+                inventory[i].quantity = ship.inventory[i].quantity;
+            }
         }
     }
     return inventory;
@@ -103,7 +110,7 @@ Crafting.prototype.craft = function(player, recipe, items) { // generator.items
     // TODO - check that there is inventory space BEFORE making the object?
     console.log("Crafted: " + recipe.result);
     var newItem;
-    for (var i=0; i < items.length; i++) {
+    for (var i in items) {
         if (items[i].name == recipe.result) {
             newItem = items[i];
             break;
@@ -116,10 +123,12 @@ Crafting.prototype.craft = function(player, recipe, items) { // generator.items
         else
             console.warn("TODO no space for item!!!");
     }
+    
+    this.update(player);
 }
  
 Crafting.prototype.removeFromInventory = function(cost, resource, entity) {
-    if (entity.inventory.hasOwnProperty[resource]) {
+    if (entity.inventory.hasOwnProperty(resource)) {
         if (entity.inventory[resource].quantity > cost) {
             entity.inventory[resource].quantity -= cost;
         } else if (entity.inventory[resource].quantity <= cost) {
