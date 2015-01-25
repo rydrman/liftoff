@@ -186,7 +186,11 @@ Renderer.prototype.render = function( world, player, ship, ui, draggedItem, time
     {
         this.renderShip( player.ship );
     }
-    
+    //draw player
+    if(!player.ship)
+    {
+        this.renderPlayer( player );
+    }
     // render dragged item
     if (draggedItem != null) {
         this.ctx.drawImage(draggedItem.image,
@@ -194,6 +198,44 @@ Renderer.prototype.render = function( world, player, ship, ui, draggedItem, time
                            draggedItem.position.y,
                            50, 50);
     }
+    
+}
+
+Renderer.prototype.renderPlayer = function( player )
+{
+    if(player.planet)
+    {
+        //var offset = player.position.clone().sub(player.planet.position);
+        //player.rotation = offset.toRotation();
+    }
+    
+    var center = this.project( player.position );
+    
+    this.ctx.save();
+    
+    this.ctx.translate(center.x, center.y);
+    this.ctx.rotate( player.rotation - Math.PI * 0.5 );
+    this.ctx.scale( player.renderScale, player.renderScale );
+    
+    try{
+        this.ctx.drawImage( player.image, 
+                        this.worldToPixel( player.bounds.x ),
+                        this.worldToPixel( player.bounds.y - player.bounds.h * 0.1 ),
+                        this.worldToPixel( player.bounds.w ),
+                        this.worldToPixel( player.bounds.h )
+                      );
+    }
+    catch(err){
+         this.ctx.drawImage( missingImg, 
+                        this.worldToPixel( player.bounds.x ),
+                        this.worldToPixel( player.bounds.y ),
+                        this.worldToPixel( player.bounds.w ),
+                        this.worldToPixel( player.bounds.h )
+                      );
+    }
+    
+    this.ctx.restore();
+>>>>>>> 2edc3d165f504bb031aaf51c93b1b96320aad7ae
 }
 
 Renderer.prototype.renderUI = function( ui, player )

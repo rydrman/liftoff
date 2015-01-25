@@ -21,6 +21,30 @@ var Player = function() {
     // Inventory
     this.inventory = {}; // "name" : {quantity, image}
     this.inventorySize = 4;
+    
+    this.image = new Image();
+    
+    var self = this;
+    var loader = new AsyncLoader();
+    loader.onComplete = EMPTY_FUNCTION;
+    
+    loader.addImageCall("assets/sprites/playerPose.png", this.image, function(){self.imageDone()});
+    loader.runCalls();
+    
+    this.renderScale = 0.25;
+    
+    this.bounds = new Rectangle();
+}
+                        
+Player.prototype.imageDone = function()
+{
+    if(engine.renderer)
+    {
+        this.bounds.x = engine.renderer.pixelToWorld( -this.image.width * 0.5 );
+        this.bounds.y = engine.renderer.pixelToWorld( -this.image.height * 0.5 );
+        this.bounds.w = engine.renderer.pixelToWorld( this.image.width );
+        this.bounds.h = engine.renderer.pixelToWorld( this.image.height );
+    }
 }
 
 Player.prototype.init = function(timer) {
@@ -28,6 +52,32 @@ Player.prototype.init = function(timer) {
     this.timer = timer;
     this.timer.startSubTick("comfortTick");
     this.timer.startSubTick("oxygenTick");
+    
+    if(this.image.complete)
+    {
+        this.bounds.x = engine.renderer.pixelToWorld( -this.image.width * 0.5 );
+        this.bounds.y = engine.renderer.pixelToWorld( -this.image.height * 0.5 );
+        this.bounds.w = engine.renderer.pixelToWorld( this.image.width );
+        this.bounds.h = engine.renderer.pixelToWorld( this.image.height );
+    }
+}
+
+Player.prototype.isInBounds = function( worldPos )
+{
+    
+    //get offset
+    var offset = new Vector2().subVectors( this.position, worldPos );
+    
+    //convert to local space
+    var rot = offset.toRotation();
+    rot -= this.rotation;// - Math.PI * 0.5;
+    offset.fromRotation( rot, offset.length() / this.renderScale );
+    
+    if(this.bounds && this.bounds.contains( offset ))
+    {
+        return true;
+    }    
+    return false;
 }
 
 Player.prototype.updateMovement = function(timer) 
@@ -60,6 +110,21 @@ Player.prototype.updateMovement = function(timer)
         this.goal.copy(this.position);
     }
     this.force.set(0, 0);
+    
+    //position on planet
+    if(null != this.planet)
+    {
+        //this.position.copy(this.planet.position);
+        var offset = this.position.clone().sub(this.planet.position);
+        this.planetPosition = offset.toRotation();
+        this.rotation = this.planetPosition - Math.PI;
+    }
+    else
+    {
+        //this.position.copy(this.planet.position);
+        var offset = this.goal.clone().sub(this.position);
+        this.rotation = offset.toRotation();
+    }
 }
 
 Player.prototype.update = function( timer ) {
