@@ -55,7 +55,7 @@ Engine.prototype.begin = function()
     //initialize stuff
     this.renderer.init( canvas );
     this.player.init( this.timer );
-    this.ui.init(canvas, this.player, null);
+    this.ui.init(this.crafting);
     
     //DEBUG create a ship
     this.player.ship = new Ship();
@@ -82,7 +82,7 @@ Engine.prototype.onMouseDown = function( mousePos )
     var worldPos = this.renderer.unProject( mousePos );
     
     //TODO try ui first, then ship / player, then world
-    var uiResult = this.ui.sample(mousePos);
+    var uiResult = this.ui.sample(mousePos, this.player);
     var result = this.world.sample( worldPos );
     if (uiResult) 
     {
@@ -155,7 +155,7 @@ Engine.prototype.onRMouseDown = function( mousePos)
     var worldPos = this.renderer.unProject( mousePos );
     
     //Check UI elements first
-    var uiResult = this.ui.sample(mousePos);
+    var uiResult = this.ui.sample(mousePos, this.player);
     var result = this.world.sample( worldPos );
     if (uiResult) 
     {
@@ -194,7 +194,7 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
         var worldPos = this.renderer.unProject( mousePos );
 
         //TODO try ui first, then ship / player, then world
-        var uiResult = this.ui.sample(mousePos);
+        var uiResult = this.ui.sample(mousePos, this.player);
         var result = this.world.sample( worldPos );
         if (uiResult && this.mouseLTarget == "ui") {
             console.log ("UI ELEMENT SUSTAINED");

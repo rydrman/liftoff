@@ -11,6 +11,21 @@
             "swamp" :  0.5,
             "volcanic" :  0,
             "cow" :  1
+        },
+        "breakable" : "True",
+        "receivedactions" : ["hit"],
+        "drops" : {
+            "ore" : 0,
+            "cardboard" : 2,
+            "goo" : 1,
+            "sand" :  0,
+            "carbon" :  0,
+            "fibre" :  0,
+            "rubber" : 0,
+            "ppaste" : 0,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 0
         }
     },
     {
@@ -25,6 +40,21 @@
             "swamp" :  0,
             "volcanic" :  0,
             "cow" :  1
+        },
+        "breakable" : "True",
+        "receivedactions" : ["dig"],
+        "drops" : {
+            "ore" : 1,
+            "cardboard" : 0,
+            "goo" : 0,
+            "sand" :  0,
+            "carbon" :  0,
+            "fibre" :  0,
+            "rubber" : 0,
+            "ppaste" : 0,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 0
         }
     },
     {
@@ -39,6 +69,21 @@
             "swamp" :  0,
             "volcanic" :  0.5,
             "cow" :  0
+        },
+        "breakable" : "True",
+        "receivedactions" : ["dig"],
+        "drops" : {
+            "ore" : 1,
+            "cardboard" : 0,
+            "goo" : 0,
+            "sand" :  2,
+            "carbon" :  0,
+            "fibre" :  0,
+            "rubber" : 0,
+            "ppaste" : 0,
+            "spice" : 1,
+            "rooster" : 0,
+            "plasma" : 0
         }
     },
     {
@@ -53,6 +98,21 @@
             "swamp" :  1,
             "volcanic" :  0,
             "cow" :  0.2
+        },
+        "breakable" : "True",
+        "receivedactions" : ["dig"],
+        "drops" : {
+            "ore" : 0,
+            "cardboard" : 0,
+            "goo" : 0,
+            "sand" :  0,
+            "carbon" :  0,
+            "fibre" :  0,
+            "rubber" : 2,
+            "ppaste" : 0,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 0
         }
     },
      {
@@ -67,6 +127,21 @@
             "swamp" :  0,
             "volcanic" :  0.5,
             "cow" :  0
+        },
+        "breakable" : "True",
+        "receivedactions" : ["hit"],
+        "drops" : {
+            "ore" : 2,
+            "cardboard" : 0,
+            "goo" : 0,
+            "sand" :  0,
+            "carbon" :  1,
+            "fibre" :  0,
+            "rubber" : 0,
+            "ppaste" : 0,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 0
         }
     },
     {
@@ -81,6 +156,21 @@
             "swamp" :  0,
             "volcanic" :  1,
             "cow" :  0
+        },
+        "breakable" : "True",
+        "receivedactions" : ["dig"],
+        "drops" : {
+            "ore" : 2,
+            "cardboard" : 0,
+            "goo" : 0,
+            "sand" :  0,
+            "carbon" :  2,
+            "fibre" :  0,
+            "rubber" : 0,
+            "ppaste" : 0,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 1
         }
     },
     {
@@ -95,9 +185,24 @@
             "swamp" :  0,
             "volcanic" :  0,
             "cow" :  1
+        },
+        "breakable" : "True",
+        "receivedactions" : ["hit","shoot"],
+        "drops" : {
+            "ore" : 0,
+            "cardboard" : 0,
+            "goo" : 1,
+            "sand" :  0,
+            "carbon" :  0,
+            "fibre" :  1,
+            "rubber" : 0,
+            "ppaste" : 2,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 0
         }
     },
-     {
+    {
         "name" : "sheep",
         "niceName" : "Sheep",
         "img" : "assets/items/Sheep.png",
@@ -109,6 +214,21 @@
             "swamp" :  0,
             "volcanic" :  0,
             "cow" :  1
+        },
+        "breakable" : "True",
+        "receivedactions" : ["hit","shoot"],
+        "drops" : {
+            "ore" : 0,
+            "cardboard" : 0,
+            "goo" : 0,
+            "sand" :  0,
+            "carbon" :  0,
+            "fibre" :  2,
+            "rubber" : 0,
+            "ppaste" : 1,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 0
         }
     },
     {
@@ -123,6 +243,21 @@
             "swamp" :  0.5,
             "volcanic" :  0.2,
             "cow" :  0.5
+        },
+        "breakable" : "True",
+        "receivedactions" : ["hit","shoot"],
+        "drops" : {
+            "ore" : 0,
+            "cardboard" : 0,
+            "goo" : 2,
+            "sand" :  0,
+            "carbon" :  1,
+            "fibre" :  0,
+            "rubber" : 0,
+            "ppaste" : 1,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 1
         }
     },
     {
@@ -137,6 +272,21 @@
             "swamp" :  0.2,
             "volcanic" :  0.1,
             "cow" :  0.1
+        },
+        "breakable" : "True",
+        "receivedactions" : ["dig"],
+        "drops" : {
+            "ore" : 4,
+            "cardboard" : 0,
+            "goo" : 1,
+            "sand" :  0,
+            "carbon" :  2,
+            "fibre" :  0,
+            "rubber" : 2,
+            "ppaste" : 1,
+            "spice" : 1,
+            "rooster" : 1,
+            "plasma" : 1
         }
     },
 
@@ -472,7 +622,7 @@
         "name" : "obcomputer",
         "niceName" : "On-Board Computer",
         "img" : "assets/equipment/cockpit_equipment.png",
-        "description" : "This on board computer adds extra equipment capacity for the cockpit. It is also slihtloy annoying."
+        "description" : "This on board computer adds extra equipment capacity for the cockpit. It is also slightly annoying."
     },
     {
         "name" : "petpod",
@@ -516,7 +666,7 @@
         "name" : "pillow",
         "niceName" : "Pillow",
         "img" : "assets/equipment/cockpit_equipment.png",
-        "description" : "Pillows are soft, light, and stackable!"
+        "description" : "Pillows are soft. They're light. You can even make a pile of them!"
     },
     {
         "name" : "agoodbook",
@@ -536,7 +686,7 @@
         "name" : "pflames",
         "niceName" : "Painted Flames",
         "img" : "assets/equipment/cockpit_equipment.png",
-        "description" : "These painted flames can be aplied to a ship to make it go faster. This is science."
+        "description" : "These painted flames can be aplied to a ship to make it go faster. This is how science works."
     },
 
 
@@ -545,43 +695,57 @@
         "name" : "somnitool",
         "niceName" : "Ship Omni-Tool",
         "img" : "assets/equipment/engineering_equipment.png",
-        "description" : "Every ship should have an omni tool to handle the mysteries of space."
+        "description" : "Every ship should have an omni tool to handle the mysteries of space.",
+        "tool" : "True",
+        "actions" : ["hit"]
     },
     {
         "name" : "snet",
         "niceName" : "Space Net",
         "img" : "assets/equipment/engineering_equipment.png",
-        "description" : "This upgrade to the standard omni tool features an energy net."
+        "description" : "This upgrade to the standard omni tool features an energy net.",
+        "tool" : "True",
+        "actions" : ["catch"]
     },
     {
         "name" : "sdrill",
         "niceName" : "Space Drill",
         "img" : "assets/equipment/engineering_equipment.png",
-        "description" : "This upgrade is the upgrade that will pierce the heavens."
+        "description" : "This upgrade is the upgrade that will pierce the heavens.",
+        "tool" : "True",
+        "actions" : ["hit","dig"]
     },
     {
         "name" : "svacuum",
         "niceName" : "Space Vacuum",
         "img" : "assets/equipment/engineering_equipment.png",
-        "description" : "This upgrade to the omni-tool sucks... In a good way."
+        "description" : "This upgrade to the omni-tool sucks... In a good way.",
+        "tool" : "True",
+        "actions" : ["suck"]
     },
     {
         "name" : "lasergun",
         "niceName" : "Laser Gun",
         "img" : "assets/equipment/engineering_equipment.png",
-        "description" : "This basic gun provides basic pew pew functionality to the ship."
+        "description" : "This basic gun provides basic pew pew functionality to the ship.",
+        "tool" : "True",
+        "actions" : ["shoot"]
     },
     {
         "name" : "alienlaser",
         "niceName" : "Alien Laser",
         "img" : "assets/equipment/engineering_equipment.png",
-        "description" : "This mysterious laser built with alien tech is a good deal more powerful than a basic laser."
+        "description" : "This mysterious laser built with alien tech is a good deal more powerful than a basic laser.",
+        "tool" : "True",
+        "actions" : ["shoot"]
     },
     {
         "name" : "particlebeam",
         "niceName" : "Particle Beam",
         "img" : "assets/equipment/engineering_equipment.png",
-        "description" : "This laser upgrade uses complex shoop whooping technology to generate a massive energy beam."
+        "description" : "This laser upgrade uses complex shoop whooping technology to generate a massive energy beam.",
+        "tool" : "True",
+        "actions" : ["shoot"]
     },
     {
         "name" : "callibratedguns",
@@ -673,25 +837,25 @@
         "name" : "equipmentshelf",
         "niceName" : "Equipment Shelf",
         "img" : "assets/equipment/cargo_equipment.png",
-        "description" : ""
+        "description" : "This simple upgrade provides additional shelves to store more stuff."
     },
     {
         "name" : "quantumchest",
         "niceName" : "Quantum Chest",
         "img" : "assets/equipment/cargo_equipment.png",
-        "description" : ""
+        "description" : "This upgrade uses quantum technology to store many things in a tiny box."
     },
     {
         "name" : "bigpetpen",
         "niceName" : "Big Pet Pen",
         "img" : "assets/equipment/cargo_equipment.png",
-        "description" : ""
+        "description" : "This storage space holds your very own big space pet. For when a space hamster just isn't enough."
     },
     {
         "name" : "picnicbasket",
         "niceName" : "Picnic Basket",
         "img" : "assets/equipment/cargo_equipment.png",
-        "description" : ""
+        "description" : "This delicious assortment of fine foods is neatly sorted in a pleasant little basket. Beware of moon bears attempting to steal it."
     },
 
 
@@ -700,37 +864,37 @@
         "name" : "boosters",
         "niceName" : "Boosters",
         "img" : "assets/equipment/engine_equipment.png",
-        "description" : ""
+        "description" : "This upgrade harnesses the power of crystal to bring the ship's speeds to new heights. A must have for anyone attempting the Kessel Run."
     },
     {
         "name" : "erecycler",
         "niceName" : "Exhaust Recycler",
         "img" : "assets/equipment/engine_equipment.png",
-        "description" : ""
+        "description" : "This upgrade refilters exhaust generated by the engine to preserve fuel. A great choice for the environmentally conscious."
     },
     {
         "name" : "econverter",
-        "niceName" : "Energy COnverter",
+        "niceName" : "Energy Converter",
         "img" : "assets/equipment/engine_equipment.png",
-        "description" : ""
+        "description" : "This addition to the fuel consumption system allows for more efficient conversion of fuel sources into proper energy."
     },
     {
         "name" : "fpfilter",
         "niceName" : "Fuel Purification Filter",
         "img" : "assets/equipment/engine_equipment.png",
-        "description" : ""
+        "description" : "This filtering system siphons energy with remarkable efficiency to maximise fuel effectiveness."
     },
     {
         "name" : "qreactor",
         "niceName" : "Quantum Reactor",
         "img" : "assets/equipment/engine_equipment.png",
-        "description" : ""
+        "description" : "The quantum reactor channels energy at the atomic level to produce spectacular boosts in energy output."
     },
     {
         "name" : "oilchange",
         "niceName" : "Oil Change",
         "img" : "assets/equipment/engine_equipment.png",
-        "description" : ""
+        "description" : "This upgrade is a simple question of sensible maintenance. It is nonetheless a good way to keep your ship's performance up to snuff."
     },
 
 
@@ -739,66 +903,76 @@
         "name" : "coolhat",
         "niceName" : "Cool Hat",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : ""
+        "description" : "This hat is cool. People who wear this hat are probably cool too. If nothing else they'll feel cool."
     },
     {
         "name" : "oxygenmask",
         "niceName" : "Oxygen Mask",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : ""
+        "description" : "This mask directs oxygen into your helmet to keep you alive in the harch conditions of space."
     },
     {
         "name" : "ominousmask",
         "niceName" : "Ominous Mask",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : ""
+        "description" : "This creepy mask seems like it came out of old mayan legend. It is said to give the wielder great power."
     },
     {
         "name" : "redshirt",
         "niceName" : "Red Shirt",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : ""
+        "description" : "This shirt is speculated to curse the wearer with a short life. It's not very comfortable either."
     },
     {
         "name" : "comfysweater",
         "niceName" : "Comfy Sweater",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : ""
+        "description" : "This sweater may not be especially protective but it sure is cozy."
     },
     {
         "name" : "hazmatsuit",
         "niceName" : "Hazmat Suit",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : ""
+        "description" : "This suit is specially designed to protect the wearer from the elements and harsh environmental hazards."
     },
     {
         "name" : "pomnitool",
         "niceName" : "Personal Omni-Tool",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : ""
+        "description" : "Every self respecting astronaut has a one such tool for collecting resources. It is a must have for any true adventurer.",
+        "tool" : "True",
+        "actions" : ["hit"]
     },
     {
         "name" : "sonicshovel",
         "niceName" : "Sonic Shovel",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : ""
+        "description" : "This omni tool upgrade optimises the shovelling process with innovative sonic shovelling technology... Whatever that means.",
+        "tool" : "True",
+        "actions" : ["hit","dig"]
     },
     {
         "name" : "simplegun",
         "niceName" : "Simple Gun",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : ""
+        "description" : "This gun is simple. It can be used to shoot things. It goes pew. That is all.",
+        "tool" : "True",
+        "actions" : ["shoot"]
     },
     {
         "name" : "blaster",
         "niceName" : "Blaster",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : ""
+        "description" : "This blaster is a bit cooler than a simple gun. It is also more powerful.",
+        "tool" : "True",
+        "actions" : ["shoot"]
     },
     {
         "name" : "cricketgun",
         "niceName" : "Cricket Gun",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : ""
+        "description" : "This comically tiny gun packs a riddiculous punch.",
+        "tool" : "True",
+        "actions" : ["shoot"]
     }
 ]
