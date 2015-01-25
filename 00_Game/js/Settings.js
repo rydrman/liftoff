@@ -19,6 +19,8 @@ var Settings = {
     aspectW : 16,
     aspectH : 9,
    
+    fontFamily: "Arial",
+    
     //for world generation
     worldSize : {
         x: 200,
