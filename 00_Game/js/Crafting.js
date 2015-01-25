@@ -10,12 +10,16 @@ Crafting.prototype.load = function() {
     var loader = new AsyncLoader(),
         self = this;
     
-    loader.onComplete = this.onLoad;
-    loader.onCompleteContext = this.onLoadContext;
+    loader.onComplete = function() {
+        this.onLoad.call(this.onLoadContext);
+    };
+    loader.onCompleteContext = this;
     
     loader.addJSONCall( 'json/recipes.json', function(data){
         self.recipes = data;
     });
+    
+    loader.runCalls();
 }
 
 Crafting.prototype.update = function(player, ship) {
