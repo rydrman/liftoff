@@ -63,6 +63,19 @@ var UI = function(canvas)
         comfort: new Rectangle( 1800 / 1920, 956 / 1080, 92 / 1920, 92 / 1080),
     }
     
+    
+    this.playerEquip = {
+        background: new Rectangle( 1010 / 1920, 870 / 1080, 230 / 1920, 154 / 1080),
+        slots: {
+            tool: new Rectangle( 1170 / 1920, 952 / 1080, 70 / 1920, 70 / 1080),
+            helmet: new Rectangle( 1087 / 1920, 870 / 1080, 70 / 1920, 70 / 1080),
+            suit: new Rectangle( 1087 / 1920, 952 / 1080, 70 / 1920, 70 / 1080),
+            weapon: new Rectangle( 1007 / 1920, 952 / 1080, 70 / 1920, 70 / 1080),
+        },
+        fontSize: 12/1920,
+        fontTranslate: {x: 60/1920, y: 65 / 1080}
+    }
+    
     this.playerInv = {
         background: new Rectangle( 1315 / 1920, 870 / 1080, 223 / 1920, 150 / 1080),
         slots: [
@@ -96,6 +109,7 @@ var UI = function(canvas)
     this.backAddonImg = new Image();
     
     this.craftBackImg = new Image();
+    this.equipBackImg = new Image();
     this.playerInventoryImg = new Image();
     this.shipInventoryImg = new Image();
     
@@ -152,6 +166,8 @@ UI.prototype.load = function()
     loader.addImageCall('assets/menu/uiScience.png', this.shipIcons.science);
     loader.addImageCall('assets/menu/uiCargo.png', this.shipIcons.cargo);
     loader.addImageCall('assets/menu/uiEngine.png', this.shipIcons.engine);
+    
+    loader.addImageCall('assets/menu/menu_player_equipment-01.png', this.equipBackImg);
     
     // Player stats
     loader.addImageCall('assets/icons/armour.png', this.statDamageEmptyImg);

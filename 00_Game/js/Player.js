@@ -16,7 +16,10 @@ var Player = function() {
     this.comfort = 100;
     
     // Equipment
-    
+    this.helmet = null;
+    this.suit = null;
+    this.tool = null;
+    this.weapon = null;
     
     // Inventory
     this.inventory = {}; // "name" : {quantity, image}
@@ -82,18 +85,19 @@ Player.prototype.isInBounds = function( worldPos )
 
 Player.prototype.updateMovement = function(timer) 
 {
+    var goalPos = (this.goal instanceof Vector2) ? this.goal : this.goal.position;
     if(this.inShip)
     {
         this.position.copy( this.ship.position )
         this.force.set( 0, 0 );
         return;
     }
-    if( !this.position.compare( this.goal ) ) 
+    if( !this.position.compare( goalPos ) ) 
     {
-        var offset = this.goal.clone().sub( this.position);
+        var offset = goalPos.clone().sub( this.position );
         if (offset.length() < 0.1) 
         {
-            this.position.copy(this.goal);
+            this.position.copy(goalPos);
         } 
         else 
         {
@@ -107,7 +111,7 @@ Player.prototype.updateMovement = function(timer)
     else if (this.force.length() > 0) 
     {
         this.position.add(this.force);
-        this.goal.copy(this.position);
+        goalPos.copy(this.position);
     }
     this.force.set(0, 0);
     
@@ -122,12 +126,13 @@ Player.prototype.updateMovement = function(timer)
     else
     {
         //this.position.copy(this.planet.position);
-        var offset = this.goal.clone().sub(this.position);
+        var offset = goalPos.clone().sub(this.position);
         this.rotation = offset.toRotation();
     }
 }
 
-Player.prototype.update = function( timer ) {
+Player.prototype.update = function( timer ) 
+{
     this.updateMovement(timer);
     
     // tick variables
@@ -162,10 +167,17 @@ Player.prototype.toggleShipStatus = function(ship) {
 Player.prototype.addToInventory = function(objToAdd) {
     var index = -1;
     
-    for (i in this.inventory) {
+    for (var i in this.inventory) {
         if (i == objToAdd.name) {
             index = i;
         }
+    }
+    
+    //check tool, helmet etc
+    if(this[ objToAdd.type ] == null)
+    {
+        this[objToAdd.type] = objToAdd;
+        return true;
     }
     
     if (index !== -1) {

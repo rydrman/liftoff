@@ -11,9 +11,22 @@ var Renderer = function()
     
     this.pixelRatio = 50;
     this.pixelRatioInv = 1 / this.pixelRatio;
+    
+    this.backgroundImg = new Image();
 }
 
 Renderer.prototype = new AsyncLoadable();
+
+Renderer.prototype.load = function()
+{
+    var loader = new AsyncLoader();
+    loader.onComplete = this.onLoad;
+    loader.onCompleteContext = this.onLoadContext;
+    
+    loader.addImageCall("assets/StarryBackground-02.png", this.backgroundImg);
+    
+    loader.runCalls();
+}
 
 Renderer.prototype.init = function( canvas )
 {
@@ -34,6 +47,25 @@ Renderer.prototype.render = function( world, player, ship, ui, draggedItem, time
     this.viewport.y = center.y - viewportSize.y * 0.5;
     this.viewport.w = viewportSize.x;
     this.viewport.h = viewportSize.y;
+    
+    //draw repeating background
+    var backSize = new Vector2( this.backgroundImg.width, this.backgroundImg.height );
+    var backSizeWorld = this.pixelToWorld2( backSize );
+    var offset = new Vector2( this.viewport.x % backSizeWorld.x, this.viewport.y % backSizeWorld.y );
+    offset = this.worldToPixel2( offset );
+    var x = -(backSize.x + offset.x);
+    
+    while(x < this.canvas.width)
+    {
+        var y = -(backSize.y + offset.y);
+        while(y < this.canvas.height)
+        {
+            this.ctx.drawImage(this.backgroundImg, x, y, this.backgroundImg.width, this.backgroundImg.height);
+                               
+            y += backSize.y;
+        }
+        x += backSize.x;
+    }
     
     if(Settings.debug)
     {
@@ -116,7 +148,7 @@ Renderer.prototype.render = function( world, player, ship, ui, draggedItem, time
         //draw atmosphere
         if(p.atmosphere)
         {
-            this.ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+            this.ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
             this.ctx.beginPath();
             this.ctx.arc(0, 0, rad + this.worldToPixel(1), 0, Math.PI * 2, false );
             this.ctx.fill();
@@ -195,8 +227,8 @@ Renderer.prototype.render = function( world, player, ship, ui, draggedItem, time
     // render dragged item
     if (draggedItem != null) {
         this.ctx.drawImage(draggedItem.image,
-                           draggedItem.position.x,
-                           draggedItem.position.y,
+                           draggedItem.position.x - 25,
+                           draggedItem.position.y - 25,
                            50, 50);
     }
     
@@ -342,6 +374,33 @@ Renderer.prototype.renderUI = function( ui, player )
     
     //draw inventory
     
+    //tools and clothes
+    this.ctx.drawImage(ui.equipBackImg,
+                       ui.playerEquip.background.x * this.canvas.width,
+                       ui.playerEquip.background.y * this.canvas.height,
+                       ui.playerEquip.background.w * this.canvas.width,
+                       ui.playerEquip.background.h * this.canvas.height );
+    for(var i in ui.playerEquip.slots)
+    {
+        if(Settings.debug)
+        {
+            this.ctx.fillStyle = "#555";
+            this.ctx.fillRect(ui.playerEquip.slots[i].x * this.canvas.width,
+                              ui.playerEquip.slots[i].y * this.canvas.height,
+                              ui.playerEquip.slots[i].w * this.canvas.width,
+                              ui.playerEquip.slots[i].h * this.canvas.height);
+        }
+        if(player[i] && player[i] != null)
+        {
+            this.ctx.drawImage(player[i].image,
+                               ui.playerEquip.slots[i].x * this.canvas.width,
+                               ui.playerEquip.slots[i].y * this.canvas.height,
+                               ui.playerEquip.slots[i].w * this.canvas.width,
+                               ui.playerEquip.slots[i].h * this.canvas.height);
+        }
+    }
+    
+    //inventory
     this.ctx.drawImage(ui.playerInventoryImg,
                        ui.playerInv.background.x * this.canvas.width,
                        ui.playerInv.background.y * this.canvas.height,
@@ -372,6 +431,8 @@ Renderer.prototype.renderUI = function( ui, player )
         
         slot ++;
     }
+    
+    
     if (ship && player.inShip) {
         this.ctx.drawImage(ui.shipInventoryImg,
                            ui.shipInv.background.x * this.canvas.width,

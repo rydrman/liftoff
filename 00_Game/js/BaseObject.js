@@ -20,11 +20,11 @@ var BaseObject = function( item )
     this.rotation = 0;
     
     this.type = item.type ? item.type : "";
-    this.action = item.action ? item.action : "";
+    this.actions = item.actions ? item.actions : [""];
     
     //breakble
     //this.breakable = item.breakable ? true : false;
-    this.recievedActions = item.recievedActions ? item.recievedActions : [];
+    this.receivedActions = item.receivedActions ? item.receivedActions : [];
     this.drops = item.drops ? item.drops : [];
 
     this.bounds = new Rectangle();

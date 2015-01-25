@@ -131,19 +131,7 @@ World.prototype.sample = function( worldPos )
             {
                 var item = this.planets[i].items[j];
                 if( this.planets[i].items[j].isInBounds( worldPos ) )
-                    return {
-                        index: j,
-                        planetIndex: i,
-                        objectData: item
-                    }
-                /*if (worldPos.clone().sub(this.planets[i].position.clone().add(item.position)).length() < (item.image.width/2)/(50*2.5)) { // TODO: Fix pixel ratio - don't hardcode
-                    //clicked item return
-                    return {
-                        index: j,
-                        planetIndex: i,
-                        objectData: item
-                    }
-                }*/
+                    return item;
             }
             //no object, return planet if within inner radius
             if (worldPos.clone().sub(this.planets[i].position).length() < this.planets[i].radius)

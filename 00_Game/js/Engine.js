@@ -124,56 +124,68 @@ Engine.prototype.onMouseDown = function( mousePos )
         //console.log("World Element Clicked");
         if(result instanceof Ship)
         {
-            if (this.player.inShip) {
-                this.crafting.update(this.player);
-                this.ui.openShip( result );
+            if (this.player.position.clone().sub(result.position).length() < 1) 
+            {
+                this.player.toggleShipStatus(result);
+                this.renderer.zoom = (this.player.inShip) ? 1.0 : 2.5;
             }
         }
         else if(result instanceof Planet)
         {
             console.log("planet clicked");
         }
-        else
+        else if( result instanceof BaseObject )
         {
-            console.log("item clicked", result.objectData);
+            console.log("item clicked", result);
             //item on a planet
             this.mouseLTarget = "world";
             // check if player is close enough to pick up object
-            if (this.player.position.clone().sub(result.objectData.position).length() < 0.4)
+            if (this.player.position.clone().sub(result.position).length() < 0.4)
             {
-                var item = result.objectData;
                 //is it a breakable?
-                switch( item.type )
+                switch( result.type )
                 {
                     case "breakable":
-                        item.planet.removeItem( item );
                         
-                        for(var i in item.drops)
+                        if(null == this.player.tool) break;
+                        
+                        for( var i in this.player.tool.actions)
                         {
-                            for( var j = 0; j < item.drops[i]; j++)
+                            if(-1 == result.receivedActions.indexOf( this.player.tool.actions[i] )) break;
+                        }
+                        
+                        result.planet.removeItem( result );
+                        
+                        for(var i in result.drops)
+                        {
+                            for( var j = 0; j < result.drops[i]; j++)
                             {
                                 var newItem = new BaseObject( this.ui.items[ i ] );
-                                newItem.planetPosition = -0.1 + Math.random() * 0.1 + item.planetPosition;
-                                item.planet.addItem( newItem );
+                                newItem.planetPosition = -0.1 + Math.random() * 0.1 + result.planetPosition;
+                                result.planet.addItem( newItem );
                             }
                         }     
-                        item.planet = null;
+                        result.planet = null;
                         break;
                     default:
-                        if (this.player.addToInventory(result.objectData))
+                        if (this.player.addToInventory(result))
                         {
-                            item.planet.removeItem(result.objectData);
-                            item.planet = null;
+                            result.planet.removeItem(result);
+                            result.planet = null;
                         }
                         break;
                 }
             }
+            else
+            {
+                this.player.goal.copy(result.position)
+            }
         }
     } 
-    else if (this.player.isInBounds(worldPos)) 
-    {
-        this.ui.openCrafting( );
-    } 
+    //else if (this.player.isInBounds(worldPos)) 
+    //{
+    //    this.ui.openCrafting( );
+    //} 
     else if (this.player.inShip) 
     { // Update player / ship position
         this.mouseLTarget = "player";
@@ -199,18 +211,24 @@ Engine.prototype.onRMouseDown = function( mousePos)
     {
         console.log ("UI ELEMENT CLICKED");
     } 
-    //else if (this.ship.isInBounds(worldPos)) 
-    //{
-    //    this.ui.openShip( this.ship );
-    //} 
+    else if (this.player.isInBounds(worldPos)) 
+    {
+        //open crafting menu
+        this.ui.openCrafting( );
+    } 
     else if (result) 
     {
         if(result instanceof Ship)
         {
-            if (this.player.position.clone().sub(result.position).length() < 1) {
-                this.player.toggleShipStatus(result);
-                this.renderer.zoom = (this.player.inShip) ? 1.0 : 2.5;
+            if (this.player.inShip) 
+            {
+                if(this.player.ship === result)
+                {
+                    this.crafting.update(this.player);
+                    this.ui.openShip( result );
+                }
             }
+            
         }
         else if( result instanceof Planet )
         {
@@ -252,14 +270,41 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
         else if(result instanceof Planet)
         {
         }
-        else if(result && this.mouseLTarget == "world") {
-            //console.log("WORLD ELEMENT SUSTAINED");
+        else if(result instanceof BaseObject && this.mouseLTarget == "world") 
+        {
             // check if player is close enough to pick up object
             // TODO - timer subtick
-            if (this.player.position.clone().sub(this.world.planets[result.planetIndex].position.clone().add(result.objectData.position)).length() < 0.8) {
-                // Add to player inventory and remove from world
-                if (this.player.addToInventory(result.objectData))
-                    this.world.planets[result.planetIndex].removeItem(result.objectData);
+            switch( result.type )
+            {
+                case "breakable":
+
+                    if(null == this.player.tool) break;
+                    
+                    for( var i in this.player.tool.actions)
+                    {
+                        if(-1 == result.receivedActions.indexOf( this.player.tool.actions[i] )) break;
+                    }
+
+                    result.planet.removeItem( result );
+
+                    for(var i in result.drops)
+                    {
+                        for( var j = 0; j < result.drops[i]; j++)
+                        {
+                            var newItem = new BaseObject( this.ui.items[ i ] );
+                            newItem.planetPosition = -0.1 + Math.random() * 0.1 + result.planetPosition;
+                            result.planet.addItem( newItem );
+                        }
+                    }     
+                    result.planet = null;
+                    break;
+                default:
+                    if (this.player.addToInventory(result))
+                    {
+                        result.planet.removeItem(result);
+                        result.planet = null;
+                    }
+                    break;
             }
         } 
         if (this.player.inShip && this.mouseLTarget == "player") { // Update player / ship position
