@@ -17,13 +17,17 @@ var Player = function() {
     
     // Inventory
     this.inventory = {}; // "name" : quantity
+    this.inventorySize = 5;
 }
 
-Player.prototype.init = function() {
-    
+Player.prototype.init = function(timer) {
+    // start variable ticks
+    this.timer = timer;
+    this.timer.startSubTick("comfortTick");
+    this.timer.startSubTick("oxygenTick");
 }
 
-Player.prototype.update = function( timer ) {
+Player.prototype.updateMovement = function(timer) {
     if( !this.position.compare( this.goal ) ) {
         var offset = this.goal.clone().sub( this.position);
         if (offset.length() < 0.05) {
@@ -41,10 +45,28 @@ Player.prototype.update = function( timer ) {
     }
 }
 
+Player.prototype.update = function( timer ) {
+    this.updateMovement(timer);
+    
+    // tick variables
+    this.timer.endSubTick("oxygenTick");
+    if (this.timer.subTicks["oxygenTick"].deltaS > 1) {
+        this.oxygen = (this.inShip) ? Math.min(this.oxygen + 1, 100) : Math.max(this.oxygen - 1, 0);
+        this.timer.startSubTick("oxygenTick");
+    }
+    this.timer.endSubTick("comfortTick");
+    if (this.timer.subTicks["comfortTick"].deltaS > 3) {
+        this.comfort = (this.inShip) ? Math.max(this.comfort - 1, 0) : Math.min(this.oxygen + 1, 100);
+        this.timer.startSubTick("comfortTick");
+    }
+}
+
 Player.prototype.toggleShipStatus = function(ship) {
     this.inShip = !this.inShip;
     this.goal.copy(ship.position)
     this.position.copy(ship.position);
+    this.timer.startSubTick("oxygenTick");
+    this.timer.startSubTick("comfortTick");
 }
 
 Player.prototype.addToInventory = function(objToAdd) {
@@ -59,7 +81,7 @@ Player.prototype.addToInventory = function(objToAdd) {
     if (index !== -1) {
         this.inventory[index] ++;
         return true;
-    } else if (Object.keys(this.inventory).length < 5) {
+    } else if (Object.keys(this.inventory).length < this.inventorySize) {
         this.inventory[objToAdd.name] = 1;
         return true;
     } else {
