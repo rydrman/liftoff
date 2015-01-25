@@ -27,7 +27,7 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
     this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
     
     //calculate world viewport first
-    var center = player.inShip ? ship.position.clone() : player.position.clone();
+    var center = player.position.clone();
     //var centerPixel = this.worldToPixel2( center );
     var viewportSize = this.pixelToWorld2( new Vector2( this.canvas.width, this.canvas.height ) );
     this.viewport.x = center.x - viewportSize.x * 0.5;
@@ -75,7 +75,7 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
         this.ctx.fillText(timer.framerate.toFixed(2), 10, 10);
         
         //player / ship goal
-        var goal = (player.inShip) ? this.project(ship.goal) : this.project( player.goal );
+        var goal = (player.inShip) ? this.project(player.ship.goal) : this.project( player.goal );
         this.ctx.fillStyle = "#F00";
         this.ctx.beginPath();
         this.ctx.arc(goal.x, goal.y, 10, 0, Math.PI * 2, false);
@@ -83,7 +83,7 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
         
         //debug player position
         this.ctx.fillStyle = "#FFF";
-        var pos = player.inShip ? ship.position : player.position;
+        var pos = player.position.clone();
         this.ctx.fillText("x: " + pos.x.toFixed(2) + ", y: " + pos.y.toFixed(2), 10, 30);
         
         // Player Position
@@ -126,7 +126,7 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
             this.ctx.rotate( p.items[i].planetPosition );
             this.ctx.translate(0, rad)
             this.ctx.rotate( Math.PI )
-            this.ctx.scale( ship.renderScale, ship.renderScale );
+            this.ctx.scale( player.ship.renderScale, player.ship.renderScale );
             try{
                 this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75);
             }
@@ -140,17 +140,49 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
         this.ctx.restore()
     }
     
-    var shipDrawn = this.renderUI( ui, ship );
-    
-    if(!shipDrawn)
+    //drawShips, not player ship
+    for(var i in world.ships)
     {
-        this.renderShip( ship );
+        //TODO
+        if(world.ships[i] === player.ship) continue;
+        
+        this.renderShip( world.ships[i] );
+    }
+    
+    //ui and player ship
+    var shipDrawn = this.renderUI( ui, player.ship );
+
+    if(!shipDrawn && player.ship)
+    {
+        this.renderShip( player.ship );
     }
 }
 
 Renderer.prototype.renderUI = function( ui, ship )
 {    
-    //draw inventory
+    //draw inventory 
+    
+    //draw crafting
+    if( ui.craftOpen )
+    {
+        //draw background square
+        this.ctx.drawImage(ui.craftBackImg, 
+                           ui.craftingMenu.background.x * this.canvas.width,
+                           ui.craftingMenu.background.y * this.canvas.height,
+                           ui.craftingMenu.background.w * this.canvas.width,
+                           ui.craftingMenu.background.h * this.canvas.height
+                          );
+        for(var i in ship.parts)
+        {
+            //draw top row of menu items
+            this.ctx.drawImage(ui.backSquareImg, 
+                               ui.craftingMenu.topRow[i].x * this.canvas.width,
+                               ui.craftingMenu.topRow[i].y * this.canvas.height,
+                               ui.craftingMenu.topRow[i].w * this.canvas.width,
+                               ui.craftingMenu.topRow[i].h * this.canvas.height
+                              );
+        }
+    }
     
     //draw ship menu
     if( !ui.shipOpen ) 
@@ -284,9 +316,61 @@ Renderer.prototype.wrapWorldCoords = function( worldAbs )
     if( this.viewport.contains( worldAbs ) ) 
         return worldAbs;
     
+    var center = this.viewport.center;
+    
     var options = [];
     
     //try normal
+    var norm = worldAbs.clone();
+    options.push({
+        pos : norm.clone(),
+        dist : norm.sub( center ).lengthSqd()
+    });
+    //try top
+    var top = worldAbs.clone();
+    top.y -= Settings.worldSize.y;
+    options.push({
+        pos : top.clone(),
+        dist : top.sub( center ).lengthSqd()
+    });
+    //try left
+    var left = worldAbs.clone();
+    left.x -= Settings.worldSize.x;
+    options.push({
+        pos : left.clone(),
+        dist : left.sub( center ).lengthSqd()
+    });
+    //try bottom
+    var bottom = worldAbs.clone();
+    bottom.y += Settings.worldSize.y;
+    options.push({
+        pos : bottom.clone(),
+        dist : bottom.sub( center ).lengthSqd()
+    });
+    //try right
+    var right = worldAbs.clone();
+    right.x += Settings.worldSize.x;
+    options.push({
+        pos : right.clone(),
+        dist : right.sub( center ).lengthSqd()
+    });
+    //try both
+    var bothNeg = worldAbs.clone();
+    bothNeg.x -= Settings.worldSize.x;
+    bothNeg.y -= Settings.worldSize.y;
+    options.push({
+        pos : bothNeg.clone(),
+        dist : bothNeg.sub( center ).lengthSqd()
+    });
+    var bothPos = worldAbs.clone();
+    bothPos.x += Settings.worldSize.x;
+    bothPos.y += Settings.worldSize.y;
+    options.push({
+        pos : bothPos.clone(),
+        dist : bothPos.sub( center ).lengthSqd()
+    });
+    
+    /*//try normal
     var norm = worldAbs.clone();
     options.push({
         pos : norm,
@@ -320,7 +404,7 @@ Renderer.prototype.wrapWorldCoords = function( worldAbs )
         pos : right,
         dist : this.viewport.distanceTo( right )
     });
-    //try both-
+    //try both
     var bothNeg = worldAbs.clone();
     bothNeg.x -= Settings.worldSize.x;
     bothNeg.y -= Settings.worldSize.y;
@@ -334,7 +418,7 @@ Renderer.prototype.wrapWorldCoords = function( worldAbs )
     options.push({
         pos : bothPos,
         dist : this.viewport.distanceTo( bothPos )
-    });
+    });*/
     
     options.sort(function(a, b){return a.dist-b.dist});
     return options[0].pos;

@@ -173,6 +173,24 @@ Line.prototype.getPosition = function( perc )
     return new Vector2( this.a.x + (this.b.x - this.a.x) * perc, this.a.y + (this.b.y - this.a.y) * perc );
 }
 
+Line.prototype.distanceToPoint = function( point, clamp )
+{
+    var result = this.closestPoint( point, clamp );
+    return result.sub( point ).length();
+}
+
+Line.prototype.closestPoint = function( point, clamp )
+{
+    var ap = new Vector2().copy(point).sub(this.a),
+        ab = new Vector2().copy(point).sub(this.b);
+    
+    var perc = (ap.x * ab.x + ap.y * ab.y) / ab.legthSq();
+    
+    if(clamp) clamp(perc, 0, 1);
+    
+    return this.getPosition( perc );
+}
+
 //////////////////////////
 //         PATH         //
 //////////////////////////
@@ -235,6 +253,16 @@ Rectangle.prototype = {
             this.x + this.w * 0.5,
             this.y + this.h * 0.5
         );
+    },
+    get edges(){
+        var bottom = this.y + this.h,
+            right = this.x + this.w;
+        return [
+            new Line( new Vector2(this.x, this.y), new Vector2(right, this.y) ),
+            new Line( new Vector2(right, this.y),  new Vector2(right, bottom) ),
+            new Line( new Vector2(right, bottom),  new Vector2(this.x, bottom) ),
+            new Line( new Vector2(this.x, bottom), new Vector2(this.x, this.y) )
+        ]
     }
 }
 
@@ -250,39 +278,13 @@ Rectangle.prototype.distanceTo = function( vector )
 {
     if(this.contains(vector)) return 0;
     
-    var edges = [];
-    //top 
-    edges.push( this.y - vector.y );
-    //right
-    edges.push( vector.x - (this.x + this.w) );
-    //bottom
-    edges.push( vector.y - (this.y + this.h) );
-    //left
-    edges.push( this.x - vector.x );
+    var edges = this.edges;
     
-    for(var i = 0; i < edges.length; ++i)
+    for(var i in edges.length)
     {
-        var amount = (i % 2 == 0) ? this.h : this.w; 
-        
-        if( edges[i] < 0)
-        {
-            var dist = Math.abs( edges[i] );
-            edges[i] = (dist > amount) ? dist - amount : 0;
-        }
+        edges[i].dist = edges[i].distanceToPoint( vector, true );
     }
     
-    var distances = [];
-    
-    for(var i = 0; i < edges.length; ++i)
-    {
-        var j = i + 1;
-        if(j == edges.length) j = 0;
-
-        //if(edges[i] < 0 && edges[j] < 0)  
-        //    continue;
-        distances.push( Math.sqrt( edges[i] * edges[i] + edges[j] * edges[j] ) );
-    }
-    
-    distances.sort(function(a, b){return a-b});
-    return distances[0];
+    edges.sort(function(a, b){return a.dist-b.dist});
+    return edges[0].dist;
 }

@@ -6,7 +6,8 @@ var Player = function() {
     
     this.goal = new Vector2();
     
-    this.inShip = true;
+    this.inShip = false;
+    this.ship = null;
     
     // Variables
     this.oxygen = 90;
@@ -19,30 +20,45 @@ var Player = function() {
     this.inventory = {}; // "name" : quantity
 }
 
-Player.prototype.init = function() {
-    
+Player.prototype.init = function() 
+{
 }
 
-Player.prototype.update = function( timer ) {
-    if( !this.position.compare( this.goal ) ) {
+Player.prototype.update = function( timer ) 
+{
+    if(this.inShip)
+    {
+        this.position.copy( this.ship.position )
+        this.force.set( 0, 0 );
+        return;
+    }
+    if( !this.position.compare( this.goal ) ) 
+    {
         var offset = this.goal.clone().sub( this.position);
-        if (offset.length() < 0.05) {
+        if (offset.length() < 0.05) 
+        {
             this.position.copy(this.goal);
-        } else {
+        } 
+        else 
+        {
             offset.normalize();
             offset.add(this.force);
             offset.multiplyScalar(this.speed * timer.deltaTimeS);
             this.position.add( offset );
             this.rotation = offset.toRotation();
         }
-    } else if (this.force.length() > 0) {
+    } 
+    else if (this.force.length() > 0) 
+    {
         this.position.add(this.force);
         this.goal.copy(this.position);
     }
+    this.force.set(0, 0);
 }
 
 Player.prototype.toggleShipStatus = function(ship) {
     this.inShip = !this.inShip;
+    this.ship = ship ? ship : null;
     this.goal.copy(ship.position)
     this.position.copy(ship.position);
 }
