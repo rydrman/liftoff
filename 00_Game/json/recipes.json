@@ -1,6 +1,7 @@
 [
     {
         "result" : "metal",
+        "category" : "cargo",
         "requiredPiece": ["refiningchamber"],
         "ingredients" : {
             "ore" : 2
@@ -8,6 +9,7 @@
     },
     {
         "result" : "glass",
+        "category" : "cargo",
         "requiredPiece": ["refiningchamber"],
         "ingredients" : {
             "sand" : 2
@@ -15,6 +17,7 @@
     },
     {
         "result" : "crystal",
+        "category" : "cargo",
         "requiredPiece": ["refiningchamber"],
         "ingredients" : {
             "carbon" : 2,
@@ -23,6 +26,7 @@
     },
     {
         "result" : "cfibre",
+        "category" : "cargo",
         "requiredPiece": ["refiningchamber"],
         "ingredients" : {
             "carbon" : 1,
@@ -32,6 +36,7 @@
     },
     {
         "result" : "bolts",
+        "category" : "cargo",
         "requiredPiece": ["refiningchamber"],
         "ingredients" : {
             "metal" : 2
@@ -42,6 +47,7 @@
 
     {
         "result" : "ore",
+        "category" : "cargo",
         "requiredPiece": ["alchemylab"],
         "ingredients" : {
             "cardboard" : 2
@@ -49,6 +55,7 @@
     },
     {
         "result" : "cardboard",
+        "category" : "cargo",
         "requiredPiece": ["alchemylab"],
         "ingredients" : {
             "plasma" : 1
@@ -56,6 +63,7 @@
     },
     {
         "result" : "goo",
+        "category" : "cargo",
         "requiredPiece": ["alchemylab"],
         "ingredients" : {
             "rooster" : 1
@@ -63,6 +71,7 @@
     },
     {
         "result" : "sand",
+        "category" : "cargo",
         "requiredPiece": ["alchemylab"],
         "ingredients" : {
             "goo" : 2
@@ -70,6 +79,7 @@
     },
     {
         "result" : "carbon",
+        "category" : "cargo",
         "requiredPiece": ["alchemylab"],
         "ingredients" : {
             "ppaste" : 2
@@ -77,6 +87,7 @@
     },
     {
         "result" : "fibre",
+        "category" : "cargo",
         "requiredPiece": ["alchemylab"],
         "ingredients" : {
             "rubber" : 2
@@ -84,6 +95,7 @@
     },
     {
         "result" : "rubber",
+        "category" : "cargo",
         "requiredPiece": ["alchemylab"],
         "ingredients" : {
             "carbon" : 1
@@ -91,6 +103,7 @@
     },
     {
         "result" : "ppaste",
+        "category" : "cargo",
         "requiredPiece": ["alchemylab"],
         "ingredients" : {
             "spice" : 1
@@ -98,6 +111,7 @@
     },
     {
         "result" : "spice",
+        "category" : "cargo",
         "requiredPiece": ["alchemylab"],
         "ingredients" : {
             "sand" : 4
@@ -105,6 +119,7 @@
     },
     {
         "result" : "rooster",
+        "category" : "cargo",
         "requiredPiece": ["alchemylab"],
         "ingredients" : {
             "ore" : 2
@@ -112,6 +127,7 @@
     },
     {
         "result" : "plasma",
+        "category" : "cargo",
         "requiredPiece": ["alchemylab"],
         "ingredients" : {
             "fibre" : 4
@@ -127,6 +143,7 @@
 
     {
         "result" : "bcockpit",
+        "category" : "cockpit",
         "requiredPiece": [""],
         "ingredients" : {
             "cardboard" : 2,
@@ -136,6 +153,7 @@
     },
     {
         "result" : "acockpit",
+        "category" : "cockpit",
         "requiredPiece": ["bcockpit"],
         "ingredients" : {
             "metal" : 2,
@@ -147,6 +165,7 @@
     },
     {
         "result" : "vcockpit",
+        "category" : "cockpit",
         "requiredPiece": ["bcockpit","acockpit"],
         "ingredients" : {
             "cfibre" : 2,
@@ -156,7 +175,8 @@
         }
     },
     {
-        "result" : "barmaments",
+        "result" : "bengineering",
+        "category" : "engineering",
         "requiredPiece": [""],
         "ingredients" : {
             "cardboard" : 2,
@@ -165,8 +185,9 @@
         }
     },
     {
-        "result" : "aarmaments",
-        "requiredPiece": ["barmaments"],
+        "result" : "aengineering",
+        "category" : "engineering",
+        "requiredPiece": ["bengineering"],
         "ingredients" : {
             "metal" : 2,
             "bolts" : 2,
@@ -175,8 +196,9 @@
         }
     },
     {
-        "result" : "varmaments",
-        "requiredPiece": ["barmaments","aarmaments"],
+        "result" : "vengineering",
+        "category" : "engineering",
+        "requiredPiece": ["bengineering","aengineering"],
         "ingredients" : {
             "cfibre" : 2,
             "crystal" : 1,
@@ -185,6 +207,7 @@
     },
     {
         "result" : "bsciencebay",
+        "category" : "science",
         "requiredPiece": [""],
         "ingredients" : {
             "cardboard" : 2,
@@ -194,6 +217,7 @@
     },
     {
         "result" : "asciencebay",
+        "category" : "science",
         "requiredPiece": ["bsciencebay"],
         "ingredients" : {
             "metal" : 2,
@@ -203,6 +227,7 @@
     },
     {
         "result" : "vsciencebay",
+        "category" : "science",
         "requiredPiece": ["bsciencebay","asciencebay"],
         "ingredients" : {
             "cfibre" : 1,
@@ -213,6 +238,7 @@
     },
     {
         "result" : "bcargobay",
+        "category" : "cargo",
         "requiredPiece": [""],
         "ingredients" : {
             "cardboard" : 2,
@@ -222,6 +248,7 @@
     },
     {
         "result" : "acargobay",
+        "category" : "cargo",
         "requiredPiece": ["bcargobay"],
         "ingredients" : {
             "metal" : 2,
@@ -231,6 +258,7 @@
     },
     {
         "result" : "vcargobay",
+        "category" : "cargo",
         "requiredPiece": ["bcargobay","acargobay"],
         "ingredients" : {
             "cfibre" : 4,
@@ -240,6 +268,7 @@
     },
     {
         "result" : "bthrusters",
+        "category" : "engine",
         "requiredPiece": [""],
         "ingredients" : {
             "ore" : 2,
@@ -249,6 +278,7 @@
     },
     {
         "result" : "athrusters",
+        "category" : "engine",
         "requiredPiece": ["bthrusters"],
         "ingredients" : {
             "metal" : 2,
@@ -258,6 +288,7 @@
     },
     {
         "result" : "vthrusters",
+        "category" : "engine",
         "requiredPiece": ["bthrusters","athrusters"],
         "ingredients" : {
             "cfibre" : 2,
@@ -270,6 +301,7 @@
 
     {
         "result" : "radar",
+        "category" : "cockpit",
         "requiredPiece": ["vcockpit"],
         "ingredients" : {
             "glass" : 1,
@@ -279,6 +311,7 @@
     },
     {
         "result" : "obcomputer",
+        "category" : "cockpit",
         "requiredPiece": ["vcockpit"],
         "ingredients" : {
             "glass" : 1,
@@ -287,6 +320,7 @@
     },
     {
         "result" : "petpod",
+        "category" : "cockpit",
         "requiredPiece": ["vcockpit", "acockpit"],
         "ingredients" : {
             "glass" : 2,
@@ -296,6 +330,7 @@
     },
     {
         "result" : "cchair",
+        "category" : "cockpit",
         "requiredPiece": ["vcockpit","acockpit"],
         "ingredients" : {
             "cardboard" : 1,
@@ -305,6 +340,7 @@
     },
     {
         "result" : "cbed",
+        "category" : "cockpit",
         "requiredPiece": ["vcockpit","acockpit"],
         "ingredients" : {
             "cardboard" : 2,
@@ -314,6 +350,7 @@
     },
     {
         "result" : "hseat",
+        "category" : "cockpit",
         "requiredPiece": ["vcockpit"],
         "ingredients" : {
             "fibre" : 2,
@@ -323,6 +360,7 @@
     },
     {
         "result" : "pillow",
+        "category" : "cockpit",
         "requiredPiece": ["vcockpit","acockpit","bcockpit"],
         "ingredients" : {
             "fibre" : 4
@@ -331,6 +369,7 @@
 
     {
         "result" : "pflames",
+        "category" : "cockpit",
         "requiredPiece": ["vcockpit","acockpit"],
         "ingredients" : {
             "rooster" : 1,
@@ -342,7 +381,8 @@
 
     {
         "result" : "somnitool",
-        "requiredPiece": ["varmaments","aarmaments","barmaments"],
+        "category" : "engineering",
+        "requiredPiece": ["vengineering","aengineering","bengineering"],
         "ingredients" : {
             "metal" : 1,
             "bolts" : 2
@@ -350,6 +390,7 @@
     },
     {
         "result" : "snet",
+        "category" : "engineering",
         "requiredPiece": ["somnitool"],
         "ingredients" : {
             "metal" : 1,
@@ -358,6 +399,7 @@
     },
     {
         "result" : "sdrill",
+        "category" : "engineering",
         "requiredPiece": ["somnitool"],
         "ingredients" : {
             "metal" : 2,
@@ -366,6 +408,7 @@
     },
     {
         "result" : "svacuum",
+        "category" : "engineering",
         "requiredPiece": ["somnitool"],
         "ingredients" : {
             "metal" : 2,
@@ -374,7 +417,8 @@
     },
     {
         "result" : "lasergun",
-        "requiredPiece": ["varmaments","aarmaments","barmaments"],
+        "category" : "engineering",
+        "requiredPiece": ["vengineering","aengineering","bengineering"],
         "ingredients" : {
             "metal" : 1,
             "rubber" : 1
@@ -382,6 +426,7 @@
     },
     {
         "result" : "alienlaser",
+        "category" : "engineering",
         "requiredPiece": ["lasergun"],
         "ingredients" : {
             "carbon" : 2,
@@ -391,6 +436,7 @@
     },
     {
         "result" : "particlebeam",
+        "category" : "engineering",
         "requiredPiece": ["lasergun","alienlaser"],
         "ingredients" : {
             "cfibre" : 2,
@@ -400,6 +446,7 @@
     },
     {
         "result" : "callibratedguns",
+        "category" : "engineering",
         "requiredPiece": ["alienlaser","particlebeam"],
         "ingredients" : {
             "cfibre" : 2,
@@ -409,7 +456,8 @@
     },
     {
         "result" : "repulsors",
-        "requiredPiece": ["varmaments","aarmaments"],
+        "category" : "engineering",
+        "requiredPiece": ["vengineering","aengineering"],
         "ingredients" : {
             "rubber" : 2,
             "bolts" : 2
@@ -417,7 +465,8 @@
     },
     {
         "result" : "forcefield",
-        "requiredPiece": ["varmaments"],
+        "category" : "engineering",
+        "requiredPiece": ["vengineering"],
         "ingredients" : {
             "plasma" : 1,
             "cfibre" : 1
@@ -425,7 +474,8 @@
     },
     {
         "result" : "rplating",
-        "requiredPiece": ["varmaments","aarmaments"],
+        "category" : "engineering",
+        "requiredPiece": ["vengineering","aengineering"],
         "ingredients" : {
             "metal" : 2,
             "bolts" : 2
@@ -433,7 +483,8 @@
     },
     {
         "result" : "suspensors",
-        "requiredPiece": ["varmaments","aarmaments"],
+        "category" : "engineering",
+        "requiredPiece": ["vengineering","aengineering"],
         "ingredients" : {
             "metal" : 2,
             "goo" : 1,
@@ -445,6 +496,7 @@
 
     {
         "result" : "refiningchamber",
+        "category" : "science",
         "requiredPiece": ["vsciencebay","asciencebay","bsciencebay"],
         "ingredients" : {
             "ore" : 2,
@@ -454,6 +506,7 @@
     },
     {
         "result" : "alchemylab",
+        "category" : "science",
         "requiredPiece": ["vsciencebay","asciencebay"],
         "ingredients" : {
             "metal" : 1,
@@ -463,6 +516,7 @@
     },
     {
         "result" : "researchcentre",
+        "category" : "science",
         "requiredPiece": ["vsciencebay","asciencebay"],
         "ingredients" : {
             "glass" : 2,
@@ -473,6 +527,7 @@
     },
     {
         "result" : "minifridge",
+        "category" : "science",
         "requiredPiece": ["vsciencebay","asciencebay"],
         "ingredients" : {
             "rubber" : 2,
@@ -482,6 +537,7 @@
     },
     {
         "result" : "aicecream",
+        "category" : "science",
         "requiredPiece": ["vsciencebay","asciencebay"],
         "ingredients" : {
             "ppaste" : 2,
@@ -490,6 +546,7 @@
     },
     {
         "result" : "stasispod",
+        "category" : "science",
         "requiredPiece": ["vsciencebay"],
         "ingredients" : {
             "rubber" : 2,
@@ -503,6 +560,7 @@
 
     {
         "result" : "equipmentshelf",
+        "category" : "cargo",
         "requiredPiece": ["vcargobay","acargobay"],
         "ingredients" : {
             "cardboard" : 2,
@@ -512,6 +570,7 @@
     },
     {
         "result" : "quantumchest",
+        "category" : "cargo",
         "requiredPiece": ["vcargobay"],
         "ingredients" : {
             "metal" : 2,
@@ -521,6 +580,7 @@
     },
     {
         "result" : "bigpetpen",
+        "category" : "cargo",
         "requiredPiece": ["vcargobay","acargobay"],
         "ingredients" : {
             "fibre" : 4,
@@ -531,6 +591,7 @@
     },
     {
         "result" : "picnicbasket",
+        "category" : "cargo",
         "requiredPiece": ["vcargobay","acargobay","bcargobay"],
         "ingredients" : {
             "cardboard" : 1,
@@ -543,6 +604,7 @@
 
     {
         "result" : "boosters",
+        "category" : "engine",
         "requiredPiece": ["vthrusters","athrusters"],
         "ingredients" : {
             "metal" : 4,
@@ -552,6 +614,7 @@
     },
     {
         "result" : "erecycler",
+        "category" : "engine",
         "requiredPiece": ["vthrusters","athrusters","bthrusters"],
         "ingredients" : {
             "ore" : 2,
@@ -561,6 +624,7 @@
     },
     {
         "result" : "econverter",
+        "category" : "engine",
         "requiredPiece": ["vthrusters","athrusters"],
         "ingredients" : {
             "metal" : 2,
@@ -571,6 +635,7 @@
     },
     {
         "result" : "fpfilter",
+        "category" : "engine",
         "requiredPiece": ["vthrusters","athrusters"],
         "ingredients" : {
             "metal" : 2,
@@ -579,6 +644,7 @@
     },
     {
         "result" : "qreactor",
+        "category" : "engine",
         "requiredPiece": ["vthrusters"],
         "ingredients" : {
             "metal" : 2,
@@ -589,6 +655,7 @@
     },
     {
         "result" : "oilchange",
+        "category" : "engine",
         "requiredPiece": ["vthrusters","athrusters","bthrusters"],
         "ingredients" : {
             "metal" : 1,
@@ -601,6 +668,7 @@
 
     {
         "result" : "coolhat",
+        "category" : "cargo",
         "requiredPiece": [""],
         "ingredients" : {
             "fibre" : 2,
@@ -609,6 +677,7 @@
     },
     {
         "result" : "oxygenmask",
+        "category" : "cargo",
         "requiredPiece": [""],
         "ingredients" : {
             "rubber" : 2,
@@ -617,6 +686,7 @@
     },
     {
         "result" : "ominousmask",
+        "category" : "cargo",
         "requiredPiece": [""],
         "ingredients" : {
             "carbon" : 1,
@@ -626,6 +696,7 @@
     },
     {
         "result" : "redshirt",
+        "category" : "cargo",
         "requiredPiece": [""],
         "ingredients" : {
             "fibre" : 3,
@@ -635,6 +706,7 @@
     },
     {
         "result" : "comfysweater",
+        "category" : "cargo",
         "requiredPiece": [""],
         "ingredients" : {
             "fibre" : 4,
@@ -643,6 +715,7 @@
     },
     {
         "result" : "hazmatsuit",
+        "category" : "cargo",
         "requiredPiece": [""],
         "ingredients" : {
             "fibre" : 4,
@@ -652,6 +725,7 @@
     },
     {
         "result" : "sonicshovel",
+        "category" : "cargo",
         "requiredPiece": [""],
         "ingredients" : {
             "metal" : 1,
@@ -661,6 +735,7 @@
     },
     {
         "result" : "simplegun",
+        "category" : "cargo",
         "requiredPiece": [""],
         "ingredients" : {
             "metal" : 2,
@@ -669,6 +744,7 @@
     },
     {
         "result" : "blaster",
+        "category" : "cargo",
         "requiredPiece": [""],
         "ingredients" : {
             "carbon" : 2,
@@ -679,6 +755,7 @@
     },
     {
         "result" : "cricketgun",
+        "category" : "cargo",
         "requiredPiece": [""],
         "ingredients" : {
             "cfibre" : 2,

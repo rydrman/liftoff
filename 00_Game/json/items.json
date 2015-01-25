@@ -373,73 +373,73 @@
         "name" : "bcockpit",
         "niceName" : "Basic Cockpit",
         "img" : "assets/ships/cb_cockpit.png",
-        "description" : ""
+        "description" : "Just your average rocket box. Needed to pilot the ship."
     },
     {
         "name" : "acockpit",
         "niceName" : "Advanced Cockpit",
         "img" : "assets/ships/ad_cockpit.png",
-        "description" : ""
+        "description" : "Maybe ccardboard isn't the best material for space exploration... This cockpit comes with an extra equipment slot!"
     },
     {
         "name" : "vcockpit",
         "niceName" : "Vulkan Cockpit",
         "img" : "assets/ships/vu_cockpit.png",
-        "description" : ""
+        "description" : "Made with high polymer materials and borderline fictional technology for another slot and maximum piloting cred."
     },
     {
-        "name" : "barmaments",
-        "niceName" : "Basic Armaments",
+        "name" : "bengineering",
+        "niceName" : "Engineering Bay",
         "img" : "assets/ships/cb_engineering.png",
-        "description" : ""
+        "description" : "This ship segment handles tools and shields... Though cardboard isn't the strongest shield..."
     },
     {
-        "name" : "aarmaments",
-        "niceName" : "Advanced Armaments",
+        "name" : "aengineering",
+        "niceName" : "Advanced Engineering Bay",
         "img" : "assets/ships/ad_engineering.png",
-        "description" : ""
+        "description" : "This engineering bay has an extra equipment slot and is made of slightly less degradeable metal."
     },
     {
-        "name" : "varmaments",
-        "niceName" : "Vulkan Armaments",
+        "name" : "vengineering",
+        "niceName" : "Vulkan Engineering Bay",
         "img" : "assets/ships/vu_engineering.png",
-        "description" : ""
+        "description" : "This pinnacle of space armaments features a second additional equipment slot."
     },
     {
         "name" : "bsciencebay",
         "niceName" : "Basic Science Bay",
         "img" : "assets/ships/cb_science.png",
-        "description" : ""
+        "description" : "The science bay is used to conduct research and resource processing. It cannot be used to figure out how a cardboard space ship can fly."
     },
     {
         "name" : "asciencebay",
         "niceName" : "Advanced Science Bay",
         "img" : "assets/ships/ad_science.png",
-        "description" : ""
+        "description" : "This upgraded science bay has an extra equipment slot and is sensibly made of sturdier materials."
     },
     {
         "name" : "vsciencebay",
         "niceName" : "Vulkan Science Bay",
         "img" : "assets/ships/vu_science.png",
-        "description" : ""
+        "description" : "The vulkan science bay is such a pinnacle of technology that it's a wonder what could be researched with it."
     },
     {
         "name" : "bcargobay",
         "niceName" : "Basic Cargo Bay",
         "img" : "assets/ships/cb_cargo.png",
-        "description" : ""
+        "description" : "The basic cargo bay provides additional storage for equipment. It is therefore fitting that it is actually just made out of a cardboard box."
     },
     {
         "name" : "acargobay",
         "niceName" : "Advanced Cargo Bay",
         "img" : "assets/ships/ad_cargo.png",
-        "description" : ""
+        "description" : "The advanced cargo bay includes additional storage and less risk of getting lost in the mail."
     },
     {
         "name" : "vcargobay",
         "niceName" : "Vulkan Cargo Bay",
         "img" : "assets/ships/vu_cargo.png",
-        "description" : ""
+        "description" : "Quantum technology allows the vulkan cargo bay to be bigger on the inside. Well worth the shipping price."
     },
     {
         "name" : "bthrusters",
@@ -481,16 +481,18 @@
         "description" : ""
     },
     {
-        "name" : "shamster",
-        "niceName" : "Space Hamster",
-        "img" : "assets/equipment/cockpit_equipment.png",
-        "description" : ""
-    },
-    {
         "name" : "bhead",
         "niceName" : "Bobble Head",
         "img" : "assets/equipment/cockpit_equipment.png",
-        "description" : ""
+        "description" : "",
+        "probabilities" : {
+            "grassy" : 0.05,
+            "desert" : 0.05,
+            "rocky" : 0.05,
+            "swamp" :  0.05,
+            "volcanic" :  0.05,
+            "cow" :  0.05
+        }
     },
     {
         "name" : "cchair",
@@ -520,7 +522,15 @@
         "name" : "agoodbook",
         "niceName" : "A Good Book",
         "img" : "assets/equipment/cockpit_equipment.png",
-        "description" : ""
+        "description" : "",
+        "probabilities" : {
+            "grassy" : 0.05,
+            "desert" : 0.05,
+            "rocky" : 0.05,
+            "swamp" :  0.05,
+            "volcanic" :  0.05,
+            "cow" :  0.05
+        }
     },
     {
         "name" : "pflames",
@@ -640,7 +650,15 @@
         "name" : "mwatypewriter",
         "niceName" : "Monkey With A Typewriter",
         "img" : "assets/equipment/science_equipment.png",
-        "description" : ""
+        "description" : "",
+        "probabilities" : {
+            "grassy" : 0.05,
+            "desert" : 0.05,
+            "rocky" : 0.05,
+            "swamp" :  0.05,
+            "volcanic" :  0.05,
+            "cow" :  0.05
+        }
     },
     {
         "name" : "stasispod",
