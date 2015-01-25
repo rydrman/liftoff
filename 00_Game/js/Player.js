@@ -9,6 +9,8 @@ var Player = function() {
     this.inShip = false;
     this.ship = null;
     
+    this.planet == null;
+    
     // Variables
     this.oxygen = 100;
     this.comfort = 100;
@@ -65,12 +67,16 @@ Player.prototype.update = function( timer ) {
     
     // tick variables
     this.timer.endSubTick("oxygenTick");
-    if (this.timer.subTicks["oxygenTick"].deltaS > 1) {
-        // TODO - if damage is below 10%, oxygen leaks
-        var rate = (this.inShip) ? ((this.ship.fuel == 0) ? -2 : 1) : -1;
-        this.oxygen = this.oxygen + rate;
-        // TODO - if Oxygen 0 -game ends - here or in update?
-        this.timer.startSubTick("oxygenTick");
+    if (this.timer.subTicks["oxygenTick"].deltaS > 1) 
+    {
+        if(this.planet == null || !this.planet.atmosphere)
+        {
+            // TODO - if damage is below 10%, oxygen leaks
+            var rate = (this.inShip) ? ((this.ship.fuel == 0) ? -2 : 1) : -1;
+            this.oxygen = this.oxygen + rate;
+            // TODO - if Oxygen 0 -game ends - here or in update?
+            this.timer.startSubTick("oxygenTick");
+        }
     }
     this.timer.endSubTick("comfortTick");
     if (this.timer.subTicks["comfortTick"].deltaS > 3) {

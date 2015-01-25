@@ -58,10 +58,18 @@ Engine.prototype.begin = function()
     this.ui.init(this.crafting);
     
     //DEBUG create a ship
-    this.player.ship = new Ship();
-    this.player.inShip = true;
-    this.player.ship.init( this.timer );
-    this.world.ships.push(this.player.ship);
+    //this.player.ship = new Ship();
+    //this.player.inShip = true;
+    //this.player.ship.init( this.timer );
+    //this.world.ships.push(this.player.ship);
+    
+    //place player near planet
+    var basePlanet = this.world.getInitialPlanet();
+    this.player.position.set( basePlanet.position.x, basePlanet.position.y + basePlanet.radius + 0.2 );
+    this.player.goal.copy(this.player.position);
+    //set zoom
+    this.renderer.zoom = (this.player.inShip) ? 1.0 : 2.5;
+    
     
     //set 
     this.input.addListener( Input.eventTypes.MOUSEDOWN, this.onMouseDown, this );
@@ -281,16 +289,21 @@ Engine.prototype.update = function()
     {
         // Player / planet collision
         var gravity = this.world.getGravity( this.player.position );
+        //this.player.force.add(gravity)
         
         var closest = this.world.getClosestPlanet( this.player.position );
         
         var checkDist = false;
-        for (var p in this.world.planets) {
+        for (var p in this.world.planets) 
+        {
             var planet = this.world.planets[p];
             var distance = planet.position.clone().sub(this.player.position).length();
-            if (distance < planet.radius + 0.4) { // TODO: Change to fit ship size
+            if (distance < planet.radius + 0.4) // TODO: Change to fit ship size
+            { 
                 // Player is on the surface - controls should behave
                 checkDist = false; // don't want the force to continue acting
+                
+                this.player.planet = planet;
                 
                 // Set player position to exactly radius + 0.5 along that vector
                 this.player.position.copy(planet.position.clone().add(planet.position.clone().sub(this.player.position).negate().normalize().multiplyScalar(planet.radius + 0.3)));
@@ -298,13 +311,18 @@ Engine.prototype.update = function()
                 this.player.goal.copy(planet.position.clone().add(planet.position.clone().sub(this.player.goal).negate().normalize().multiplyScalar(planet.radius + 0.3)));
                 this.player.goal
                 break;
-            } else if (distance < 5 + planet.radius) {
+            } 
+            else{
+                this.player.planet = null;
+            }
+            /*else if (distance < 5 + planet.radius) 
+            {
                 // add gravity force to the movement
-                this.player.force = planet.position.clone().sub(this.player.position).normalize().multiplyScalar(0.1);
+                //this.player.force = planet.position.clone().sub(this.player.position).normalize().multiplyScalar(0.1);
                 console.log("GRAVITY on Player");
                 checkDist = true;
                 break;
-            }
+            }*/
         }
         if (!checkDist) {
             this.player.force = new Vector2();
