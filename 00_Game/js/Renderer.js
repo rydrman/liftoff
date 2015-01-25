@@ -235,7 +235,6 @@ Renderer.prototype.renderPlayer = function( player )
     }
     
     this.ctx.restore();
->>>>>>> 2edc3d165f504bb031aaf51c93b1b96320aad7ae
 }
 
 Renderer.prototype.renderUI = function( ui, player )
