@@ -53,9 +53,9 @@ Engine.prototype.begin = function()
     
     //initialize stuff
     this.renderer.init( canvas );
-    this.player.init();
+    this.player.init(this.timer);
     this.ui.init(canvas, this.player, null);
-    this.ship.init();
+    this.ship.init(this.timer);
     
     //set 
     this.input.addListener( Input.eventTypes.MOUSEDOWN, this.onMouseDown, this );
@@ -144,9 +144,6 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
         if (uiResult && this.mouseLTarget == "ui") {
             console.log ("UI ELEMENT SUSTAINED");
         }
-        if (this.ship.checkClickIntersect(worldPos)) {
-            // Open Ship Menu
-        } 
         if (result && this.mouseLTarget == "world") {
             //console.log("WORLD ELEMENT SUSTAINED");
             // check if player is close enough to pick up object
