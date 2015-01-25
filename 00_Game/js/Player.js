@@ -107,7 +107,7 @@ Player.prototype.addToInventory = function(objToAdd) {
         this.inventory[index].quantity ++;
         return true;
     } else if (Object.keys(this.inventory).length < this.inventorySize) {
-        this.inventory[objToAdd.name] = { quantity: objToAdd.quantity, image: objToAdd.image };
+        this.inventory[objToAdd.name] = objToAdd;
         return true;
     } else {
         // Error message to user that inventory is full
@@ -119,7 +119,7 @@ Player.prototype.getInventoryByIndex = function(index) {
     var ind = 0;
     for (var i in this.inventory) {
         if (index == ind) {
-            return {name: i, quantity: this.inventory[i].quantity, image: this.inventory[i].image};
+            return this.inventory[i];
        }
         ind ++;
     }

@@ -22,7 +22,7 @@ Renderer.prototype.init = function( canvas )
     this.initialized = true;
 }
 
-Renderer.prototype.render = function( world, player, ship, ui, timer )
+Renderer.prototype.render = function( world, player, ship, ui, draggedItem, timer )
 {
     this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
     
@@ -185,6 +185,14 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
     if(!shipDrawn && player.ship)
     {
         this.renderShip( player.ship );
+    }
+    
+    // render dragged item
+    if (draggedItem != null) {
+        this.ctx.drawImage(draggedItem.image,
+                           draggedItem.position.x,
+                           draggedItem.position.y,
+                           50, 50);
     }
 }
 
