@@ -158,13 +158,15 @@ Renderer.prototype.renderUI = function( ui, ship )
     
     for(var i in ship.parts)
     {
-        //cockpit
+        //draw background square
         this.ctx.drawImage(ui.backSquareImg, 
                            ui.shipMenu[i].x * this.canvas.width,
                            ui.shipMenu[i].y * this.canvas.height,
                            ui.shipMenu[i].w * this.canvas.width,
                            ui.shipMenu[i].h * this.canvas.height
                           );
+        
+        //draw ship part
         if(null != ship.parts[i])
         {
             var center = ui.shipMenu[i].center;
@@ -179,6 +181,14 @@ Renderer.prototype.renderUI = function( ui, ship )
                                -ship.parts[i].image.height * 0.5);
             this.ctx.restore();
         }
+        
+        //draw addon slots background
+        this.ctx.drawImage(ui.backAddonImg, 
+                           ui.addonMenu[i].x * this.canvas.width,
+                           ui.addonMenu[i].y * this.canvas.height,
+                           ui.addonMenu[i].w * this.canvas.width,
+                           ui.addonMenu[i].h * this.canvas.height
+                          );
     }
     
     return true;
@@ -189,7 +199,10 @@ Renderer.prototype.renderShip = function(ship)
     ship.construct( this );
     this.ctx.save();
     
-    this.ctx.translate( this.canvas.width * 0.5, this.canvas.height * 0.5 );
+    var center = ship.position.clone();
+    center = this.project( center );
+    
+    this.ctx.translate( center.x, center.y );
     this.ctx.rotate( ship.rotation + Math.PI * 0.5 );
     this.ctx.scale( ship.renderScale, ship.renderScale );
     this.ctx.translate( 0, ship.renderHeight * 0.5 );
@@ -209,7 +222,7 @@ Renderer.prototype.renderShip = function(ship)
     if(Settings.debug)
     {
         this.ctx.save();
-        this.ctx.translate( this.canvas.width * 0.5, this.canvas.height * 0.5 );
+        this.ctx.translate( center.x, center.y ); 
         this.ctx.rotate( ship.rotation + Math.PI * 0.5 );
         this.ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
         //this.ctx.fillRect( ship.bounds.x, ship.bounds.y, ship.bounds.w, ship.bounds.h );
