@@ -71,9 +71,11 @@ Engine.prototype.onMouseDown = function( mousePos )
     var result = this.world.sample( worldPos );
     if (uiResult) {
         console.log ("UI ELEMENT CLICKED");
-    } else if (this.ship.checkClickIntersect(worldPos)) {
-        // Open Ship Menu
-    } else if (result) {
+    } else if (this.ship.isInBounds(worldPos)) 
+    {
+        this.ui.openShip( this.ship );
+    } 
+    else if (result) {
         console.log("WORLD ELEMENT CLICKED");
         // check if player is close enough to pick up object
         if (this.player.position.clone().sub(this.world.planets[result.planetIndex].position.clone().add(result.objectData.position)).length() < 0.4) {
@@ -98,7 +100,7 @@ Engine.prototype.onRMouseDown = function( mousePos) {
     
     
     // Check Gameplay elements
-    if (this.ship.checkClickIntersect(worldPos) && (this.player.inShip || this.ship.position.clone().sub(this.player.position).length() < 2)) {
+    if (this.ship.isInBounds(worldPos) && (this.player.inShip || this.ship.position.clone().sub(this.player.position).length() < 2)) {
         this.player.toggleShipStatus(this.ship);
         this.renderer.zoom = (this.player.inShip) ? 1.0 : 2.5;
     }

@@ -139,10 +139,16 @@ Vector2.prototype.compare = function( vector )
 
 Vector2.prototype.fromRotation = function( rotation, radius )
 {
+    if( typeof(radius) == 'undefined') radius = 1
     // rotation in rads
-    this.x = Math.sin(rotation) * -1 * radius;
+    this.x = Math.sin(rotation) * -radius;
     this.y = Math.cos(rotation) * radius;
     return this;
+}
+
+Vector2.prototype.toRotation = function()
+{
+    return Math.atan2( this.y, this.x );
 }
 
 //////////////////////////
