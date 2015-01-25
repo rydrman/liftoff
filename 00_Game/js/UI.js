@@ -146,7 +146,6 @@ UI.prototype.load = function()
     loader.addImageCall('assets/menu/uiScience.png', this.shipIcons.science);
     loader.addImageCall('assets/menu/uiCargo.png', this.shipIcons.cargo);
     loader.addImageCall('assets/menu/uiEngine.png', this.shipIcons.engine);
-	loader.addImageCall('assets/menu/menu_player_inventory-01.png', this.playerInventoryImg);
     
     // Player stats
     loader.addImageCall('assets/icons/armour.png', this.statDamageEmptyImg);
