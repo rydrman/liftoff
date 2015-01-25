@@ -19,6 +19,8 @@ var Input = function()
     {
         this.keyStates[ Input.keyCodes[key] ] = false;
     }
+    this.keyStates["mouseLeft"] = false;
+    this.keyStates["mouseRight"] = false;
     
     //create empty array of listeners
     this.listeners = {}
@@ -117,6 +119,24 @@ Input.prototype.update = function()
             toCheck[i].callback.call(toCheck[i].context);
         }
     }
+    toCheck = this.listeners[Input.eventTypes.MOUSESUST_L];
+    for(var i in toCheck)
+    {
+        if(this.keyStates[ "mouseleft" ] == true)
+        {
+            //fire event
+            toCheck[i].callback.call(toCheck[i].context, this.lastMouse);
+        }
+    }
+    toCheck = this.listeners[Input.eventTypes.MOUSESUST_R];
+    for(var i in toCheck)
+    {
+        if(this.keyStates[ "mouseright" ] == true)
+        {
+            //fire event
+            toCheck[i].callback.call(toCheck[i].context, this.lastMouse);
+        }
+    }
     
     //update vr
     if(Settings.vrEnabled)
@@ -167,6 +187,9 @@ Input.prototype.onMouseDown = function(e)
 {
     if(!e) e = window.Event;
     
+    this.keyStates["mouseleft"] = (e.which == 1) ? true : false;
+    this.keyStates["mouseright"] =(e.which == 3) ? true : false;
+    
     //get new mouse position
     var newMouse = Settings.pointerLocked ? this.lastMouse : this.getMousePos(e);
     
@@ -183,6 +206,9 @@ Input.prototype.onMouseDown = function(e)
 Input.prototype.onMouseUp = function(e)
 {
     if(!e) e = window.Event;
+    
+    this.keyStates["mouseleft"] = false;
+    this.keyStates["mouseright"] = false;
     
     //get new mouse position
     var newMouse = Settings.pointerLocked ? this.lastMouse : this.getMousePos(e);
@@ -377,7 +403,9 @@ Input.eventTypes = {
     POINTER_LOCKED: 7,
     POINTER_UNLOCKED: 8,
     RIGHTMOUSEDOWN: 9,
-    RIGHTMOUSEUP: 10
+    RIGHTMOUSEUP: 10,
+    MOUSESUST_L: 11,
+    MOUSESUST_R: 12
 }
 
 //this object can be used to easily look up key codes

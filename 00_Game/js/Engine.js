@@ -12,6 +12,9 @@ var Engine = function()
     this.ship;
     this.world;
     this.ui;
+    
+    // misc
+    this.mouseLTarget;
 }
 
 Engine.prototype.init = function()
@@ -57,6 +60,7 @@ Engine.prototype.begin = function()
     //set 
     this.input.addListener( Input.eventTypes.MOUSEDOWN, this.onMouseDown, this );
     this.input.addListener(Input.eventTypes.RIGHTMOUSEDOWN, this.onRMouseDown, this);
+    this.input.addListener( Input.eventTypes.MOUSESUST_L, this.onMouseSustainedL, this );
     
     this.input.addListener(Input.eventTypes.MOUSEMOVE_ABS, this.onMouseMove, this);
     
@@ -66,7 +70,7 @@ Engine.prototype.begin = function()
 
 Engine.prototype.onMouseDown = function( mousePos )
 {
-    
+    this.timer.startSubTick("mouseDown_L");
     var worldPos = this.renderer.unProject( mousePos );
     
     //TODO try ui first, then ship / player, then world
@@ -74,10 +78,12 @@ Engine.prototype.onMouseDown = function( mousePos )
     var result = this.world.sample( worldPos );
     if (uiResult) {
         console.log ("UI ELEMENT CLICKED");
+        this.mouseLTarget = "ui";
     } else if (this.ship.checkClickIntersect(worldPos)) {
         // Open Ship Menu
     } else if (result) {
-        console.log("WORLD ELEMENT CLICKED");
+        //console.log("WORLD ELEMENT CLICKED");
+        this.mouseLTarget = "world";
         // check if player is close enough to pick up object
         if (this.player.position.clone().sub(this.world.planets[result.planetIndex].position.clone().add(result.objectData.position)).length() < 0.4) {
             // Add to player inventory and remove from world
@@ -85,11 +91,13 @@ Engine.prototype.onMouseDown = function( mousePos )
                 this.world.planets[result.planetIndex].removeItem(result.objectData);
         }
     } else if (this.player.inShip) { // Update player / ship position
+        this.mouseLTarget = "player";
         if (this.ship.landed)
             this.ship.launch();
         else
             this.ship.goal.copy(worldPos);
     } else {
+        this.mouseLTarget = "player";
         this.player.goal.copy( worldPos );
     }
 }
@@ -122,6 +130,40 @@ Engine.prototype.onMouseMove = function(mousePos) {
     this.timer.startSubTick("mouseMove");
 }
 
+Engine.prototype.onMouseSustainedL = function(mousePos) {
+    // Don't fire sustained right away - give a few milliseconds in case it's a click
+    
+    this.timer.endSubTick("mouseDown_L");
+    if (this.timer.subTicks["mouseDown_L"].deltaMS > 250) {
+        var worldPos = this.renderer.unProject( mousePos );
+
+        //TODO try ui first, then ship / player, then world
+        var uiResult = this.ui.sample(mousePos);
+        var result = this.world.sample( worldPos );
+        if (uiResult && this.mouseLTarget == "ui") {
+            console.log ("UI ELEMENT SUSTAINED");
+        }
+        if (this.ship.checkClickIntersect(worldPos)) {
+            // Open Ship Menu
+        } 
+        if (result && this.mouseLTarget == "world") {
+            //console.log("WORLD ELEMENT SUSTAINED");
+            // check if player is close enough to pick up object
+            // TODO - timer subtick
+            if (this.player.position.clone().sub(this.world.planets[result.planetIndex].position.clone().add(result.objectData.position)).length() < 0.4) {
+                // Add to player inventory and remove from world
+                if (this.player.addToInventory(result.objectData))
+                    this.world.planets[result.planetIndex].removeItem(result.objectData);
+            }
+        } 
+        if (this.player.inShip && this.mouseLTarget == "player") { // Update player / ship position
+            this.ship.goal.copy(worldPos);
+        } else if (this.mouseLTarget == "player") {
+            this.player.goal.copy( worldPos );
+        }
+    }
+}
+
 Engine.prototype.frameCallback = function()
 {
     engine.update.call(engine);
@@ -130,6 +172,7 @@ Engine.prototype.frameCallback = function()
 Engine.prototype.update = function()
 {
     this.timer.tick();
+    this.input.update();
     
     // Check mousemove timer for hovers
     this.timer.endSubTick("mouseMove");
