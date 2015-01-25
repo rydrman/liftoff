@@ -19,6 +19,7 @@ Engine.prototype.init = function()
     this.timer = new GameTimer();
     this.input= new Input();
     this.generator = new Generator();
+    this.crafting = new Crafting();
     
     //classes
     this.renderer = new Renderer();
@@ -36,6 +37,7 @@ Engine.prototype.init = function()
     
     loader.addClassCall( this.renderer );
     loader.addClassCall( this.generator );
+    loader.addClassCall( this.crafting );
     
     loader.runCalls();
 }

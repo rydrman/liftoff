@@ -1,0 +1,12 @@
+[
+    {
+        "result" : "name",
+        "requiredPiece": "name/id?",
+        "ingredients" : {
+            "ingredientName" : quantity,
+            "ingredientName" : quantity,
+        }
+        
+    }
+
+]

@@ -15,7 +15,7 @@ var Player = function() {
     
     
     // Inventory
-    this.inventory = [null, null, null, null, null];
+    this.inventory = {}; // "name" : quantity
 }
 
 Player.prototype.init = function() {
@@ -47,21 +47,18 @@ Player.prototype.toggleShipStatus = function(ship) {
 
 Player.prototype.addToInventory = function(objToAdd) {
     var index = -1;
-    for (i=0; i < this.inventory.length; i++) {
-        // find index
-        var firstEmptyIndex = -1;
-        if (this.inventory[i] !== null && this.inventory[i].name == objToAdd.name)
+    
+    for (i in this.inventory) {
+        if (i == objToAdd.name) {
             index = i;
-        else if (this.inventory[i] == null) {
-            firstEmptyIndex = i;
         }
     }
     
     if (index !== -1) {
-        this.inventory[index].quantity ++;
+        this.inventory[index] ++;
         return true;
-    } else if (firstEmptyIndex !== -1) {
-        this.inventory[firstEmptyIndex] = objToAdd;
+    } else if (Object.keys(this.inventory).length < 5) {
+        this.inventory[objToAdd.name] = 1;
         return true;
     } else {
         // Error message to user that inventory is full
