@@ -90,6 +90,7 @@ Engine.prototype.onMouseDown = function( mousePos )
     //} 
     else if (result) 
     {
+        console.log("World Element Clicked");
         if(result instanceof Ship)
         {
             this.ui.openShip( result );
@@ -211,7 +212,7 @@ Engine.prototype.update = function()
     this.input.update();
     
     //update world
-    this.world.update( this.timer );
+    this.world.update( this.timer, this.player );
     
     // Check mousemove timer for hovers
     this.timer.endSubTick("mouseMove");

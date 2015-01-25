@@ -8,6 +8,8 @@ var Ship = function() {
     this.damage = 100;
     this.fuel = 100;
     
+    this.fuelCapacity = 100;
+    
     this.inventorySize = 7;
     
     // parts
@@ -44,8 +46,19 @@ Ship.prototype.init = function(timer)
     this.parts.engine = new BaseObject( engine.generator.items.bthrusters );
 }
 
-Ship.prototype.update = function(timer) {
+Ship.prototype.update = function(timer, player) {
     Player.prototype.updateMovement.call(this, timer);
+    
+    this.timer.endSubTick("damageTick");
+    if (this.timer.subTicks["damageTick"].deltaS > 1 && player.comfort == 0) {
+        this.damage = Math.max(0, this.damage -1);
+        this.timer.startSubTick("damageTick");
+    }
+    this.timer.endSubTick("fuelTick");
+    if (this.timer.subTicks["fuelTick"].deltaS > 2 && this == player.ship) {
+        this.fuel = Math.max(0, this.fuel -1);
+        this.timer.startSubTick("fuelTick");
+    }
 }
 
 Ship.prototype.isInBounds = function( pos ) 

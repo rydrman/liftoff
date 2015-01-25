@@ -54,12 +54,39 @@ var UI = function(canvas)
         buildButton: new Rectangle( 1575 / 1920, 675 / 1080, 145 / 1920, 60 / 1080)
     };
     
+    this.playerShipStats = {
+        damage: new Rectangle( 1670 / 1920, 843 / 1080, 92 / 1920, 92 / 1080),
+        oxygen: new Rectangle( 1800 / 1920, 843 / 1080, 92 / 1920, 92 / 1080),
+        fuel: new Rectangle( 1670 / 1920, 956 / 1080, 92 / 1920, 92 / 1080),
+        comfort: new Rectangle( 1800 / 1920, 956 / 1080, 92 / 1920, 92 / 1080),
+    }
+    
+    this.playerInv = {
+        background: new Rectangle( 1315 / 1920, 870 / 1080, 223 / 1920, 150 / 1080),
+        slots: [
+            new Rectangle( 1350 / 1920, 870 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 1450 / 1920, 870 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 1350 / 1920, 945 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 1450 / 1920, 945 / 1080, 70 / 1920, 70 / 1080)
+        ],
+        fontSize: 12/1920,
+        fontTranslate: {x: 60/1920, y: 65 / 1080}
+    }
+    
     //imgaes
     this.backAddonImg = new Image();
     
     this.craftBackImg = new Image();
+    this.playerInventoryImg = new Image();
     
-    this.shipIcons = {
+	this.statDamageEmptyImg = new Image();
+    this.statDamageFullImg = new Image();
+    this.statComfortEmptyImg = new Image();
+    this.statComfortFullImg = new Image();
+    this.statFuelEmptyImg = new Image();
+    this.statFuelFullImg = new Image();
+    this.statHealthEmptyImg = new Image();
+    this.statHealthFullImg = new Image();    this.shipIcons = {
         cockpit : new Image(),
         engineering : new Image(),
         science : new Image(),
@@ -98,7 +125,18 @@ UI.prototype.load = function()
     loader.addImageCall('assets/menu/uiScience.png', this.shipIcons.science);
     loader.addImageCall('assets/menu/uiCargo.png', this.shipIcons.cargo);
     loader.addImageCall('assets/menu/uiEngine.png', this.shipIcons.engine);
+	loader.addImageCall('assets/menu/menu_player_inventory-01.png', this.playerInventoryImg);
     
+    // Player stats
+    loader.addImageCall('assets/icons/armour.png', this.statDamageEmptyImg);
+    loader.addImageCall('assets/icons/armour_full.png', this.statDamageFullImg);
+    loader.addImageCall('assets/icons/comfort.png', this.statComfortEmptyImg);
+    loader.addImageCall('assets/icons/comfort_full.png', this.statComfortFullImg);
+    loader.addImageCall('assets/icons/fuel.png', this.statFuelEmptyImg);
+    loader.addImageCall('assets/icons/fuel_full.png', this.statFuelFullImg);
+    loader.addImageCall('assets/icons/health.png', this.statHealthEmptyImg);
+    loader.addImageCall('assets/icons/health_full.png', this.statHealthFullImg);    
+
     loader.addJSONCall('json/items.json', function(data){
         for(var i in data)
         {
