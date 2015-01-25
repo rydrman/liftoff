@@ -115,7 +115,7 @@ Engine.prototype.onMouseDown = function( mousePos )
     //} 
     else if (result) 
     {
-        console.log("World Element Clicked");
+        //console.log("World Element Clicked");
         if(result instanceof Ship)
         {
             if (this.player.inShip) {
@@ -125,9 +125,11 @@ Engine.prototype.onMouseDown = function( mousePos )
         }
         else if(result instanceof Planet)
         {
+            console.log("planet clicked");
         }
         else
         {
+            console.log("item clicked", result.objectData);
             //item on a planet
             this.mouseLTarget = "world";
             // check if player is close enough to pick up object

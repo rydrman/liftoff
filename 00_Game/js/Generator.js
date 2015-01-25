@@ -44,7 +44,7 @@ Generator.prototype.generate = function()
     
     world.init( width, height );
     
-    for(var i = 0; i < 100; ++i)
+    for(var i = 0; i < 1; ++i)
     {
         var planet = this.spawnPlanet( world );
         if( planet == null )
@@ -63,8 +63,8 @@ Generator.prototype.spawnPlanet = function( world )
     //initial stuff
     var rad = Settings.planetMinRad + Math.random() * Settings.planetMaxRad,
         position = new Vector2(
-            rad + Math.random() * (Settings.worldSize.x - rad*2),
-            rad + Math.random() * (Settings.worldSize.y - rad*2)
+            20,//rad + Math.random() * (Settings.worldSize.x - rad*2),
+            20 //rad + Math.random() * (Settings.worldSize.y - rad*2)
         ),
         distSq;
 
@@ -120,7 +120,7 @@ Generator.prototype.spawnPlanet = function( world )
 
 Generator.prototype.populatePlanet = function( planet )
 {
-    var numItems = Math.floor( map(planet.radius, Settings.planetMinRad, Settings.planetMaxRad, 10, 100) );
+    var numItems = 1;//Math.floor( map(planet.radius, Settings.planetMinRad, Settings.planetMaxRad, 5, 20) );
     
     //find possible resources
     var selectionList = [];
