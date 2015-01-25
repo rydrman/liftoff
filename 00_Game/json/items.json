@@ -3,6 +3,7 @@
         "name" : "tree",
         "niceName" : "Tree",
         "img" : "assets/items/Tree.png",
+        "type" : "breakable",
         "description" : "",
         "probabilities" : {
             "grassy" : 1,
@@ -12,7 +13,6 @@
             "volcanic" :  0,
             "cow" :  1
         },
-        "breakable" : "True",
         "receivedactions" : ["hit"],
         "drops" : {
             "ore" : 0,
@@ -32,6 +32,7 @@
         "name" : "lgroundg",
         "niceName" : "Loose Ground (Grass)",
         "img" : "assets/items/LooseGroundGrass.png",
+        "type" : "breakable",
         "description" : "",
         "probabilities" : {
             "grassy" : 1,
@@ -41,7 +42,6 @@
             "volcanic" :  0,
             "cow" :  1
         },
-        "breakable" : "True",
         "receivedactions" : ["dig"],
         "drops" : {
             "ore" : 1,
@@ -61,6 +61,7 @@
         "name" : "lgrounda",
         "niceName" : "Loose Ground (Arid)",
         "img" : "assets/items/LooseGroundArid.png",
+        "type" : "breakable",
         "description" : "",
         "probabilities" : {
             "grassy" : 0,
@@ -70,7 +71,6 @@
             "volcanic" :  0.5,
             "cow" :  0
         },
-        "breakable" : "True",
         "receivedactions" : ["dig"],
         "drops" : {
             "ore" : 1,
@@ -90,6 +90,7 @@
         "name" : "lgrounds",
         "niceName" : "Loose Ground (Swamp)",
         "img" : "assets/items/LooseGroundSwamp.png",
+        "type" : "breakable",
         "description" : "",
         "probabilities" : {
             "grassy" : 0.2,
@@ -99,7 +100,6 @@
             "volcanic" :  0,
             "cow" :  0.2
         },
-        "breakable" : "True",
         "receivedactions" : ["dig"],
         "drops" : {
             "ore" : 0,
@@ -119,6 +119,7 @@
         "name" : "rockpile",
         "niceName" : "Rock Pile",
         "img" : "assets/items/RockPile.png",
+        "type" : "breakable",
         "description" : "",
         "probabilities" : {
             "grassy" : 0,
@@ -128,7 +129,6 @@
             "volcanic" :  0.5,
             "cow" :  0
         },
-        "breakable" : "True",
         "receivedactions" : ["hit"],
         "drops" : {
             "ore" : 2,
@@ -148,6 +148,7 @@
         "name" : "lava",
         "niceName" : "Lava Pit",
         "img" : "assets/items/LavaPit.png",
+        "type" : "breakable",
         "description" : "",
         "probabilities" : {
             "grassy" : 0,
@@ -157,7 +158,6 @@
             "volcanic" :  1,
             "cow" :  0
         },
-        "breakable" : "True",
         "receivedactions" : ["dig"],
         "drops" : {
             "ore" : 2,
@@ -177,6 +177,7 @@
         "name" : "cow",
         "niceName" : "Cow",
         "img" : "assets/items/Cow.png",
+        "type" : "breakable",
         "description" : "",
         "probabilities" : {
             "grassy" : 1,
@@ -186,7 +187,6 @@
             "volcanic" :  0,
             "cow" :  1
         },
-        "breakable" : "True",
         "receivedactions" : ["hit","shoot"],
         "drops" : {
             "ore" : 0,
@@ -206,6 +206,7 @@
         "name" : "sheep",
         "niceName" : "Sheep",
         "img" : "assets/items/Sheep.png",
+        "type" : "breakable",
         "description" : "",
         "probabilities" : {
             "grassy" : 1,
@@ -215,7 +216,6 @@
             "volcanic" :  0,
             "cow" :  1
         },
-        "breakable" : "True",
         "receivedactions" : ["hit","shoot"],
         "drops" : {
             "ore" : 0,
@@ -235,6 +235,7 @@
         "name" : "alien",
         "niceName" : "Alien",
         "img" : "assets/items/Alien.png",
+        "type" : "breakable",
         "description" : "",
         "probabilities" : {
             "grassy" : 0.2,
@@ -244,7 +245,6 @@
             "volcanic" :  0.2,
             "cow" :  0.5
         },
-        "breakable" : "True",
         "receivedactions" : ["hit","shoot"],
         "drops" : {
             "ore" : 0,
@@ -264,6 +264,7 @@
         "name" : "lwreck",
         "niceName" : "Wreck (Land)",
         "img" : "assets/items/LandWreck.png",
+        "type" : "breakable",
         "description" : "",
         "probabilities" : {
             "grassy" : 0.1,
@@ -273,7 +274,6 @@
             "volcanic" :  0.1,
             "cow" :  0.1
         },
-        "breakable" : "True",
         "receivedactions" : ["dig"],
         "drops" : {
             "ore" : 4,
@@ -297,6 +297,7 @@
         "name" : "ore",
         "niceName" : "Ore",
         "img" : "assets/items/Ore.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0.05,
@@ -311,6 +312,7 @@
         "name" : "cardboard",
         "niceName" : "Cardboard",
         "img" : "assets/items/Cardboard.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0.2,
@@ -325,6 +327,7 @@
         "name" : "goo",
         "niceName" : "Goo",
         "img" : "assets/items/Goo.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0.2,
@@ -339,6 +342,7 @@
         "name" : "sand",
         "niceName" : "Sand",
         "img" : "assets/items/Sand.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0.05,
@@ -353,6 +357,7 @@
         "name" : "carbon",
         "niceName" : "Carbon",
         "img" : "assets/items/Carbon.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0.05,
@@ -367,6 +372,7 @@
         "name" : "fibre",
         "niceName" : "Fibre",
         "img" : "assets/items/Fibre.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0.1,
@@ -381,6 +387,7 @@
         "name" : "rubber",
         "niceName" : "Rubber",
         "img" : "assets/items/Rubber.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0.05,
@@ -395,6 +402,7 @@
         "name" : "ppaste",
         "niceName" : "Protein Paste",
         "img" : "assets/items/ProteinPaste.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0.2,
@@ -409,6 +417,7 @@
         "name" : "spice",
         "niceName" : "Spice",
         "img" : "assets/items/Spice.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0,
@@ -423,6 +432,7 @@
         "name" : "rooster",
         "niceName" : "Rooster",
         "img" : "assets/items/Rooster.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 1,
@@ -437,6 +447,7 @@
         "name" : "plasma",
         "niceName" : "Plasma",
         "img" : "assets/items/Plasma.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0,
@@ -451,6 +462,7 @@
         "name" : "metal",
         "niceName" : "Metal",
         "img" : "assets/items/Metal.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0.05,
@@ -465,6 +477,7 @@
         "name" : "glass",
         "niceName" : "Glass",
         "img" : "assets/items/Glass.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0,
@@ -479,6 +492,7 @@
         "name" : "crystal",
         "niceName" : "Crystal",
         "img" : "assets/items/Crystal.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0,
@@ -493,6 +507,7 @@
         "name" : "cfibre",
         "niceName" : "Carbon Fibre",
         "img" : "assets/items/CarbonFibre.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0,
@@ -507,6 +522,7 @@
         "name" : "bolts",
         "niceName" : "Bolts",
         "img" : "assets/items/Bolts.png",
+        "type" : "resource",
         "description" : "",
         "probabilities" : {
             "grassy" : 0.1,
@@ -523,90 +539,105 @@
         "name" : "bcockpit",
         "niceName" : "Basic Cockpit",
         "img" : "assets/ships/cb_cockpit.png",
+        "type" : "cockpit",
         "description" : "Just your average rocket box. Needed to pilot the ship."
     },
     {
         "name" : "acockpit",
         "niceName" : "Advanced Cockpit",
         "img" : "assets/ships/ad_cockpit.png",
+        "type" : "cockpit",
         "description" : "Maybe ccardboard isn't the best material for space exploration... This cockpit comes with an extra equipment slot!"
     },
     {
         "name" : "vcockpit",
         "niceName" : "Vulkan Cockpit",
         "img" : "assets/ships/vu_cockpit.png",
+        "type" : "cockpit",
         "description" : "Made with high polymer materials and borderline fictional technology for another slot and maximum piloting cred."
     },
     {
         "name" : "bengineering",
         "niceName" : "Engineering Bay",
         "img" : "assets/ships/cb_engineering.png",
+        "type" : "engineering",
         "description" : "This ship segment handles tools and shields... Though cardboard isn't the strongest shield..."
     },
     {
         "name" : "aengineering",
         "niceName" : "Advanced Engineering Bay",
         "img" : "assets/ships/ad_engineering.png",
+        "type" : "engineering",
         "description" : "This engineering bay has an extra equipment slot and is made of slightly less degradeable metal."
     },
     {
         "name" : "vengineering",
         "niceName" : "Vulkan Engineering Bay",
         "img" : "assets/ships/vu_engineering.png",
+        "type" : "engineering",
         "description" : "This pinnacle of space armaments features a second additional equipment slot."
     },
     {
         "name" : "bsciencebay",
         "niceName" : "Basic Science Bay",
         "img" : "assets/ships/cb_science.png",
+        "type" : "science",
         "description" : "The science bay is used to conduct research and resource processing. It cannot be used to figure out how a cardboard space ship can fly."
     },
     {
         "name" : "asciencebay",
         "niceName" : "Advanced Science Bay",
         "img" : "assets/ships/ad_science.png",
+        "type" : "science",
         "description" : "This upgraded science bay has an extra equipment slot and is sensibly made of sturdier materials."
     },
     {
         "name" : "vsciencebay",
         "niceName" : "Vulkan Science Bay",
         "img" : "assets/ships/vu_science.png",
+        "type" : "science",
         "description" : "The vulkan science bay is such a pinnacle of technology that it's a wonder what could be researched with it."
     },
     {
         "name" : "bcargobay",
         "niceName" : "Basic Cargo Bay",
         "img" : "assets/ships/cb_cargo.png",
+        "type" : "cargo",
         "description" : "The basic cargo bay provides additional storage for equipment. It is therefore fitting that it is actually just made out of a cardboard box."
     },
     {
         "name" : "acargobay",
         "niceName" : "Advanced Cargo Bay",
         "img" : "assets/ships/ad_cargo.png",
+        "type" : "cargo",
         "description" : "The advanced cargo bay includes additional storage and less risk of getting lost in the mail."
     },
     {
         "name" : "vcargobay",
         "niceName" : "Vulkan Cargo Bay",
         "img" : "assets/ships/vu_cargo.png",
+        "type" : "cargo",
         "description" : "Quantum technology allows the vulkan cargo bay to be bigger on the inside. Well worth the shipping price (get it?)."
     },
     {
         "name" : "bthrusters",
         "niceName" : "Basic Thrusters",
         "img" : "assets/ships/cb_engine.png",
+        "type" : "engine",
         "description" : "These thrusters provide the minimum necessary thrust to get off a planet... Somehow."
     },
     {
         "name" : "athrusters",
         "niceName" : "Advanced Thrusters",
         "img" : "assets/ships/ad_engine.png",
+        "type" : "engine",
         "description" : "These thrusters provide more equipment capacity and are a little more plausible."
     },
     {
         "name" : "vthrusters",
         "niceName" : "Vulkan Thrusters",
         "img" : "assets/ships/vu_engine.png",
+        "type" : "engine",
         "description" : "These thrusters are the pinnacle of space traversal technology."
     },
 
@@ -616,24 +647,28 @@
         "name" : "radar",
         "niceName" : "Radar",
         "img" : "assets/equipment/cockpit_equipment.png",
+        "type" : "cockpitequip",
         "description" : "This upgrade improves spatial awareness."
     },
     {
         "name" : "obcomputer",
         "niceName" : "On-Board Computer",
         "img" : "assets/equipment/cockpit_equipment.png",
+        "type" : "cockpitequip",
         "description" : "This on board computer adds extra equipment capacity for the cockpit. It is also slightly annoying."
     },
     {
         "name" : "petpod",
         "niceName" : "Pet Pod",
         "img" : "assets/equipment/cockpit_equipment.png",
+        "type" : "cockpitequip",
         "description" : "Want a pet to keep you company in space? Now you can! It even comes with a space hamster!"
     },
     {
         "name" : "bhead",
         "niceName" : "Bobble Head",
         "img" : "assets/equipment/cockpit_equipment.png",
+        "type" : "cockpitequip",
         "description" : "Bobbleheads can cheer anyone up. Plus they're stylish.",
         "probabilities" : {
             "grassy" : 0.05,
@@ -648,30 +683,35 @@
         "name" : "cchair",
         "niceName" : "Comfy Chair",
         "img" : "assets/equipment/cockpit_equipment.png",
+        "type" : "cockpitequip",
         "description" : "This chair is nice and cozy for those long flights."
     },
     {
         "name" : "cbed",
         "niceName" : "Comfy Bed",
         "img" : "assets/equipment/cockpit_equipment.png",
+        "type" : "cockpitequip",
         "description" : "A comfy bed provides better naps during long journeys."
     },
     {
         "name" : "hseat",
         "niceName" : "Heated Seat",
         "img" : "assets/equipment/cockpit_equipment.png",
+        "type" : "cockpitequip",
         "description" : "With insulated temperature control systems the heated seat can make any chair a luxury chair."
     },
     {
         "name" : "pillow",
         "niceName" : "Pillow",
         "img" : "assets/equipment/cockpit_equipment.png",
+        "type" : "cockpitequip",
         "description" : "Pillows are soft. They're light. You can even make a pile of them!"
     },
     {
         "name" : "agoodbook",
         "niceName" : "A Good Book",
         "img" : "assets/equipment/cockpit_equipment.png",
+        "type" : "cockpitequip",
         "description" : "Nothing like a good piece of literature to pass the time.",
         "probabilities" : {
             "grassy" : 0.05,
@@ -686,6 +726,7 @@
         "name" : "pflames",
         "niceName" : "Painted Flames",
         "img" : "assets/equipment/cockpit_equipment.png",
+        "type" : "cockpitequip",
         "description" : "These painted flames can be aplied to a ship to make it go faster. This is how science works."
     },
 
@@ -695,6 +736,7 @@
         "name" : "somnitool",
         "niceName" : "Ship Omni-Tool",
         "img" : "assets/equipment/engineering_equipment.png",
+        "type" : "engineeringequip",
         "description" : "Every ship should have an omni tool to handle the mysteries of space.",
         "tool" : "True",
         "actions" : ["hit"]
@@ -703,6 +745,7 @@
         "name" : "snet",
         "niceName" : "Space Net",
         "img" : "assets/equipment/engineering_equipment.png",
+        "type" : "engineeringequip",
         "description" : "This upgrade to the standard omni tool features an energy net.",
         "tool" : "True",
         "actions" : ["catch"]
@@ -711,6 +754,7 @@
         "name" : "sdrill",
         "niceName" : "Space Drill",
         "img" : "assets/equipment/engineering_equipment.png",
+        "type" : "engineeringequip",
         "description" : "This upgrade is the upgrade that will pierce the heavens.",
         "tool" : "True",
         "actions" : ["hit","dig"]
@@ -719,6 +763,7 @@
         "name" : "svacuum",
         "niceName" : "Space Vacuum",
         "img" : "assets/equipment/engineering_equipment.png",
+        "type" : "engineeringequip",
         "description" : "This upgrade to the omni-tool sucks... In a good way.",
         "tool" : "True",
         "actions" : ["suck"]
@@ -727,6 +772,7 @@
         "name" : "lasergun",
         "niceName" : "Laser Gun",
         "img" : "assets/equipment/engineering_equipment.png",
+        "type" : "engineeringequip",
         "description" : "This basic gun provides basic pew pew functionality to the ship.",
         "tool" : "True",
         "actions" : ["shoot"]
@@ -735,6 +781,7 @@
         "name" : "alienlaser",
         "niceName" : "Alien Laser",
         "img" : "assets/equipment/engineering_equipment.png",
+        "type" : "engineeringequip",
         "description" : "This mysterious laser built with alien tech is a good deal more powerful than a basic laser.",
         "tool" : "True",
         "actions" : ["shoot"]
@@ -743,6 +790,7 @@
         "name" : "particlebeam",
         "niceName" : "Particle Beam",
         "img" : "assets/equipment/engineering_equipment.png",
+        "type" : "engineeringequip",
         "description" : "This laser upgrade uses complex shoop whooping technology to generate a massive energy beam.",
         "tool" : "True",
         "actions" : ["shoot"]
@@ -751,30 +799,35 @@
         "name" : "callibratedguns",
         "niceName" : "Callibrated Guns",
         "img" : "assets/equipment/engineering_equipment.png",
+        "type" : "engineeringequip",
         "description" : "This list of callibrating instructions by a famous soldier give the ship's guns that extra oomph."
     },
     {
         "name" : "repulsors",
         "niceName" : "Repulsors",
         "img" : "assets/equipment/engineering_equipment.png",
+        "type" : "engineeringequip",
         "description" : "This repulsor field diverts energy to provide some protection from impact damage."
     },
     {
         "name" : "forcefield",
         "niceName" : "Force Field",
         "img" : "assets/equipment/engineering_equipment.png",
+        "type" : "engineeringequip",
         "description" : "This sophisticated forcefield provides an even greater level of protection."
     },
     {
         "name" : "rplating",
         "niceName" : "Reinforced Plating",
         "img" : "assets/equipment/engineering_equipment.png",
+        "type" : "engineeringequip",
         "description" : "This simple reinforcement to the ship's hull can protect it from minor damage and insurance woes."
     },
     {
         "name" : "suspensors",
         "niceName" : "Suspensors",
         "img" : "assets/equipment/engineering_equipment.png",
+        "type" : "engineeringequip",
         "description" : "This upgrade relieves some of the ship's internal stress to make it more effective at sustaining damage without breaking."
     },
 
@@ -784,36 +837,42 @@
         "name" : "refiningchamber",
         "niceName" : "Refining Chamber",
         "img" : "assets/equipment/science_equipment.png",
+        "type" : "scienceequip",
         "description" : "The refinement chamber upgrade provides the means to generate more complex materials that are needed to build more advanced equipment."
     },
     {
         "name" : "alchemylab",
         "niceName" : "Alchemy Lab",
         "img" : "assets/equipment/science_equipment.png",
+        "type" : "scienceequip",
         "description" : "The alchemy lab upgrade provides the capability to convert base materials from one state to another."
     },
     {
         "name" : "researchcentre",
         "niceName" : "Research Centre",
         "img" : "assets/equipment/science_equipment.png",
+        "type" : "scienceequip",
         "description" : "This upgrade to the science bay adds to its upgrade capacity for more sciency goodness."
     },
     {
         "name" : "minifridge",
         "niceName" : "Mini Fridge",
         "img" : "assets/equipment/science_equipment.png",
+        "type" : "scienceequip",
         "description" : "This fridge employs revolutionary technology to be slightly smaller than a full fridge while still being functional."
     },
     {
         "name" : "aicecream",
         "niceName" : "Astronaut Ice Cream",
         "img" : "assets/equipment/science_equipment.png",
+        "type" : "scienceequip",
         "description" : "This specially designed substance is both delicious and nutricious!"
     },
     {
         "name" : "mwatypewriter",
         "niceName" : "Monkey With A Typewriter",
         "img" : "assets/equipment/science_equipment.png",
+        "type" : "scienceequip",
         "description" : "This mysterious monkey writing on a typewriter is suspected to some day generate a great masterpiece. Until that day he's pretty fun to watch.",
         "probabilities" : {
             "grassy" : 0.05,
@@ -828,6 +887,7 @@
         "name" : "stasispod",
         "niceName" : "Stasis Pod",
         "img" : "assets/equipment/science_equipment.png",
+        "type" : "scienceequip",
         "description" : "Stasis pods employ highly complex cryogenic technology to freeze the user. Great for not getting bored on long trips."
     },
 
@@ -837,24 +897,28 @@
         "name" : "equipmentshelf",
         "niceName" : "Equipment Shelf",
         "img" : "assets/equipment/cargo_equipment.png",
+        "type" : "cargoequip",
         "description" : "This simple upgrade provides additional shelves to store more stuff."
     },
     {
         "name" : "quantumchest",
         "niceName" : "Quantum Chest",
         "img" : "assets/equipment/cargo_equipment.png",
+        "type" : "cargoequip",
         "description" : "This upgrade uses quantum technology to store many things in a tiny box."
     },
     {
         "name" : "bigpetpen",
         "niceName" : "Big Pet Pen",
         "img" : "assets/equipment/cargo_equipment.png",
+        "type" : "cargoequip",
         "description" : "This storage space holds your very own big space pet. For when a space hamster just isn't enough."
     },
     {
         "name" : "picnicbasket",
         "niceName" : "Picnic Basket",
         "img" : "assets/equipment/cargo_equipment.png",
+        "type" : "cargoequip",
         "description" : "This delicious assortment of fine foods is neatly sorted in a pleasant little basket. Beware of moon bears attempting to steal it."
     },
 
@@ -864,36 +928,42 @@
         "name" : "boosters",
         "niceName" : "Boosters",
         "img" : "assets/equipment/engine_equipment.png",
+        "type" : "engineequip",
         "description" : "This upgrade harnesses the power of crystal to bring the ship's speeds to new heights. A must have for anyone attempting the Kessel Run."
     },
     {
         "name" : "erecycler",
         "niceName" : "Exhaust Recycler",
         "img" : "assets/equipment/engine_equipment.png",
+        "type" : "engineequip",
         "description" : "This upgrade refilters exhaust generated by the engine to preserve fuel. A great choice for the environmentally conscious."
     },
     {
         "name" : "econverter",
         "niceName" : "Energy Converter",
         "img" : "assets/equipment/engine_equipment.png",
+        "type" : "engineequip",
         "description" : "This addition to the fuel consumption system allows for more efficient conversion of fuel sources into proper energy."
     },
     {
         "name" : "fpfilter",
         "niceName" : "Fuel Purification Filter",
         "img" : "assets/equipment/engine_equipment.png",
+        "type" : "engineequip",
         "description" : "This filtering system siphons energy with remarkable efficiency to maximise fuel effectiveness."
     },
     {
         "name" : "qreactor",
         "niceName" : "Quantum Reactor",
         "img" : "assets/equipment/engine_equipment.png",
+        "type" : "engineequip",
         "description" : "The quantum reactor channels energy at the atomic level to produce spectacular boosts in energy output."
     },
     {
         "name" : "oilchange",
         "niceName" : "Oil Change",
         "img" : "assets/equipment/engine_equipment.png",
+        "type" : "engineequip",
         "description" : "This upgrade is a simple question of sensible maintenance. It is nonetheless a good way to keep your ship's performance up to snuff."
     },
 
@@ -903,42 +973,49 @@
         "name" : "coolhat",
         "niceName" : "Cool Hat",
         "img" : "assets/equipment/character_equipment.png",
+        "type" : "helmet",
         "description" : "This hat is cool. People who wear this hat are probably cool too. If nothing else they'll feel cool."
     },
     {
         "name" : "oxygenmask",
         "niceName" : "Oxygen Mask",
         "img" : "assets/equipment/character_equipment.png",
+        "type" : "helmet",
         "description" : "This mask directs oxygen into your helmet to keep you alive in the harch conditions of space."
     },
     {
         "name" : "ominousmask",
         "niceName" : "Ominous Mask",
         "img" : "assets/equipment/character_equipment.png",
+        "type" : "helmet",
         "description" : "This creepy mask seems like it came out of old mayan legend. It is said to give the wielder great power."
     },
     {
         "name" : "redshirt",
         "niceName" : "Red Shirt",
         "img" : "assets/equipment/character_equipment.png",
+        "type" : "suit",
         "description" : "This shirt is speculated to curse the wearer with a short life. It's not very comfortable either."
     },
     {
         "name" : "comfysweater",
         "niceName" : "Comfy Sweater",
         "img" : "assets/equipment/character_equipment.png",
+        "type" : "suit",
         "description" : "This sweater may not be especially protective but it sure is cozy."
     },
     {
         "name" : "hazmatsuit",
         "niceName" : "Hazmat Suit",
         "img" : "assets/equipment/character_equipment.png",
+        "type" : "suit",
         "description" : "This suit is specially designed to protect the wearer from the elements and harsh environmental hazards."
     },
     {
         "name" : "pomnitool",
         "niceName" : "Personal Omni-Tool",
         "img" : "assets/equipment/character_equipment.png",
+        "type" : "tool",
         "description" : "Every self respecting astronaut has a one such tool for collecting resources. It is a must have for any true adventurer.",
         "tool" : "True",
         "actions" : ["hit"]
@@ -947,6 +1024,7 @@
         "name" : "sonicshovel",
         "niceName" : "Sonic Shovel",
         "img" : "assets/equipment/character_equipment.png",
+        "type" : "tool",
         "description" : "This omni tool upgrade optimises the shovelling process with innovative sonic shovelling technology... Whatever that means.",
         "tool" : "True",
         "actions" : ["hit","dig"]
@@ -955,6 +1033,7 @@
         "name" : "simplegun",
         "niceName" : "Simple Gun",
         "img" : "assets/equipment/character_equipment.png",
+        "type" : "tool",
         "description" : "This gun is simple. It can be used to shoot things. It goes pew. That is all.",
         "tool" : "True",
         "actions" : ["shoot"]
@@ -963,6 +1042,7 @@
         "name" : "blaster",
         "niceName" : "Blaster",
         "img" : "assets/equipment/character_equipment.png",
+        "type" : "tool",
         "description" : "This blaster is a bit cooler than a simple gun. It is also more powerful.",
         "tool" : "True",
         "actions" : ["shoot"]
@@ -971,6 +1051,7 @@
         "name" : "cricketgun",
         "niceName" : "Cricket Gun",
         "img" : "assets/equipment/character_equipment.png",
+        "type" : "tool",
         "description" : "This comically tiny gun packs a riddiculous punch.",
         "tool" : "True",
         "actions" : ["shoot"]

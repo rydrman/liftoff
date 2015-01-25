@@ -72,12 +72,30 @@ var UI = function(canvas)
         fontSize: 12/1920,
         fontTranslate: {x: 60/1920, y: 65 / 1080}
     }
+    this.shipInv = {
+        background: new Rectangle( 50 / 1920, 870 / 1080, 532 / 1920, 171 / 1080),
+        slots: [
+            new Rectangle( 70 / 1920, 880 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 170 / 1920, 880 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 270 / 1920, 880 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 370 / 1920, 880 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 470 / 1920, 880 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 70 / 1920, 955 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 170 / 1920, 955 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 270 / 1920, 955 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 370 / 1920, 955 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 470 / 1920, 955 / 1080, 70 / 1920, 70 / 1080)
+        ],
+        fontSize: 12/1920,
+        fontTranslate: {x: 60/1920, y: 65 / 1080}
+    }
     
     //imgaes
     this.backAddonImg = new Image();
     
     this.craftBackImg = new Image();
     this.playerInventoryImg = new Image();
+    this.shipInventoryImg = new Image();
     
 	this.statDamageEmptyImg = new Image();
     this.statDamageFullImg = new Image();
@@ -120,12 +138,14 @@ UI.prototype.load = function()
     
     loader.addImageCall('assets/menu/menu_window.png', this.craftBackImg);
     
+    loader.addImageCall('assets/menu/menu_player_inventory-01.png', this.playerInventoryImg);
+    loader.addImageCall('assets/menu/menu_item_bg_med.png', this.shipInventoryImg);
+
     loader.addImageCall('assets/menu/uiCockpit.png', this.shipIcons.cockpit);
     loader.addImageCall('assets/menu/uiEngineering.png', this.shipIcons.engineering);
     loader.addImageCall('assets/menu/uiScience.png', this.shipIcons.science);
     loader.addImageCall('assets/menu/uiCargo.png', this.shipIcons.cargo);
     loader.addImageCall('assets/menu/uiEngine.png', this.shipIcons.engine);
-	loader.addImageCall('assets/menu/menu_player_inventory-01.png', this.playerInventoryImg);
     
     // Player stats
     loader.addImageCall('assets/icons/armour.png', this.statDamageEmptyImg);
@@ -216,6 +236,38 @@ UI.prototype.sample = function( mousePosCanvas, player )
     this.shipOpen = false;
     this.craftOpen = false;
     this.currentShip = null;
+    
+    // Check against all UI elements
+    for (var i in this.shipMenu) {
+        if (this.shipMenu[i].contains(relativePos))
+            return {name: this.shipMenu[i]}
+    }
+    for (var i in this.playerShipStats) {
+         if (this.playerShipStats[i].contains(relativePos))
+             return {name: this.playerShipStats[i]};
+    }
+    if (this.playerInv.background.contains(relativePos)) {
+        // check all slots
+        var slot = null;
+        for (var i=0; i < this.playerInv.slots.length; i++) {
+            if (this.playerInv.slots[i].contains(relativePos)) {
+                slot = i;
+            }
+        }
+        return { name: "playerInv", slotNo: slot};
+    }
+    if (this.shipInv.background.contains(relativePos)) {
+        // check all slots
+        var slot = null;
+        for (var i=0; i < this.shipInv.slots.length; i++) {
+            if (this.shipInv.slots[i].contains(relativePos)) {
+                slot = i;
+            }
+        }
+        return { name: "shipInv", slotNo: slot};
+    }
+    
+    
     return false;
     
 }

@@ -63,7 +63,7 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
         
         //draw thicker edge lines
         this.ctx.lineWidth = 5;
-        var origin = this.project( this.wrapWorldCoords(new Vector2( 0, 0 )) );
+        var origin = this.project( world.wrapCoords( this.viewport.center, new Vector2( 0, 0 )) );
         this.ctx.beginPath();
         this.ctx.moveTo( 0, origin.y );
         this.ctx.lineTo( this.canvas.width, origin.y );
@@ -99,15 +99,16 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
     
     //draw planets
     this.ctx.fillStyle = "#F00";
-    var p, pos, rad;
+    var p, pos, rad, wrapped;
     for(var i in world.planets)
     {
         p = world.planets[i];
+        wrapped = world.wrapCoords( this.viewport.center, p.position );
         
-        if( this.viewport.distanceTo( p.position ) > p.radius + 5 )
+        if( this.viewport.distanceTo( wrapped ) > p.radius + this.viewport.w )
             continue;
         
-        pos = this.project( this.wrapWorldCoords( p.position ) );
+        pos = this.project( wrapped );
         rad = this.worldToPixel( p.radius );
         
         this.ctx.save();
@@ -124,17 +125,36 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
             
             this.ctx.save();
             this.ctx.rotate( p.items[i].planetPosition );
-            this.ctx.translate(0, rad)
+            this.ctx.translate(0, rad + this.worldToPixel(p.items[i].bounds.h * 0.125))
             this.ctx.rotate( Math.PI )
-            this.ctx.scale( player.ship.renderScale, player.ship.renderScale );
+            this.ctx.scale( p.items[i].renderScale, p.items[i].renderScale );
+            this.ctx.save();
+            this.ctx.scale(this.zoom, this.zoom);
             try{
-                this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75);
+                this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.5);
             }
             catch(err)
             {
                 console.warn("image does not exist: " + p.items[i].image.src);
                 p.items[i].image = missingImg;
+                p.items[i].imageDone();
             }
+            this.ctx.restore();
+            
+            //debug collider
+            if(Settings.debug)
+            {
+                this.ctx.save();
+                //this.ctx.translate( -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75 ); 
+                this.ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+                //this.ctx.fillRect( ship.bounds.x, ship.bounds.y, ship.bounds.w, ship.bounds.h );
+                this.ctx.fillRect( this.worldToPixel( p.items[i].bounds.x ), 
+                                   this.worldToPixel( p.items[i].bounds.y ), 
+                                   this.worldToPixel( p.items[i].bounds.w ), 
+                                   this.worldToPixel( p.items[i].bounds.h ) );
+                this.ctx.restore();
+            }
+            
             this.ctx.restore();
         }
         this.ctx.restore()
@@ -261,7 +281,7 @@ Renderer.prototype.renderUI = function( ui, player )
                        ui.playerInv.background.w * this.canvas.width,
                        ui.playerInv.background.h * this.canvas.height );
     this.ctx.fillStyle = "#555";
-    for (i = 0; i < ui.playerInv.slots.length; i++) {
+    for (var i = 0; i < ui.playerInv.slots.length; i++) {
         this.ctx.fillRect(ui.playerInv.slots[i].x * this.canvas.width,
                           ui.playerInv.slots[i].y * this.canvas.height,
                           ui.playerInv.slots[i].w * this.canvas.width,
@@ -284,6 +304,38 @@ Renderer.prototype.renderUI = function( ui, player )
         }
         
         slot ++;
+    }
+    if (ship && player.inShip) {
+        this.ctx.drawImage(ui.shipInventoryImg,
+                           ui.shipInv.background.x * this.canvas.width,
+                           ui.shipInv.background.y * this.canvas.height,
+                           ui.shipInv.background.w * this.canvas.width,
+                           ui.shipInv.background.h * this.canvas.height );
+        this.ctx.fillStyle = "#555";
+        for (var i=0; i < ui.shipInv.slots.length; i++) {
+            this.ctx.fillRect(ui.shipInv.slots[i].x * this.canvas.width,
+                              ui.shipInv.slots[i].y * this.canvas.height,
+                              ui.shipInv.slots[i].w * this.canvas.width,
+                              ui.shipInv.slots[i].h * this.canvas.height);
+        }
+        var slot = 0;
+        this.ctx.fillStyle = "#fff";
+        for (i in ship.inventory) {
+            this.ctx.drawImage(ship.inventory[i].image,
+                              ui.shipInv.slots[slot].x * this.canvas.width,
+                              ui.shipInv.slots[slot].y * this.canvas.height,
+                              ui.shipInv.slots[slot].w * this.canvas.width,
+                              ui.shipInv.slots[slot].h * this.canvas.height);
+            // Render quantity if above 1
+            
+            if (ship.inventory[i].quantity > 1) {
+                this.ctx.fontSize = (ui.shipInv.fontSize * this.canvas.width).toFixed(2);
+                this.ctx.fillText(ship.inventory[i].quantity,
+                                  (ui.shipInv.slots[slot].x * this.canvas.width) + (ui.shipInv.fontTranslate.x * this.canvas.width),
+                                  (ui.shipInv.slots[slot].y * this.canvas.height) + (ui.shipInv.fontTranslate.y * this.canvas.height));
+            }
+            slot ++;
+        }
     }
     
     //draw crafting
@@ -587,7 +639,7 @@ Renderer.prototype.project = function( worldPos )
     return new Vector2( x, y );
 }
 
-Renderer.prototype.wrapWorldCoords = function( worldAbs )
+/*Renderer.prototype.wrapWorldCoords = function( worldAbs )
 {
     //if it's in viewport, return it
     if( this.viewport.contains( worldAbs ) ) 
@@ -647,57 +699,8 @@ Renderer.prototype.wrapWorldCoords = function( worldAbs )
         dist : bothPos.sub( center ).lengthSqd()
     });
     
-    /*//try normal
-    var norm = worldAbs.clone();
-    options.push({
-        pos : norm,
-        dist : this.viewport.distanceTo( norm )
-    });
-    //try top
-    var top = worldAbs.clone();
-    top.y -= Settings.worldSize.y;
-    options.push({
-        pos : top,
-        dist : this.viewport.distanceTo( top )
-    });
-    //try left
-    var left = worldAbs.clone();
-    left.x -= Settings.worldSize.x;
-    options.push({
-        pos : left,
-        dist : this.viewport.distanceTo( left )
-    });
-    //try bottom
-    var bottom = worldAbs.clone();
-    bottom.y += Settings.worldSize.y;
-    options.push({
-        pos : bottom,
-        dist : this.viewport.distanceTo( bottom )
-    });
-    //try right
-    var right = worldAbs.clone();
-    right.x += Settings.worldSize.x;
-    options.push({
-        pos : right,
-        dist : this.viewport.distanceTo( right )
-    });
-    //try both
-    var bothNeg = worldAbs.clone();
-    bothNeg.x -= Settings.worldSize.x;
-    bothNeg.y -= Settings.worldSize.y;
-    options.push({
-        pos : bothNeg,
-        dist : this.viewport.distanceTo( bothNeg )
-    });
-    var bothPos = worldAbs.clone();
-    bothPos.x += Settings.worldSize.x;
-    bothPos.y += Settings.worldSize.y;
-    options.push({
-        pos : bothPos,
-        dist : this.viewport.distanceTo( bothPos )
-    });*/
     
     options.sort(function(a, b){return a.dist-b.dist});
     return options[0].pos;
     
-}
+}*/

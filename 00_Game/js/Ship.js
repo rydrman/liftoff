@@ -10,7 +10,7 @@ var Ship = function() {
     
     this.fuelCapacity = 100;
     
-    this.inventorySize = 7;
+    this.inventorySize = 10;
     
     // parts
     this.parts = {
