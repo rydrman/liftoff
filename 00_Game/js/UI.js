@@ -18,8 +18,22 @@ var UI = function(canvas)
         engine: new Rectangle( 224 / 1920, 680 / 1080, 147 / 1920, 153 / 1080)
     }
     
+    this.addonMenu = {
+        //cockpit
+        cockpit : new Rectangle( 420 / 1920, 50 / 1080, 420 / 1920, 150 / 1080),
+        //engineering
+        engineering : new Rectangle( 420 / 1920, 210 / 1080, 420 / 1920, 150 / 1080),
+        //science
+        science : new Rectangle( 420 / 1920, 367 / 1080, 420 / 1920, 150 / 1080),
+        //cargo
+        cargo : new Rectangle( 420 / 1920, 524 / 1080, 420 / 1920, 150 / 1080),
+        //engine
+        engine: new Rectangle( 420 / 1920, 680 / 1080, 420 / 1920, 150 / 1080)
+    }
+    
     //imgaes
     this.backSquareImg = new Image();
+    this.backAddonImg = new Image();
     
     this.loaded = false;
 }
@@ -37,6 +51,7 @@ UI.prototype.load = function()
     loader.onCompleteContext = this;
     
     loader.addImageCall('assets/menu/menu_item_bg_sm.png', this.backSquareImg);
+    loader.addImageCall('assets/menu/menu_item_bg_lg.png', this.backAddonImg);
     
     loader.runCalls();
 }
