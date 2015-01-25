@@ -63,7 +63,7 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
         
         //draw thicker edge lines
         this.ctx.lineWidth = 5;
-        var origin = this.project( this.wrapWorldCoords(new Vector2( 0, 0 )) );
+        var origin = this.project( world.wrapCoords( this.viewport.center, new Vector2( 0, 0 )) );
         this.ctx.beginPath();
         this.ctx.moveTo( 0, origin.y );
         this.ctx.lineTo( this.canvas.width, origin.y );
@@ -103,7 +103,7 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
     for(var i in world.planets)
     {
         p = world.planets[i];
-        wrapped = this.wrapWorldCoords( p.position );
+        wrapped = world.wrapCoords( this.viewport.center, p.position );
         
         if( this.viewport.distanceTo( wrapped ) > p.radius + this.viewport.w )
             continue;
@@ -588,7 +588,7 @@ Renderer.prototype.project = function( worldPos )
     return new Vector2( x, y );
 }
 
-Renderer.prototype.wrapWorldCoords = function( worldAbs )
+/*Renderer.prototype.wrapWorldCoords = function( worldAbs )
 {
     //if it's in viewport, return it
     if( this.viewport.contains( worldAbs ) ) 
@@ -648,57 +648,8 @@ Renderer.prototype.wrapWorldCoords = function( worldAbs )
         dist : bothPos.sub( center ).lengthSqd()
     });
     
-    /*//try normal
-    var norm = worldAbs.clone();
-    options.push({
-        pos : norm,
-        dist : this.viewport.distanceTo( norm )
-    });
-    //try top
-    var top = worldAbs.clone();
-    top.y -= Settings.worldSize.y;
-    options.push({
-        pos : top,
-        dist : this.viewport.distanceTo( top )
-    });
-    //try left
-    var left = worldAbs.clone();
-    left.x -= Settings.worldSize.x;
-    options.push({
-        pos : left,
-        dist : this.viewport.distanceTo( left )
-    });
-    //try bottom
-    var bottom = worldAbs.clone();
-    bottom.y += Settings.worldSize.y;
-    options.push({
-        pos : bottom,
-        dist : this.viewport.distanceTo( bottom )
-    });
-    //try right
-    var right = worldAbs.clone();
-    right.x += Settings.worldSize.x;
-    options.push({
-        pos : right,
-        dist : this.viewport.distanceTo( right )
-    });
-    //try both
-    var bothNeg = worldAbs.clone();
-    bothNeg.x -= Settings.worldSize.x;
-    bothNeg.y -= Settings.worldSize.y;
-    options.push({
-        pos : bothNeg,
-        dist : this.viewport.distanceTo( bothNeg )
-    });
-    var bothPos = worldAbs.clone();
-    bothPos.x += Settings.worldSize.x;
-    bothPos.y += Settings.worldSize.y;
-    options.push({
-        pos : bothPos,
-        dist : this.viewport.distanceTo( bothPos )
-    });*/
     
     options.sort(function(a, b){return a.dist-b.dist});
     return options[0].pos;
     
-}
+}*/
