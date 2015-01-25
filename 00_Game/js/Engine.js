@@ -133,7 +133,7 @@ Engine.prototype.onMouseDown = function( mousePos )
             //item on a planet
             this.mouseLTarget = "world";
             // check if player is close enough to pick up object
-            if (this.player.position.clone().sub(this.world.planets[result.planetIndex].position.clone().add(result.objectData.position)).length() < 0.4)
+            if (this.player.position.clone().sub(result.objectData.position).length() < 0.4)
             {
                 // Add to player inventory and remove from world
                 if (this.player.addToInventory(result.objectData))
