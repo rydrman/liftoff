@@ -75,7 +75,12 @@ Ship.prototype.wrapValues = function( bounds )
     
     //goal
     this.goal.x = wrap( this.goal.x, bounds.x, bounds.x + bounds.w );
-    this.goal.y = wrap( this.goal.y, bounds.y, bounds.y + bounds.h );
+    this.goal.y = wrap( this.goal.y, bounds.y, bounds.y + bounds.h );}
+
+Ship.prototype.hasPiece = function(name)
+ {
+    // TODO
+    return true;
 }
 
 Ship.prototype.construct = function( renderer )
