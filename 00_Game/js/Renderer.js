@@ -281,7 +281,7 @@ Renderer.prototype.renderUI = function( ui, player )
                        ui.playerInv.background.w * this.canvas.width,
                        ui.playerInv.background.h * this.canvas.height );
     this.ctx.fillStyle = "#555";
-    for (i = 0; i < ui.playerInv.slots.length; i++) {
+    for (var i = 0; i < ui.playerInv.slots.length; i++) {
         this.ctx.fillRect(ui.playerInv.slots[i].x * this.canvas.width,
                           ui.playerInv.slots[i].y * this.canvas.height,
                           ui.playerInv.slots[i].w * this.canvas.width,
@@ -304,6 +304,38 @@ Renderer.prototype.renderUI = function( ui, player )
         }
         
         slot ++;
+    }
+    if (ship && player.inShip) {
+        this.ctx.drawImage(ui.shipInventoryImg,
+                           ui.shipInv.background.x * this.canvas.width,
+                           ui.shipInv.background.y * this.canvas.height,
+                           ui.shipInv.background.w * this.canvas.width,
+                           ui.shipInv.background.h * this.canvas.height );
+        this.ctx.fillStyle = "#555";
+        for (var i=0; i < ui.shipInv.slots.length; i++) {
+            this.ctx.fillRect(ui.shipInv.slots[i].x * this.canvas.width,
+                              ui.shipInv.slots[i].y * this.canvas.height,
+                              ui.shipInv.slots[i].w * this.canvas.width,
+                              ui.shipInv.slots[i].h * this.canvas.height);
+        }
+        var slot = 0;
+        this.ctx.fillStyle = "#fff";
+        for (i in ship.inventory) {
+            this.ctx.drawImage(ship.inventory[i].image,
+                              ui.shipInv.slots[slot].x * this.canvas.width,
+                              ui.shipInv.slots[slot].y * this.canvas.height,
+                              ui.shipInv.slots[slot].w * this.canvas.width,
+                              ui.shipInv.slots[slot].h * this.canvas.height);
+            // Render quantity if above 1
+            
+            if (ship.inventory[i].quantity > 1) {
+                this.ctx.fontSize = (ui.shipInv.fontSize * this.canvas.width).toFixed(2);
+                this.ctx.fillText(ship.inventory[i].quantity,
+                                  (ui.shipInv.slots[slot].x * this.canvas.width) + (ui.shipInv.fontTranslate.x * this.canvas.width),
+                                  (ui.shipInv.slots[slot].y * this.canvas.height) + (ui.shipInv.fontTranslate.y * this.canvas.height));
+            }
+            slot ++;
+        }
     }
     
     //draw crafting

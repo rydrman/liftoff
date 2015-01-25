@@ -25,6 +25,8 @@ Engine.prototype.init = function()
     this.generator = new Generator();
     this.crafting = new Crafting();
     
+    this.draggedItem = null;
+    
     //classes
     this.renderer = new Renderer();
     this.player = new Player();
@@ -68,6 +70,8 @@ Engine.prototype.begin = function()
     
     this.input.addListener(Input.eventTypes.MOUSEMOVE_ABS, this.onMouseMove, this);
     
+    this.input.addListener(Input.eventTypes.MOUSEUP, this.onMouseUp, this);
+    
     onResize();
     window.requestAnimationFrame( this.frameCallback );
 }
@@ -83,6 +87,27 @@ Engine.prototype.onMouseDown = function( mousePos )
     if (uiResult) 
     {
         console.log ("UI ELEMENT CLICKED");
+        this.mouseLTarget = "ui";
+        if (uiResult.name == "playerInv") {
+            if (uiResult.slotNo != null && this.draggedItem == null) { // pick it up
+                this.draggedItem = this.player.getInventoryByIndex(uiResult.slotNo);
+                // remove it from inventory
+                if (this.draggedItem) {
+                    this.draggedItem.position = worldPos;
+                    delete this.player.inventory[this.draggedItem.name];
+                }
+            }
+        } else if (uiResult.name == "shipInv") {
+            if (uiResult.slotNo != null && this.draggedItem == null) { // pick it up
+                this.draggedItem = this.player.ship.getInventoryByIndex(uiResult.slotNo);
+                // remove it from inventory
+                if (this.draggedItem) {
+                    this.draggedItem.position = worldPos;
+                    delete this.player.ship.inventory[this.draggedItem.name];
+                }
+            }
+        }
+        
     } 
     //else if (this.ship.isInBounds(worldPos)) 
     //{
@@ -167,7 +192,7 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
     // Don't fire sustained right away - give a few milliseconds in case it's a click
     
     this.timer.endSubTick("mouseDown_L");
-    if (this.timer.subTicks["mouseDown_L"].deltaMS > 250) {
+    if (this.timer.subTicks["mouseDown_L"].deltaMS > 150) {
         var worldPos = this.renderer.unProject( mousePos );
 
         //TODO try ui first, then ship / player, then world
@@ -175,6 +200,9 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
         var result = this.world.sample( worldPos );
         if (uiResult && this.mouseLTarget == "ui") {
             console.log ("UI ELEMENT SUSTAINED");
+            if (this.draggedItem) {
+                this.draggedItem.position = worldPos;
+            }
         }
         /*if (this.ship.isInBounds(worldPos)) {
             // Open Ship Menu
@@ -199,6 +227,23 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
             this.player.ship.goal.copy(worldPos);
         } else if (this.mouseLTarget == "player") {
             this.player.goal.copy( worldPos );
+        }
+    }
+}
+Engine.prototype.onMouseUp = function(mousePos) {
+    // Get target if we need to
+    if (this.draggedItem != null) {
+        var uiResult = this.ui.sample(mousePos);
+        if (uiResult.name == "playerInv") {
+            if (this.player.addToInventory(this.draggedItem))
+                this.draggedItem = null;
+        } else if (uiResult.name == "shipInv") {
+            if (this.player.ship.addToInventory(this.draggedItem))
+                this.draggedItem = null;
+        } else {
+            // add back to inventory
+            if (!this.player.addToInventory(this.draggedItem))
+                this.player.ship.addToInventory(this.draggedItem);
         }
     }
 }
