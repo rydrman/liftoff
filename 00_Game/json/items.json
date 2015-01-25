@@ -11,6 +11,21 @@
             "swamp" :  0.5,
             "volcanic" :  0,
             "cow" :  1
+        },
+        "breakable" : "True",
+        "receivedactions" : ["hit"],
+        "drops" : {
+            "ore" : 0,
+            "cardboard" : 2,
+            "goo" : 1,
+            "sand" :  0,
+            "carbon" :  0,
+            "fibre" :  0,
+            "rubber" : 0,
+            "ppaste" : 0,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 0
         }
     },
     {
@@ -25,6 +40,21 @@
             "swamp" :  0,
             "volcanic" :  0,
             "cow" :  1
+        },
+        "breakable" : "True",
+        "receivedactions" : ["dig"],
+        "drops" : {
+            "ore" : 1,
+            "cardboard" : 0,
+            "goo" : 0,
+            "sand" :  0,
+            "carbon" :  0,
+            "fibre" :  0,
+            "rubber" : 0,
+            "ppaste" : 0,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 0
         }
     },
     {
@@ -39,6 +69,21 @@
             "swamp" :  0,
             "volcanic" :  0.5,
             "cow" :  0
+        },
+        "breakable" : "True",
+        "receivedactions" : ["dig"],
+        "drops" : {
+            "ore" : 1,
+            "cardboard" : 0,
+            "goo" : 0,
+            "sand" :  2,
+            "carbon" :  0,
+            "fibre" :  0,
+            "rubber" : 0,
+            "ppaste" : 0,
+            "spice" : 1,
+            "rooster" : 0,
+            "plasma" : 0
         }
     },
     {
@@ -53,6 +98,21 @@
             "swamp" :  1,
             "volcanic" :  0,
             "cow" :  0.2
+        },
+        "breakable" : "True",
+        "receivedactions" : ["dig"],
+        "drops" : {
+            "ore" : 0,
+            "cardboard" : 0,
+            "goo" : 0,
+            "sand" :  0,
+            "carbon" :  0,
+            "fibre" :  0,
+            "rubber" : 2,
+            "ppaste" : 0,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 0
         }
     },
      {
@@ -67,6 +127,21 @@
             "swamp" :  0,
             "volcanic" :  0.5,
             "cow" :  0
+        },
+        "breakable" : "True",
+        "receivedactions" : ["hit"],
+        "drops" : {
+            "ore" : 2,
+            "cardboard" : 0,
+            "goo" : 0,
+            "sand" :  0,
+            "carbon" :  1,
+            "fibre" :  0,
+            "rubber" : 0,
+            "ppaste" : 0,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 0
         }
     },
     {
@@ -81,6 +156,21 @@
             "swamp" :  0,
             "volcanic" :  1,
             "cow" :  0
+        },
+        "breakable" : "True",
+        "receivedactions" : ["dig"],
+        "drops" : {
+            "ore" : 2,
+            "cardboard" : 0,
+            "goo" : 0,
+            "sand" :  0,
+            "carbon" :  2,
+            "fibre" :  0,
+            "rubber" : 0,
+            "ppaste" : 0,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 1
         }
     },
     {
@@ -95,9 +185,24 @@
             "swamp" :  0,
             "volcanic" :  0,
             "cow" :  1
+        },
+        "breakable" : "True",
+        "receivedactions" : ["hit","shoot"],
+        "drops" : {
+            "ore" : 0,
+            "cardboard" : 0,
+            "goo" : 1,
+            "sand" :  0,
+            "carbon" :  0,
+            "fibre" :  1,
+            "rubber" : 0,
+            "ppaste" : 2,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 0
         }
     },
-     {
+    {
         "name" : "sheep",
         "niceName" : "Sheep",
         "img" : "assets/items/Sheep.png",
@@ -109,6 +214,21 @@
             "swamp" :  0,
             "volcanic" :  0,
             "cow" :  1
+        },
+        "breakable" : "True",
+        "receivedactions" : ["hit","shoot"],
+        "drops" : {
+            "ore" : 0,
+            "cardboard" : 0,
+            "goo" : 0,
+            "sand" :  0,
+            "carbon" :  0,
+            "fibre" :  2,
+            "rubber" : 0,
+            "ppaste" : 1,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 0
         }
     },
     {
@@ -123,6 +243,21 @@
             "swamp" :  0.5,
             "volcanic" :  0.2,
             "cow" :  0.5
+        },
+        "breakable" : "True",
+        "receivedactions" : ["hit","shoot"],
+        "drops" : {
+            "ore" : 0,
+            "cardboard" : 0,
+            "goo" : 2,
+            "sand" :  0,
+            "carbon" :  1,
+            "fibre" :  0,
+            "rubber" : 0,
+            "ppaste" : 1,
+            "spice" : 0,
+            "rooster" : 0,
+            "plasma" : 1
         }
     },
     {
@@ -137,6 +272,21 @@
             "swamp" :  0.2,
             "volcanic" :  0.1,
             "cow" :  0.1
+        },
+        "breakable" : "True",
+        "receivedactions" : ["dig"],
+        "drops" : {
+            "ore" : 4,
+            "cardboard" : 0,
+            "goo" : 1,
+            "sand" :  0,
+            "carbon" :  2,
+            "fibre" :  0,
+            "rubber" : 2,
+            "ppaste" : 1,
+            "spice" : 1,
+            "rooster" : 1,
+            "plasma" : 1
         }
     },
 
@@ -545,43 +695,57 @@
         "name" : "somnitool",
         "niceName" : "Ship Omni-Tool",
         "img" : "assets/equipment/engineering_equipment.png",
-        "description" : "Every ship should have an omni tool to handle the mysteries of space."
+        "description" : "Every ship should have an omni tool to handle the mysteries of space.",
+        "tool" : "True",
+        "actions" : ["hit"]
     },
     {
         "name" : "snet",
         "niceName" : "Space Net",
         "img" : "assets/equipment/engineering_equipment.png",
-        "description" : "This upgrade to the standard omni tool features an energy net."
+        "description" : "This upgrade to the standard omni tool features an energy net.",
+        "tool" : "True",
+        "actions" : ["catch"]
     },
     {
         "name" : "sdrill",
         "niceName" : "Space Drill",
         "img" : "assets/equipment/engineering_equipment.png",
-        "description" : "This upgrade is the upgrade that will pierce the heavens."
+        "description" : "This upgrade is the upgrade that will pierce the heavens.",
+        "tool" : "True",
+        "actions" : ["hit","dig"]
     },
     {
         "name" : "svacuum",
         "niceName" : "Space Vacuum",
         "img" : "assets/equipment/engineering_equipment.png",
-        "description" : "This upgrade to the omni-tool sucks... In a good way."
+        "description" : "This upgrade to the omni-tool sucks... In a good way.",
+        "tool" : "True",
+        "actions" : ["suck"]
     },
     {
         "name" : "lasergun",
         "niceName" : "Laser Gun",
         "img" : "assets/equipment/engineering_equipment.png",
-        "description" : "This basic gun provides basic pew pew functionality to the ship."
+        "description" : "This basic gun provides basic pew pew functionality to the ship.",
+        "tool" : "True",
+        "actions" : ["shoot"]
     },
     {
         "name" : "alienlaser",
         "niceName" : "Alien Laser",
         "img" : "assets/equipment/engineering_equipment.png",
-        "description" : "This mysterious laser built with alien tech is a good deal more powerful than a basic laser."
+        "description" : "This mysterious laser built with alien tech is a good deal more powerful than a basic laser.",
+        "tool" : "True",
+        "actions" : ["shoot"]
     },
     {
         "name" : "particlebeam",
         "niceName" : "Particle Beam",
         "img" : "assets/equipment/engineering_equipment.png",
-        "description" : "This laser upgrade uses complex shoop whooping technology to generate a massive energy beam."
+        "description" : "This laser upgrade uses complex shoop whooping technology to generate a massive energy beam.",
+        "tool" : "True",
+        "actions" : ["shoot"]
     },
     {
         "name" : "callibratedguns",
@@ -775,30 +939,40 @@
         "name" : "pomnitool",
         "niceName" : "Personal Omni-Tool",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : "Every self respecting astronaut has a one such tool for collecting resources. It is a must have for any true adventurer."
+        "description" : "Every self respecting astronaut has a one such tool for collecting resources. It is a must have for any true adventurer.",
+        "tool" : "True",
+        "actions" : ["hit"]
     },
     {
         "name" : "sonicshovel",
         "niceName" : "Sonic Shovel",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : "This omni tool upgrade optimises the shovelling process with innovative sonic shovelling technology... Whatever that means."
+        "description" : "This omni tool upgrade optimises the shovelling process with innovative sonic shovelling technology... Whatever that means.",
+        "tool" : "True",
+        "actions" : ["hit","dig"]
     },
     {
         "name" : "simplegun",
         "niceName" : "Simple Gun",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : "This gun is simple. It can be used to shoot things. It goes pew. That is all."
+        "description" : "This gun is simple. It can be used to shoot things. It goes pew. That is all.",
+        "tool" : "True",
+        "actions" : ["shoot"]
     },
     {
         "name" : "blaster",
         "niceName" : "Blaster",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : "This blaster is a bit cooler than a simple gun. It is also more powerful."
+        "description" : "This blaster is a bit cooler than a simple gun. It is also more powerful.",
+        "tool" : "True",
+        "actions" : ["shoot"]
     },
     {
         "name" : "cricketgun",
         "niceName" : "Cricket Gun",
         "img" : "assets/equipment/character_equipment.png",
-        "description" : "This comically tiny gun packs a riddiculous punch."
+        "description" : "This comically tiny gun packs a riddiculous punch.",
+        "tool" : "True",
+        "actions" : ["shoot"]
     }
 ]
