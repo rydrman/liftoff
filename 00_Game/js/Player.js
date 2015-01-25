@@ -1,5 +1,6 @@
 var Player = function() {
     this.position = new Vector2();
+    this.rotation = 0;
     this.speed = 1.2; // units per second - 1 unit = 50px;
     this.force = new Vector2();
     
@@ -32,6 +33,7 @@ Player.prototype.update = function( timer ) {
             offset.add(this.force);
             offset.multiplyScalar(this.speed * timer.deltaTimeS);
             this.position.add( offset );
+            this.rotation = offset.toRotation();
         }
     } else if (this.force.length() > 0) {
         this.position.add(this.force);

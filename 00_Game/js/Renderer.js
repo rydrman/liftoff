@@ -86,9 +86,6 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
         var pos = player.inShip ? ship.position : player.position;
         this.ctx.fillText("x: " + pos.x.toFixed(2) + ", y: " + pos.y.toFixed(2), 10, 30);
         
-        // Ship position
-        var shipPos = this.project(ship.position);
-        this.ctx.fillRect(shipPos.x - 25, shipPos.y - 25, 50, 50);
         // Player Position
         if (!player.inShip) {
             this.ctx.fillStyle = "#0F0";
@@ -129,7 +126,7 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
             this.ctx.rotate( p.items[i].planetPosition );
             this.ctx.translate(0, rad)
             this.ctx.rotate( Math.PI )
-            this.ctx.scale( 0.5, 0.5 );
+            this.ctx.scale( ship.renderScale, ship.renderScale );
             try{
                 this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75);
             }
@@ -159,64 +156,29 @@ Renderer.prototype.renderUI = function( ui, ship )
     if( !ui.shipOpen ) 
         return false;
     
-    //cockpit
-    this.ctx.drawImage(ui.backSquareImg, 
-                       ui.shipMenu.cockpit.x * this.canvas.width,
-                       ui.shipMenu.cockpit.y * this.canvas.height,
-                       ui.shipMenu.cockpit.w * this.canvas.width,
-                       ui.shipMenu.cockpit.h * this.canvas.height
-                      );
-    if(null != ship.parts.cockpit)
+    for(var i in ship.parts)
     {
-        var center = ui.shipMenu.cockpit.center;
-        var scale = (ui.shipMenu.cockpit.w * this.canvas.width) / ship.parts.cockpit.image.width;
-        this.ctx.save();
-        this.ctx.translate( center.x * this.canvas.width, center.y * this.canvas.height );
-        this.ctx.scale( scale, scale );
-        this.ctx.drawImage(ship.parts.cockpit.image,
-                           -ship.parts.cockpit.image.width * 0.5,
-                           -ship.parts.cockpit.image.height * 0.5);
-        this.ctx.restore();
-    }
-    //engineering
-    this.ctx.drawImage(ui.backSquareImg, 
-                       ui.shipMenu.engineering.x * this.canvas.width,
-                       ui.shipMenu.engineering.y * this.canvas.height,
-                       ui.shipMenu.engineering.w * this.canvas.width,
-                       ui.shipMenu.engineering.h * this.canvas.height
-                      );
-    if(null != ship.parts.engineering)
-    {
-    }
-    //science
-    this.ctx.drawImage(ui.backSquareImg, 
-                       ui.shipMenu.science.x * this.canvas.width,
-                       ui.shipMenu.science.y * this.canvas.height,
-                       ui.shipMenu.science.w * this.canvas.width,
-                       ui.shipMenu.science.h * this.canvas.height
-                      );
-    if(null != ship.parts.science)
-    {
-    }
-    //cargo
-    this.ctx.drawImage(ui.backSquareImg, 
-                       ui.shipMenu.cargo.x * this.canvas.width,
-                       ui.shipMenu.cargo.y * this.canvas.height,
-                       ui.shipMenu.cargo.w * this.canvas.width,
-                       ui.shipMenu.cargo.h * this.canvas.height
-                      );
-    if(null != ship.parts.cargo)
-    {
-    }
-    //engine
-    this.ctx.drawImage(ui.backSquareImg, 
-                       ui.shipMenu.engine.x * this.canvas.width,
-                       ui.shipMenu.engine.y * this.canvas.height,
-                       ui.shipMenu.engine.w * this.canvas.width,
-                       ui.shipMenu.engine.h * this.canvas.height
-                      );
-    if(null != ship.parts.engine)
-    {
+        //cockpit
+        this.ctx.drawImage(ui.backSquareImg, 
+                           ui.shipMenu[i].x * this.canvas.width,
+                           ui.shipMenu[i].y * this.canvas.height,
+                           ui.shipMenu[i].w * this.canvas.width,
+                           ui.shipMenu[i].h * this.canvas.height
+                          );
+        if(null != ship.parts[i])
+        {
+            var center = ui.shipMenu[i].center;
+            //var scale = (ui.shipMenu[i].w * this.canvas.width) / ship.parts[i].image.width;
+            this.ctx.save();
+            this.ctx.translate( center.x * this.canvas.width, center.y * this.canvas.height );
+            this.ctx.scale( ship.renderScale, ship.renderScale );
+            if( i == 'cockpit' )
+                this.ctx.translate( 0, -ship.parts[i].image.height * 0.25);
+            this.ctx.drawImage(ship.parts[i].image,
+                               -ship.parts[i].image.width * 0.5,
+                               -ship.parts[i].image.height * 0.5);
+            this.ctx.restore();
+        }
     }
     
     return true;
@@ -224,6 +186,40 @@ Renderer.prototype.renderUI = function( ui, ship )
 
 Renderer.prototype.renderShip = function(ship)
 {
+    ship.construct( this );
+    this.ctx.save();
+    
+    this.ctx.translate( this.canvas.width * 0.5, this.canvas.height * 0.5 );
+    this.ctx.rotate( ship.rotation + Math.PI * 0.5 );
+    this.ctx.scale( ship.renderScale, ship.renderScale );
+    this.ctx.translate( 0, ship.renderHeight * 0.5 );
+    
+    for(var i in ship.parts)
+    {
+        if(ship.parts[i] == null) continue;
+        
+        this.ctx.drawImage( 
+            ship.parts[i].image,
+            -ship.parts[i].image.width * 0.5,
+            -ship.parts[i].renderY
+        );
+    }
+    this.ctx.restore();
+    
+    if(Settings.debug)
+    {
+        this.ctx.save();
+        this.ctx.translate( this.canvas.width * 0.5, this.canvas.height * 0.5 );
+        this.ctx.rotate( ship.rotation + Math.PI * 0.5 );
+        this.ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+        //this.ctx.fillRect( ship.bounds.x, ship.bounds.y, ship.bounds.w, ship.bounds.h );
+        this.ctx.fillRect( this.worldToPixel( ship.bounds.x ), 
+                           this.worldToPixel( ship.bounds.y ), 
+                           this.worldToPixel( ship.bounds.w ), 
+                           this.worldToPixel( ship.bounds.h ) );
+        this.ctx.restore();
+    }
+    
 }
 
 Renderer.prototype.resize = function( w, h )

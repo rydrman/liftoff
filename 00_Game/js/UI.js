@@ -50,8 +50,16 @@ UI.prototype.sample = function( mousePosCanvas )
     var relativePos = new Vector2( mousePosCanvas.x / Settings.renderWidth,
                                    mousePosCanvas.y / Settings.renderHeight );
     
+    this.shipOpen = false;
+    this.currentShip = null;
     return false;
     
+}
+
+UI.prototype.openShip = function( ship )
+{
+    this.shipOpen = true;
+    this.currentShip = ship;
 }
 
 UI.prototype.resize = function(width, height) 
