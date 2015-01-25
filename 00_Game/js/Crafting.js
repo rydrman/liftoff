@@ -39,7 +39,7 @@ Crafting.prototype.update = function(player, ship) {
             for (var ing in this.recipes[r].ingredients) {
                 if (inventory.hasOwnProperty(ing)) {
                     // check quantity
-                    if (inventory[ing] <= this.recipes[r].ingredients[ing])
+                    if (inventory[ing].quantity <= this.recipes[r].ingredients[ing])
                         craftable = false
                 } else {
                     craftable = false; // we don't have any of the item
@@ -59,9 +59,9 @@ Crafting.prototype.constructInventory = function(player, ship) {
     if (ship !== undefined) {
         for (var i in ship.inventory) {
             if (inventory.hasOwnProperty(i))
-                inventory[i] += ship.inventory[i];
+                inventory[i].quantity += ship.inventory[i];
             else
-                inventory[i] = ship.inventory[i];
+                inventory[i].quantity = ship.inventory[i];
         }
     }
     return inventory;
@@ -97,10 +97,10 @@ Crafting.prototype.craft = function(player, ship, recipe, items) { // generator.
  
 Crafting.prototype.removeFromInventory = function(cost, resource, entity) {
     if (entity.inventory.hasOwnProperty[resource]) {
-        if (entity.inventory[resource] > cost) {
-            entity.inventory[resource] -= cost;
-        } else if (entity.inventory[resource] <= cost) {
-            cost -= entity.inventory[resource];
+        if (entity.inventory[resource].quantity > cost) {
+            entity.inventory[resource].quantity -= cost;
+        } else if (entity.inventory[resource].quantity <= cost) {
+            cost -= entity.inventory[resource].quantity;
             delete entity.inventory[resource];
         }
     }

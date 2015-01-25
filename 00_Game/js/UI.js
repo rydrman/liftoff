@@ -50,10 +50,23 @@ var UI = function(canvas)
         comfort: new Rectangle( 1800 / 1920, 956 / 1080, 92 / 1920, 92 / 1080),
     }
     
+    this.playerInv = {
+        background: new Rectangle( 1315 / 1920, 870 / 1080, 223 / 1920, 150 / 1080),
+        slots: [
+            new Rectangle( 1350 / 1920, 870 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 1450 / 1920, 870 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 1350 / 1920, 945 / 1080, 70 / 1920, 70 / 1080),
+            new Rectangle( 1450 / 1920, 945 / 1080, 70 / 1920, 70 / 1080)
+        ],
+        fontSize: 12/1920,
+        fontTranslate: {x: 60/1920, y: 65 / 1080}
+    }
+    
     //imgaes
     this.backSquareImg = new Image();
     this.backAddonImg = new Image();
     this.craftBackImg = new Image();
+    this.playerInventoryImg = new Image();
     
     this.statDamageEmptyImg = new Image();
     this.statDamageFullImg = new Image();
@@ -82,6 +95,8 @@ UI.prototype.load = function()
     loader.addImageCall('assets/menu/menu_item_bg_sm.png', this.backSquareImg);
     loader.addImageCall('assets/menu/menu_item_bg_lg.png', this.backAddonImg);
     loader.addImageCall('assets/menu/menu_window.png', this.craftBackImg);
+    
+    loader.addImageCall('assets/menu/menu_player_inventory-01.png', this.playerInventoryImg);
     
     // Player stats
     loader.addImageCall('assets/icons/armour.png', this.statDamageEmptyImg);
