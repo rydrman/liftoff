@@ -8,7 +8,7 @@ var Player = function() {
     this.inShip = true;
     
     // Variables
-    this.oxygen = 90;
+    this.oxygen = 100;
     this.comfort = 100;
     
     // Equipment
