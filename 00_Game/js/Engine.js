@@ -15,6 +15,8 @@ var Engine = function()
     
     // misc
     this.mouseLTarget;
+    
+    this.gameover = false;
 }
 
 Engine.prototype.init = function()
@@ -189,9 +191,11 @@ Engine.prototype.onRMouseDown = function( mousePos)
         }
         else if( result instanceof Planet )
         {
-            this.player.ship.landing = true;
-            // set ship goal to be the planet
-            this.player.ship.goal.copy(result.position);
+            if (this.player.ship != null) {
+                this.player.ship.landing = true;
+                // set ship goal to be the planet
+                this.player.ship.goal.copy(result.position);
+            }
         }
     } 
 
@@ -256,8 +260,8 @@ Engine.prototype.onMouseUp = function(mousePos) {
             // drop in world
             // make new planet position
             
-            this.draggedItem.planetPosition = this.player.position.clone().toRotation();
             if (this.player.planet != null) {
+                this.draggedItem.planetPosition = this.player.planetPosition - (Math.PI /2);
                 this.player.planet.addItem(this.draggedItem);
             } else {
                 this.world.items.push(this.draggedItem);
@@ -276,6 +280,16 @@ Engine.prototype.update = function()
 {
     this.timer.tick();
     this.input.update();
+    
+    // Check Game Over Condition
+    if (this.player.oxygen <= 0) {
+        this.gameOver = true;
+        // render gameover screen
+        
+        this.input.addListener( Input.eventTypes.MOUSEDOWN, function() {location.reload()}, this );
+        //window.requestAnimationFrame( this.frameCallback );
+    }
+    
     
     //update world
     this.world.update( this.timer, this.player );
@@ -343,7 +357,7 @@ Engine.prototype.update = function()
     
     //other class updates
     
-    this.renderer.render( this.world, this.player, this.ship, this.ui, this.draggedItem, this.timer );
+    this.renderer.render( this.world, this.player, this.ship, this.ui, this.draggedItem, this.timer, this.gameOver );
     
     window.requestAnimationFrame( this.frameCallback );
 }
