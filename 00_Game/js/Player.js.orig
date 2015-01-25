@@ -21,14 +21,12 @@ var Player = function() {
     this.inventorySize = 5;
 }
 
-Player.prototype.init = function(timer) {
-    // start variable ticks
-    this.timer = timer;
-    this.timer.startSubTick("comfortTick");
-    this.timer.startSubTick("oxygenTick");
+<<<<<<< HEAD
+Player.prototype.init = function() 
+{
 }
 
-Player.prototype.updateMovement = function(timer) 
+Player.prototype.update = function( timer ) 
 {
     if(this.inShip)
     {
@@ -38,6 +36,17 @@ Player.prototype.updateMovement = function(timer)
     }
     if( !this.position.compare( this.goal ) ) 
     {
+=======
+Player.prototype.init = function(timer) {
+    // start variable ticks
+    this.timer = timer;
+    this.timer.startSubTick("comfortTick");
+    this.timer.startSubTick("oxygenTick");
+}
+
+Player.prototype.updateMovement = function(timer) {
+    if( !this.position.compare( this.goal ) ) {
+>>>>>>> 403e9116adf97ceb7bf0b137c13fe87f4e3a9221
         var offset = this.goal.clone().sub( this.position);
         if (offset.length() < 0.05) 
         {

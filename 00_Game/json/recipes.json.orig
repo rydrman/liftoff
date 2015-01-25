@@ -3,7 +3,12 @@
         "result" : "metal",
         "requiredPiece": ["refiningchamber"],
         "ingredients" : {
+<<<<<<< HEAD
+            "ingredientName" : 0,
+            "ingredientName" : 0
+=======
             "ore" : 2
+>>>>>>> 403e9116adf97ceb7bf0b137c13fe87f4e3a9221
         }
     },
     {

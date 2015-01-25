@@ -8,6 +8,8 @@ var Ship = function() {
     this.damage = 100;
     this.fuel = 100;
     
+    this.inventorySize = 7;
+    
     // parts
     this.parts = {
         engine : null,
@@ -27,12 +29,23 @@ var Ship = function() {
 }
 Ship.prototype = new Player();
 
-Ship.prototype.init = function() 
+Ship.prototype.init = function(timer) 
 {
+    this.timer = timer; // avoid parent class here
+    // delete oxygen?
+    
+    this.timer.startSubTick("damageTick");
+    this.timer.startSubTick("fuelTick");
+    
+    
     //debug throw in some cardboard stuff
     this.parts.cockpit = new BaseObject( engine.generator.items.bcockpit );
     //this.parts.cargo = new BaseObject( engine.generator.items.bcargobay );
     this.parts.engine = new BaseObject( engine.generator.items.bthrusters );
+}
+
+Ship.prototype.update = function(timer) {
+    Player.prototype.updateMovement.call(this, timer);
 }
 
 Ship.prototype.isInBounds = function( pos ) 
