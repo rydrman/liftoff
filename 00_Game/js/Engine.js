@@ -15,6 +15,8 @@ var Engine = function()
     
     // misc
     this.mouseLTarget;
+    
+    this.gameover = false;
 }
 
 Engine.prototype.init = function()
@@ -101,7 +103,7 @@ Engine.prototype.onMouseDown = function( mousePos )
                 this.draggedItem = this.player.getInventoryByIndex(uiResult.slotNo);
                 // remove it from inventory
                 if (this.draggedItem) {
-                    this.draggedItem.position = worldPos;
+                    this.draggedItem.position = mousePos;
                     delete this.player.inventory[this.draggedItem.name];
                 }
             }
@@ -110,7 +112,7 @@ Engine.prototype.onMouseDown = function( mousePos )
                 this.draggedItem = this.player.ship.getInventoryByIndex(uiResult.slotNo);
                 // remove it from inventory
                 if (this.draggedItem) {
-                    this.draggedItem.position = worldPos;
+                    this.draggedItem.position = mousePos;
                     delete this.player.ship.inventory[this.draggedItem.name];
                 }
             }
@@ -212,9 +214,11 @@ Engine.prototype.onRMouseDown = function( mousePos)
         }
         else if( result instanceof Planet )
         {
-            this.player.ship.landing = true;
-            // set ship goal to be the planet
-            this.player.ship.goal.copy(result.position);
+            if (this.player.ship != null) {
+                this.player.ship.landing = true;
+                // set ship goal to be the planet
+                this.player.ship.goal.copy(result.position);
+            }
         }
     } 
 
@@ -234,16 +238,15 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
         //TODO try ui first, then ship / player, then world
         var uiResult = this.ui.sample(mousePos, this.player);
         var result = this.world.sample( worldPos );
-        if (uiResult && this.mouseLTarget == "ui") {
+        if (this.draggedItem) {
+                this.draggedItem.position = mousePos;
+        } else if (uiResult && this.mouseLTarget == "ui") {
             console.log ("UI ELEMENT SUSTAINED");
-            if (this.draggedItem) {
-                this.draggedItem.position = worldPos;
-            }
         }
         /*if (this.ship.isInBounds(worldPos)) {
             // Open Ship Menu
         } */
-        if(result instanceof Ship)
+        else if(result instanceof Ship)
         {
         }
         else if(result instanceof Planet)
@@ -277,9 +280,15 @@ Engine.prototype.onMouseUp = function(mousePos) {
             if (this.player.ship.addToInventory(this.draggedItem))
                 this.draggedItem = null;
         } else {
-            // add back to inventory
-            if (!this.player.addToInventory(this.draggedItem))
-                this.player.ship.addToInventory(this.draggedItem);
+            // drop in world
+            // make new planet position
+            
+            if (this.player.planet != null) {
+                this.draggedItem.planetPosition = this.player.planetPosition - (Math.PI /2);
+                this.player.planet.addItem(this.draggedItem);
+            } else {
+                this.world.items.push(this.draggedItem);
+            }
             this.draggedItem = null;
         }
     }
@@ -295,7 +304,16 @@ Engine.prototype.update = function()
     this.timer.tick();
     this.input.update();
     
-    this.crafting.update(this.player);
+	this.crafting.update(this.player);
+    // Check Game Over Condition
+    if (this.player.oxygen <= 0) {
+        this.gameOver = true;
+        // render gameover screen
+        
+        this.input.addListener( Input.eventTypes.MOUSEDOWN, function() {location.reload()}, this );
+        //window.requestAnimationFrame( this.frameCallback );
+    }
+    
     
     //update world
     this.world.update( this.timer, this.player );
@@ -363,7 +381,7 @@ Engine.prototype.update = function()
     
     //other class updates
     
-    this.renderer.render( this.world, this.player, this.ship, this.ui, this.timer );
+    this.renderer.render( this.world, this.player, this.ship, this.ui, this.draggedItem, this.timer, this.gameOver );
     
     window.requestAnimationFrame( this.frameCallback );
 }

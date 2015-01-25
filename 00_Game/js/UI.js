@@ -5,6 +5,8 @@ var UI = function(canvas)
     this.shipOpen = false;
     this.craftOpen = false;
     
+    this.gameOver = new Rectangle( 560/1920, 240/1080, 800/1920, 600/1920);
+    
     //placements
     this.shipMenu = {
         //cockpit
@@ -112,6 +114,8 @@ var UI = function(canvas)
         engine: new Image()
     }
     
+    this.gameOverImg = new Image();
+    
     //menu varables
     this.craftSelection = null;
     this.recipeSelection = null;
@@ -132,6 +136,8 @@ UI.prototype.load = function()
         this.onLoad.call(this.onLoadContext);
     };
     loader.onCompleteContext = this;
+    
+    loader.addImageCall('assets/GameOver-01.png', this.gameOverImg);
     
     //loader.addImageCall('assets/menu/menu_item_bg_sm.png', this.backSquareImg);
     loader.addImageCall('assets/menu/menu_item_bg_lg.png', this.backAddonImg);
