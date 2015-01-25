@@ -4,6 +4,7 @@ var Engine = function()
     this.timer;
     this.input;
     this.generator;
+    this.crafting;
     
     //classes
     this.renderer;

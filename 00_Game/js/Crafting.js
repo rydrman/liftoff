@@ -70,7 +70,8 @@ Crafting.prototype.craft = function(player, ship, recipe, items) { // generator.
         // Remove from player inventory then ship inventory if not enough
         cost = this.removeFromInventory(cost, i, player);
         
-        cost = this.removeFromInventory(cost, i, ship);
+        if (cost > 0)
+            cost = this.removeFromInventory(cost, i, ship);
         
         if (cost > 0) {
             console.log( "ERROR - CRAFTING DID NOT HAVE ENOUGH INGREDIENTS");
@@ -94,7 +95,6 @@ Crafting.prototype.removeFromInventory = function(cost, resource, entity) {
     if (entity.inventory.hasOwnProperty[resource]) {
         if (entity.inventory[resource] > cost) {
             entity.inventory[resource] -= cost;
-            continue;
         } else if (entity.inventory[resource] <= cost) {
             cost -= entity.inventory[resource];
             delete entity.inventory[resource];
