@@ -6,6 +6,7 @@ var BaseObject = function( item )
     var self = this;
     
     var loader = new AsyncLoader()
+    loader.onComplete = EMPTY_FUNCTION;
     loader.addImageCall( item.img, this.image );
     loader.runCalls();
     
@@ -20,6 +21,7 @@ var BaseObject = function( item )
     
     
 }
+
 BaseObject.prototype.init = function() 
 {
     

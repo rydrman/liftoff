@@ -346,7 +346,7 @@
     {
         "name" : "bcockpit",
         "niceName" : "Basic Cockpit",
-        "img" : "assets/items/BasicCockpit.png",
+        "img" : "assets/ships/cb_cockpit.png",
         "probabilities" : {
             "grassy" : 0.5,
             "desert" : 0.5,
@@ -359,7 +359,7 @@
     {
         "name" : "barmaments",
         "niceName" : "Basic Armaments",
-        "img" : "assets/items/BasicArmaments.png",
+        "img" : "assets/ships/cb_engineering.png",
         "probabilities" : {
             "grassy" : 0.5,
             "desert" : 0.5,
@@ -372,7 +372,7 @@
     {
         "name" : "bsciencebay",
         "niceName" : "Basic Science Bay",
-        "img" : "assets/items/BasicScienceBay.png",
+        "img" : "assets/ships/cb_science.png",
         "probabilities" : {
             "grassy" : 0.5,
             "desert" : 0.5,
@@ -385,7 +385,7 @@
     {
         "name" : "bcargobay",
         "niceName" : "Basic Cargo Bay",
-        "img" : "assets/items/BasicCargoBay.png",
+        "img" : "assets/ships/cb_cargo.png",
         "probabilities" : {
             "grassy" : 0.5,
             "desert" : 0.5,
@@ -398,7 +398,7 @@
     {
         "name" : "bthrusters",
         "niceName" : "Basic Thrusters",
-        "img" : "assets/items/BasicThrusters.png",
+        "img" : "assets/ships/cb_engine.png",
         "probabilities" : {
             "grassy" : 0.5,
             "desert" : 0.5,

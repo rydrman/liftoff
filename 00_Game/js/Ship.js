@@ -9,12 +9,13 @@ var Ship = function() {
     this.fuel = 100;
     
     // parts
-    
-    this.engine;
-    this.cockpit;
-    this.cargo;
-    this.science;
-    this.armaments;
+    this.parts = {
+        engine : null,
+        cockpit : null,
+        cargo : null,
+        science : null,
+        engineering : null
+    }
     
     this.inMenu = false;
     this.landed = false;
@@ -22,7 +23,10 @@ var Ship = function() {
 }
 Ship.prototype = new Player();
 
-Ship.prototype.init = function() {
+Ship.prototype.init = function() 
+{
+    //debug throw in some cardboard stuff
+    this.parts.cockpit = new BaseObject( engine.generator.items.bcockpit );
     
 }
 

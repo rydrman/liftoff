@@ -26,7 +26,6 @@ Engine.prototype.init = function()
     this.ship = new Ship();
     
     //TODO get to inventory
-    this.world = this.generator.generate();
     this.ui = new UI();
 
     //load everythign that needs loading
@@ -36,6 +35,7 @@ Engine.prototype.init = function()
     
     loader.addClassCall( this.renderer );
     loader.addClassCall( this.generator );
+    loader.addClassCall( this.ui );
     
     loader.runCalls();
 }
@@ -49,6 +49,7 @@ Engine.prototype.begin = function()
     this.renderer.init( canvas );
     this.player.init();
     this.ui.init(canvas, this.player, null);
+    this.ship.init();
     
     //set 
     this.input.addListener( Input.eventTypes.MOUSEDOWN, this.onMouseDown, this );
@@ -204,7 +205,7 @@ Engine.prototype.update = function()
     
     //other class updates
     
-    this.renderer.render( this.world, this.player, this.ship, this.timer );
+    this.renderer.render( this.world, this.player, this.ship, this.ui, this.timer );
     
     window.requestAnimationFrame( this.frameCallback );
 }
