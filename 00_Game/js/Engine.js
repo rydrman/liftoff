@@ -148,9 +148,9 @@ Engine.prototype.onRMouseDown = function( mousePos)
         }
         else if( result instanceof Planet )
         {
-            this.ship.landing = true;
+            this.player.ship.landing = true;
             // set ship goal to be the planet
-            this.ship.goal.copy(planet.position);
+            this.player.ship.goal.copy(result.position);
         }
     } 
 
