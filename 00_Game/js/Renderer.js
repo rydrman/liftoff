@@ -119,25 +119,26 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
         this.ctx.arc(0, 0, rad, 0, Math.PI * 2, false );
         this.ctx.fill();
         //draw items
-        for(var i in p.items)
-        {
-            if(!p.items[i].image.complete) continue;
-            
-            this.ctx.save();
-            this.ctx.rotate( p.items[i].planetPosition );
-            this.ctx.translate(0, rad)
-            this.ctx.rotate( Math.PI )
-            //this.ctx.scale( 0.5, 0.5 );
-            try{
-                this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75);
-            }
-            catch(err)
+        if (this.zoom > 2)
+            for(var i in p.items)
             {
-                console.warn("image does not exist: " + p.items[i].image.src);
-                p.items[i].image = missingImg;
+                if(!p.items[i].image.complete) continue;
+
+                this.ctx.save();
+                this.ctx.rotate( p.items[i].planetPosition );
+                this.ctx.translate(0, rad)
+                this.ctx.rotate( Math.PI )
+                //this.ctx.scale( 0.5, 0.5 );
+                try{
+                    this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75);
+                }
+                catch(err)
+                {
+                    console.warn("image does not exist: " + p.items[i].image.src);
+                    p.items[i].image = missingImg;
+                }
+                this.ctx.restore();
             }
-            this.ctx.restore();
-        }
         this.ctx.restore()
     }
     

@@ -97,7 +97,7 @@ Engine.prototype.onMouseDown = function( mousePos )
                     delete this.player.inventory[this.draggedItem.name];
                 }
             }
-        } else if (uiResult.name == "shipInv") {
+        } else if (uiResult.name == "shipInv" && this.player.inShip) {
             if (uiResult.slotNo != null && this.draggedItem == null) { // pick it up
                 this.draggedItem = this.player.ship.getInventoryByIndex(uiResult.slotNo);
                 // remove it from inventory
@@ -118,7 +118,10 @@ Engine.prototype.onMouseDown = function( mousePos )
         console.log("World Element Clicked");
         if(result instanceof Ship)
         {
-            this.ui.openShip( result );
+            if (this.player.inShip) {
+                this.crafting.update(this.player);
+                this.ui.openShip( result );
+            }
         }
         else if(result instanceof Planet)
         {
@@ -169,8 +172,10 @@ Engine.prototype.onRMouseDown = function( mousePos)
     {
         if(result instanceof Ship)
         {
-            this.player.toggleShipStatus(result);
-            this.renderer.zoom = (this.player.inShip) ? 1.0 : 2.5;
+            if (this.player.position.clone().sub(result.position).length() < 1) {
+                this.player.toggleShipStatus(result);
+                this.renderer.zoom = (this.player.inShip) ? 1.0 : 2.5;
+            }
         }
         else if( result instanceof Planet )
         {
@@ -215,7 +220,7 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
             //console.log("WORLD ELEMENT SUSTAINED");
             // check if player is close enough to pick up object
             // TODO - timer subtick
-            if (this.player.position.clone().sub(this.world.planets[result.planetIndex].position.clone().add(result.objectData.position)).length() < 0.4) {
+            if (this.player.position.clone().sub(this.world.planets[result.planetIndex].position.clone().add(result.objectData.position)).length() < 0.8) {
                 // Add to player inventory and remove from world
                 if (this.player.addToInventory(result.objectData))
                     this.world.planets[result.planetIndex].removeItem(result.objectData);
@@ -242,6 +247,7 @@ Engine.prototype.onMouseUp = function(mousePos) {
             // add back to inventory
             if (!this.player.addToInventory(this.draggedItem))
                 this.player.ship.addToInventory(this.draggedItem);
+            this.draggedItem = null;
         }
     }
 }
