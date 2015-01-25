@@ -19,11 +19,11 @@ var BaseObject = function( item )
     this.position = new Vector2();
     this.rotation = 0;
     
-    this.type = item.type ? item.typ : "";
+    this.type = item.type ? item.type : "";
     this.action = item.action ? item.action : "";
     
     //breakble
-    this.breakable = item.breakable ? true : false;
+    //this.breakable = item.breakable ? true : false;
     this.recievedActions = item.recievedActions ? item.recievedActions : [];
     this.drops = item.drops ? item.drops : [];
 

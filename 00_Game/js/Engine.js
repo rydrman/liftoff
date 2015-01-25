@@ -117,10 +117,6 @@ Engine.prototype.onMouseDown = function( mousePos )
         }
         
     } 
-    //else if (this.ship.isInBounds(worldPos)) 
-    //{
-    //    this.ui.openShip( this.ship );
-    //} 
     else if (result) 
     {
         //console.log("World Element Clicked");
@@ -143,11 +139,38 @@ Engine.prototype.onMouseDown = function( mousePos )
             // check if player is close enough to pick up object
             if (this.player.position.clone().sub(result.objectData.position).length() < 0.4)
             {
-                // Add to player inventory and remove from world
-                if (this.player.addToInventory(result.objectData))
-                    this.world.planets[result.planetIndex].removeItem(result.objectData);
+                var item = result.objectData;
+                //is it a breakable?
+                switch( item.type )
+                {
+                    case "breakable":
+                        item.planet.removeItem( item );
+                        
+                        for(var i in item.drops)
+                        {
+                            for( var j = 0; j < item.drops[i]; j++)
+                            {
+                                var newItem = new BaseObject( this.ui.items[ i ] );
+                                newItem.planetPosition = -0.1 + Math.random() * 0.1 + item.planetPosition;
+                                item.planet.addItem( newItem );
+                            }
+                        }     
+                        item.planet = null;
+                        break;
+                    default:
+                        if (this.player.addToInventory(result.objectData))
+                        {
+                            item.planet.removeItem(result.objectData);
+                            item.planet = null;
+                        }
+                        break;
+                }
             }
         }
+    } 
+    else if (this.player.isInBounds(worldPos)) 
+    {
+        this.ui.openCrafting( );
     } 
     else if (this.player.inShip) 
     { // Update player / ship position
@@ -271,6 +294,8 @@ Engine.prototype.update = function()
 {
     this.timer.tick();
     this.input.update();
+    
+    this.crafting.update(this.player);
     
     //update world
     this.world.update( this.timer, this.player );

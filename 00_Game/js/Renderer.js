@@ -179,17 +179,18 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
         this.renderShip( world.ships[i] );
     }
     
+    //draw player
+    if(!player.ship)
+    {
+        this.renderPlayer( player );
+    }
+    
     //ui and player ship
     var shipDrawn = this.renderUI( ui, player);
 
     if(!shipDrawn && player.ship)
     {
         this.renderShip( player.ship );
-    }
-    //draw player
-    if(!player.ship)
-    {
-        this.renderPlayer( player );
     }
 }
 
@@ -399,7 +400,7 @@ Renderer.prototype.renderUI = function( ui, player )
                            ui.craftingMenu.background.w * this.canvas.width,
                            ui.craftingMenu.background.h * this.canvas.height
                           );
-        for(var i in ship.parts)
+        for(var i in Ship.parts)
         {
             //draw top row of menu items
             this.ctx.drawImage(ui.shipIcons[i], 
@@ -568,7 +569,7 @@ Renderer.prototype.renderUI = function( ui, player )
     if( !ui.shipOpen ) 
         return false;
     
-    for(var i in ship.parts)
+    for(var i in Ship.parts)
     {
         //draw background square
         this.ctx.drawImage(ui.shipIcons[i], 
@@ -619,7 +620,7 @@ Renderer.prototype.renderShip = function(ship)
     this.ctx.scale( ship.renderScale, ship.renderScale );
     this.ctx.translate( 0, ship.renderHeight * 0.5 );
     
-    for(var i in ship.parts)
+    for(var i in Ship.parts)
     {
         if(ship.parts[i] == null) continue;
         
