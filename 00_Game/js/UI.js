@@ -43,10 +43,26 @@ var UI = function(canvas)
         }
     };
     
+    this.playerShipStats = {
+        damage: new Rectangle( 1670 / 1920, 843 / 1080, 92 / 1920, 92 / 1080),
+        oxygen: new Rectangle( 1800 / 1920, 843 / 1080, 92 / 1920, 92 / 1080),
+        fuel: new Rectangle( 1670 / 1920, 956 / 1080, 92 / 1920, 92 / 1080),
+        comfort: new Rectangle( 1800 / 1920, 956 / 1080, 92 / 1920, 92 / 1080),
+    }
+    
     //imgaes
     this.backSquareImg = new Image();
     this.backAddonImg = new Image();
     this.craftBackImg = new Image();
+    
+    this.statDamageEmptyImg = new Image();
+    this.statDamageFullImg = new Image();
+    this.statComfortEmptyImg = new Image();
+    this.statComfortFullImg = new Image();
+    this.statFuelEmptyImg = new Image();
+    this.statFuelFullImg = new Image();
+    this.statHealthEmptyImg = new Image();
+    this.statHealthFullImg = new Image();
     
     this.loaded = false;
 }
@@ -66,6 +82,16 @@ UI.prototype.load = function()
     loader.addImageCall('assets/menu/menu_item_bg_sm.png', this.backSquareImg);
     loader.addImageCall('assets/menu/menu_item_bg_lg.png', this.backAddonImg);
     loader.addImageCall('assets/menu/menu_window.png', this.craftBackImg);
+    
+    // Player stats
+    loader.addImageCall('assets/icons/armour.png', this.statDamageEmptyImg);
+    loader.addImageCall('assets/icons/armour_full.png', this.statDamageFullImg);
+    loader.addImageCall('assets/icons/comfort.png', this.statComfortEmptyImg);
+    loader.addImageCall('assets/icons/comfort_full.png', this.statComfortFullImg);
+    loader.addImageCall('assets/icons/fuel.png', this.statFuelEmptyImg);
+    loader.addImageCall('assets/icons/fuel_full.png', this.statFuelFullImg);
+    loader.addImageCall('assets/icons/health.png', this.statHealthEmptyImg);
+    loader.addImageCall('assets/icons/health_full.png', this.statHealthFullImg);
     
     loader.runCalls();
 }

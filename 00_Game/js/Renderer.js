@@ -150,7 +150,7 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
     }
     
     //ui and player ship
-    var shipDrawn = this.renderUI( ui, player.ship );
+    var shipDrawn = this.renderUI( ui, player);
 
     if(!shipDrawn && player.ship)
     {
@@ -158,8 +158,101 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
     }
 }
 
-Renderer.prototype.renderUI = function( ui, ship )
+Renderer.prototype.renderUI = function( ui, player )
 {    
+    var ship = player.ship;
+    // Draw player / ship stats
+    
+    this.ctx.fillStyle = "#222";
+    this.ctx.fillRect((ui.playerShipStats.oxygen.x - (5/1920))* this.canvas.width,
+                       (ui.playerShipStats.oxygen.y - (5/1080))* this.canvas.height,
+                       (ui.playerShipStats.oxygen.w + (10/1920))* this.canvas.width,
+                       (ui.playerShipStats.oxygen.h + (10/1080)) * this.canvas.height);
+    
+    this.ctx.drawImage(ui.statHealthEmptyImg,
+                       ui.playerShipStats.oxygen.x * this.canvas.width,
+                       ui.playerShipStats.oxygen.y * this.canvas.height,
+                       ui.playerShipStats.oxygen.w * this.canvas.width,
+                       ui.playerShipStats.oxygen.h * this.canvas.height
+                      );
+    this.ctx.drawImage(ui.statHealthFullImg,
+                       0,
+                       150 - 150/100*player.oxygen,
+                       150,
+                       150/100*player.oxygen,
+                       ui.playerShipStats.oxygen.x * this.canvas.width,
+                       ui.playerShipStats.oxygen.y * this.canvas.height + (ui.playerShipStats.oxygen.h * this.canvas.height)  * (1 - (player.oxygen / 100)),
+                       ui.playerShipStats.oxygen.w * this.canvas.width,
+                       ui.playerShipStats.oxygen.h * this.canvas.height * (player.oxygen / 100)
+                      );
+    
+    this.ctx.fillRect((ui.playerShipStats.comfort.x - (5/1920))* this.canvas.width,
+                       (ui.playerShipStats.comfort.y - (5/1080))* this.canvas.height,
+                       (ui.playerShipStats.comfort.w + (10/1920))* this.canvas.width,
+                       (ui.playerShipStats.comfort.h + (10/1080)) * this.canvas.height);
+    this.ctx.drawImage(ui.statComfortEmptyImg,
+                       ui.playerShipStats.comfort.x * this.canvas.width,
+                       ui.playerShipStats.comfort.y * this.canvas.height,
+                       ui.playerShipStats.comfort.w * this.canvas.width,
+                       ui.playerShipStats.comfort.h * this.canvas.height
+                      );
+    this.ctx.drawImage(ui.statComfortFullImg,
+                       0,
+                       150 - 150/100*player.comfort,
+                       150,
+                       150/100*player.comfort,
+                       ui.playerShipStats.comfort.x * this.canvas.width,
+                       ui.playerShipStats.comfort.y * this.canvas.height + (ui.playerShipStats.comfort.h * this.canvas.height)  * (1 - (player.comfort / 100)),
+                       ui.playerShipStats.comfort.w * this.canvas.width,
+                       ui.playerShipStats.comfort.h * this.canvas.height * (player.comfort / 100)
+                      );
+    
+    if (ship && player.inShip) {
+        this.ctx.fillRect((ui.playerShipStats.damage.x - (5/1920))* this.canvas.width,
+                           (ui.playerShipStats.damage.y - (5/1080))* this.canvas.height,
+                           (ui.playerShipStats.damage.w + (10/1920))* this.canvas.width,
+                           (ui.playerShipStats.damage.h + (10/1080)) * this.canvas.height);
+        this.ctx.drawImage(ui.statDamageEmptyImg,
+                           ui.playerShipStats.damage.x * this.canvas.width,
+                           ui.playerShipStats.damage.y * this.canvas.height,
+                           ui.playerShipStats.damage.w * this.canvas.width,
+                           ui.playerShipStats.damage.h * this.canvas.height
+                          );
+        this.ctx.drawImage(ui.statDamageFullImg,
+                           0,
+                           150 - 150/100*ship.damage,
+                           150,
+                           150/100*ship.damage,
+                           ui.playerShipStats.damage.x * this.canvas.width,
+                           ui.playerShipStats.damage.y * this.canvas.height + (ui.playerShipStats.damage.h * this.canvas.height)  * (1 - (ship.damage / 100)),
+                           ui.playerShipStats.damage.w * this.canvas.width,
+                           ui.playerShipStats.damage.h * this.canvas.height * (ship.damage / 100)
+                          );
+        
+        
+        this.ctx.fillRect((ui.playerShipStats.fuel.x - (5/1920))* this.canvas.width,
+                           (ui.playerShipStats.fuel.y - (5/1080))* this.canvas.height,
+                           (ui.playerShipStats.fuel.w + (10/1920))* this.canvas.width,
+                           (ui.playerShipStats.fuel.h + (10/1080)) * this.canvas.height);
+        this.ctx.drawImage(ui.statFuelEmptyImg,
+                           ui.playerShipStats.fuel.x * this.canvas.width,
+                           ui.playerShipStats.fuel.y * this.canvas.height,
+                           ui.playerShipStats.fuel.w * this.canvas.width,
+                           ui.playerShipStats.fuel.h * this.canvas.height
+                          );
+        
+        this.ctx.drawImage(ui.statFuelFullImg,
+                           0,
+                           150 - 150/100*ship.fuel,
+                           150,
+                           150/100*ship.fuel,
+                           ui.playerShipStats.fuel.x * this.canvas.width,
+                           ui.playerShipStats.fuel.y * this.canvas.height + (ui.playerShipStats.fuel.h * this.canvas.height)  * (1 - (ship.fuel / ship.fuelCapacity)),
+                           ui.playerShipStats.fuel.w * this.canvas.width,
+                           ui.playerShipStats.fuel.h * this.canvas.height * (ship.fuel / ship.fuelCapacity)
+                          );
+    }
+    
     //draw inventory 
     
     //draw crafting

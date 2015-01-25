@@ -39,7 +39,7 @@ Player.prototype.updateMovement = function(timer)
     if( !this.position.compare( this.goal ) ) 
     {
         var offset = this.goal.clone().sub( this.position);
-        if (offset.length() < 0.05) 
+        if (offset.length() < 0.1) 
         {
             this.position.copy(this.goal);
         } 
@@ -66,19 +66,22 @@ Player.prototype.update = function( timer ) {
     // tick variables
     this.timer.endSubTick("oxygenTick");
     if (this.timer.subTicks["oxygenTick"].deltaS > 1) {
-        this.oxygen = (this.inShip) ? Math.min(this.oxygen + 1, 100) : Math.max(this.oxygen - 1, 0);
+        // TODO - if damage is below 10%, oxygen leaks
+        var rate = (this.inShip) ? ((this.ship.fuel == 0) ? -2 : 1) : -1;
+        this.oxygen = this.oxygen + rate;
+        // TODO - if Oxygen 0 -game ends - here or in update?
         this.timer.startSubTick("oxygenTick");
     }
     this.timer.endSubTick("comfortTick");
     if (this.timer.subTicks["comfortTick"].deltaS > 3) {
-        this.comfort = (this.inShip) ? Math.max(this.comfort - 1, 0) : Math.min(this.oxygen + 1, 100);
+        this.comfort = (this.inShip) ? Math.max(this.comfort - 1, 0) : Math.min(this.comfort + 1, 100);
         this.timer.startSubTick("comfortTick");
     }
 }
 
 Player.prototype.toggleShipStatus = function(ship) {
     this.inShip = !this.inShip;
-    this.ship = ship ? ship : null;
+    this.ship = (ship) ? ship : null;
     this.goal.copy(ship.position)
     this.position.copy(ship.position);
     this.timer.startSubTick("oxygenTick");

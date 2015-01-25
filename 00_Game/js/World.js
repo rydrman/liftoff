@@ -23,7 +23,7 @@ World.prototype.getInitialPlanet = function()
     return this.planets[0];
 }
 
-World.prototype.update = function( timer )
+World.prototype.update = function( timer, player )
 {
     var s;
     for(var i in this.ships)
@@ -32,7 +32,7 @@ World.prototype.update = function( timer )
         // Check collisions between ship and planets
         if (!s.landed) 
         {
-            s.update(timer);
+            s.update(timer, player);
             
             s.force = this.getGravity( s.position );
             
@@ -132,8 +132,9 @@ World.prototype.sample = function( worldPos )
                     }
                 }
             }
-            //no object, return planet
-            return this.planets[i];
+            //no object, return planet if within inner radius
+            if (worldPos.clone().sub(this.planets[i].position).length() < this.planets[i].radius)
+                return this.planets[i];
         }
     }
     
