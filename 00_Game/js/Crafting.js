@@ -30,13 +30,12 @@ Crafting.prototype.update = function(player) {
     
     // Now check against recipes
     
-    // TODO - check against ship crafting abilities
-    var craftable = true,
-        visible = false;
     
-    visible = true;
     for (var r in this.recipes) {
         for (var ing in this.recipes[r].ingredients) {
+            // TODO - check against ship crafting abilities
+            var craftable = true,
+                visible = true;
             if (inventory.hasOwnProperty(ing)) {
                 // check quantity
                 if (inventory[ing].quantity < this.recipes[r].ingredients[ing])
@@ -72,9 +71,9 @@ Crafting.prototype.getAvailable = function(category)
 Crafting.prototype.constructInventory = function(player, ship) {
     var inventory = {};
     for (var i in player.inventory) {
-        inventory[player.inventory[i]] = {};
+        inventory[i] = {};
         for (var j in player.inventory[i]) {
-            inventory[player.inventory[i]][j] = player.inventory[i][j];
+            inventory[i][j] = player.inventory[i][j];
         }
                   
     }
@@ -99,7 +98,7 @@ Crafting.prototype.craft = function(player, recipe, items) { // generator.items
         // Remove from player inventory then ship inventory if not enough
         cost = this.removeFromInventory(cost, i, player);
         
-        if (cost > 0)
+        if (cost > 0 && player.ship != null)
             cost = this.removeFromInventory(cost, i, player.ship);
         
         if (cost > 0) {
@@ -112,7 +111,7 @@ Crafting.prototype.craft = function(player, recipe, items) { // generator.items
     var newItem;
     for (var i in items) {
         if (items[i].name == recipe.result) {
-            newItem = items[i];
+            newItem = new BaseObject(items[i]);
             break;
         }
     }
@@ -123,8 +122,6 @@ Crafting.prototype.craft = function(player, recipe, items) { // generator.items
         else
             console.warn("TODO no space for item!!!");
     }
-    
-    this.update(player);
 }
  
 Crafting.prototype.removeFromInventory = function(cost, resource, entity) {

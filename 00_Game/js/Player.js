@@ -101,7 +101,7 @@ Player.prototype.updateMovement = function(timer)
             offset.add(this.force);
             offset.multiplyScalar(this.speed * timer.deltaTimeS);
             this.position.add( offset );
-            this.rotation = (this.landing) ? offset.toRotation() + Math.PI : offset.toRotation();
+            this.rotation = (this.landing) ? offset.toRotation() : offset.toRotation();
         }
     } 
     else if (this.force.length() > 0) 
