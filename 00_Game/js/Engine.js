@@ -36,11 +36,8 @@ Engine.prototype.init = function()
     
     loader.addClassCall( this.renderer );
     loader.addClassCall( this.generator );
-<<<<<<< HEAD
     loader.addClassCall( this.crafting );
-=======
     loader.addClassCall( this.ui );
->>>>>>> 812d58b05f46993c9c87a26931e41a30d9972b88
     
     loader.runCalls();
 }
