@@ -22,7 +22,7 @@ Renderer.prototype.init = function( canvas )
     this.initialized = true;
 }
 
-Renderer.prototype.render = function( world, player, ship, timer )
+Renderer.prototype.render = function( world, player, ship, ui, timer )
 {
     this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
     
@@ -86,9 +86,6 @@ Renderer.prototype.render = function( world, player, ship, timer )
         var pos = player.inShip ? ship.position : player.position;
         this.ctx.fillText("x: " + pos.x.toFixed(2) + ", y: " + pos.y.toFixed(2), 10, 30);
         
-        // Ship position
-        var shipPos = this.project(ship.position);
-        this.ctx.fillRect(shipPos.x - 25, shipPos.y - 25, 50, 50);
         // Player Position
         if (!player.inShip) {
             this.ctx.fillStyle = "#0F0";
@@ -129,42 +126,98 @@ Renderer.prototype.render = function( world, player, ship, timer )
             this.ctx.rotate( p.items[i].planetPosition );
             this.ctx.translate(0, rad)
             this.ctx.rotate( Math.PI )
-            this.ctx.scale( 0.5, 0.5 );
-            this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75);
+            this.ctx.scale( ship.renderScale, ship.renderScale );
+            try{
+                this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75);
+            }
+            catch(err)
+            {
+                console.warn("image does not exist: " + p.items[i].image.src);
+                p.items[i].image = missingImg;
+            }
             this.ctx.restore();
         }
         this.ctx.restore()
     }
     
+    var shipDrawn = this.renderUI( ui, ship );
     
+    if(!shipDrawn)
+    {
+        this.renderShip( ship );
+    }
+}
+
+Renderer.prototype.renderUI = function( ui, ship )
+{    
+    //draw inventory
     
-    // UI Components TEST
+    //draw ship menu
+    if( !ui.shipOpen ) 
+        return false;
     
-    /*
+    for(var i in ship.parts)
+    {
+        //cockpit
+        this.ctx.drawImage(ui.backSquareImg, 
+                           ui.shipMenu[i].x * this.canvas.width,
+                           ui.shipMenu[i].y * this.canvas.height,
+                           ui.shipMenu[i].w * this.canvas.width,
+                           ui.shipMenu[i].h * this.canvas.height
+                          );
+        if(null != ship.parts[i])
+        {
+            var center = ui.shipMenu[i].center;
+            //var scale = (ui.shipMenu[i].w * this.canvas.width) / ship.parts[i].image.width;
+            this.ctx.save();
+            this.ctx.translate( center.x * this.canvas.width, center.y * this.canvas.height );
+            this.ctx.scale( ship.renderScale, ship.renderScale );
+            if( i == 'cockpit' )
+                this.ctx.translate( 0, -ship.parts[i].image.height * 0.25);
+            this.ctx.drawImage(ship.parts[i].image,
+                               -ship.parts[i].image.width * 0.5,
+                               -ship.parts[i].image.height * 0.5);
+            this.ctx.restore();
+        }
+    }
+    
+    return true;
+}
+
+Renderer.prototype.renderShip = function(ship)
+{
+    ship.construct( this );
     this.ctx.save();
     
-    this.ctx.fillStyle = "#FFF";
-    this.ctx.arc(70, 70, 25, 2*Math.PI, false);
-    this.ctx.closePath();
-    this.ctx.clip();
-    this.ctx.fillStyle = '#000';
-    this.ctx.fillRect(40, 95, 50, -50);
-    this.ctx.fillStyle = '#13a8a4';
-    this.ctx.fillRect(40, 95, 60, map(player.oxygen, 0, 100, 0, -50));
+    this.ctx.translate( this.canvas.width * 0.5, this.canvas.height * 0.5 );
+    this.ctx.rotate( ship.rotation + Math.PI * 0.5 );
+    this.ctx.scale( ship.renderScale, ship.renderScale );
+    this.ctx.translate( 0, ship.renderHeight * 0.5 );
     
+    for(var i in ship.parts)
+    {
+        if(ship.parts[i] == null) continue;
+        
+        this.ctx.drawImage( 
+            ship.parts[i].image,
+            -ship.parts[i].image.width * 0.5,
+            -ship.parts[i].renderY
+        );
+    }
     this.ctx.restore();
-    this.ctx.strokeStyle = "#ddd";
-    this.ctx.lineWidth = 2;
-    this.ctx.beginPath();
-    this.ctx.arc(70, 70, 25, 2*Math.PI, false);
-    this.ctx.stroke();
-    this.ctx.closePath();
-    */
     
-    // Player Inventory
-    this.ctx.fillStyle = "#eee";
-    for (var i=0; i < player.inventory.length; i++) {
-        this.ctx.fillRect(200 + (75*i), this.canvas.height - 60, 50, 50);
+    if(Settings.debug)
+    {
+        this.ctx.save();
+        this.ctx.translate( this.canvas.width * 0.5, this.canvas.height * 0.5 );
+        this.ctx.rotate( ship.rotation + Math.PI * 0.5 );
+        this.ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+        //this.ctx.fillRect( ship.bounds.x, ship.bounds.y, ship.bounds.w, ship.bounds.h );
+        this.ctx.fillRect( this.worldToPixel( ship.bounds.x ), 
+                           this.worldToPixel( ship.bounds.y ), 
+                           this.worldToPixel( ship.bounds.w ), 
+                           this.worldToPixel( ship.bounds.h ) );
+        this.ctx.restore();
     }
     
 }

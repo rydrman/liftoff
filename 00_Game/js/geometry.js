@@ -137,6 +137,20 @@ Vector2.prototype.compare = function( vector )
     return ( this.x == vector.x && this.y == vector.y );
 }
 
+Vector2.prototype.fromRotation = function( rotation, radius )
+{
+    if( typeof(radius) == 'undefined') radius = 1
+    // rotation in rads
+    this.x = Math.sin(rotation) * -radius;
+    this.y = Math.cos(rotation) * radius;
+    return this;
+}
+
+Vector2.prototype.toRotation = function()
+{
+    return Math.atan2( this.y, this.x );
+}
+
 //////////////////////////
 //         LINE         //
 //////////////////////////
@@ -213,6 +227,15 @@ var Rectangle = function(x, y, w, h)
     this.y = y ? y : 0;
     this.w = w ? w : 0;
     this.h = h ? h : 0;
+}
+
+Rectangle.prototype = {
+    get center(){
+        return new Vector2(
+            this.x + this.w * 0.5,
+            this.y + this.h * 0.5
+        );
+    }
 }
 
 Rectangle.prototype.contains = function( vector )

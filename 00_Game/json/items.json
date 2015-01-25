@@ -1,29 +1,162 @@
 [
+    {
+        "name" : "tree",
+        "niceName" : "Tree",
+        "img" : "assets/items/Tree.png",
+        "probabilities" : {
+            "grassy" : 1,
+            "desert" : 0,
+            "rocky" : 0.3,
+            "swamp" :  0.5,
+            "volcanic" :  0,
+            "cow" :  1
+        }
+    },
+    {
+        "name" : "lgroundg",
+        "niceName" : "Loose Ground (Grass)",
+        "img" : "assets/items/LooseGroundGrass.png",
+        "probabilities" : {
+            "grassy" : 1,
+            "desert" : 0,
+            "rocky" : 0,
+            "swamp" :  0,
+            "volcanic" :  0,
+            "cow" :  1
+        }
+    },
+    {
+        "name" : "lgrounda",
+        "niceName" : "Loose Ground (Arid)",
+        "img" : "assets/items/LooseGroundArid.png",
+        "probabilities" : {
+            "grassy" : 0,
+            "desert" : 1,
+            "rocky" : 1,
+            "swamp" :  0,
+            "volcanic" :  0.5,
+            "cow" :  0
+        }
+    },
+    {
+        "name" : "lgrounds",
+        "niceName" : "Loose Ground (Swamp)",
+        "img" : "assets/items/LooseGroundSwamp.png",
+        "probabilities" : {
+            "grassy" : 0.2,
+            "desert" : 0,
+            "rocky" : 0,
+            "swamp" :  1,
+            "volcanic" :  0,
+            "cow" :  0.2
+        }
+    },
+     {
+        "name" : "rockpile",
+        "niceName" : "Rock Pile",
+        "img" : "assets/items/RockPile.png",
+        "probabilities" : {
+            "grassy" : 0,
+            "desert" : 0.2,
+            "rocky" : 1,
+            "swamp" :  0,
+            "volcanic" :  0.5,
+            "cow" :  0
+        }
+    },
+    {
+        "name" : "lava",
+        "niceName" : "Lava Pit",
+        "img" : "assets/items/LavaPit.png",
+        "probabilities" : {
+            "grassy" : 0,
+            "desert" : 0.1,
+            "rocky" : 0.1,
+            "swamp" :  0,
+            "volcanic" :  1,
+            "cow" :  0
+        }
+    },
+    {
+        "name" : "cow",
+        "niceName" : "Cow",
+        "img" : "assets/items/Cow.png",
+        "probabilities" : {
+            "grassy" : 1,
+            "desert" : 0,
+            "rocky" : 0,
+            "swamp" :  0,
+            "volcanic" :  0,
+            "cow" :  1
+        }
+    },
+     {
+        "name" : "sheep",
+        "niceName" : "Sheep",
+        "img" : "assets/items/Sheep.png",
+        "probabilities" : {
+            "grassy" : 1,
+            "desert" : 0,
+            "rocky" : 0,
+            "swamp" :  0,
+            "volcanic" :  0,
+            "cow" :  1
+        }
+    },
+    {
+        "name" : "alien",
+        "niceName" : "Alien",
+        "img" : "assets/items/Alien.png",
+        "probabilities" : {
+            "grassy" : 0.2,
+            "desert" : 0.2,
+            "rocky" : 0.2,
+            "swamp" :  0.5,
+            "volcanic" :  0.2,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "lwreck",
+        "niceName" : "Wreck (Land)",
+        "img" : "assets/items/LandWreck.png",
+        "probabilities" : {
+            "grassy" : 0.1,
+            "desert" : 0.1,
+            "rocky" : 0.2,
+            "swamp" :  0.2,
+            "volcanic" :  0.1,
+            "cow" :  0.1
+        }
+    },
+
+
+
 
     {
         "name" : "ore",
         "niceName" : "Ore",
         "img" : "assets/items/Ore.png",
         "probabilities" : {
-            "grassy" : 0.5,
-            "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
-            "cow" :  0.5
+            "grassy" : 0.05,
+            "desert" : 0.1,
+            "rocky" : 0.2,
+            "swamp" :  0.05,
+            "volcanic" :  0.2,
+            "cow" :  0.05
         }
     },
     {
-        "name" : "ore",
-        "niceName" : "Ore",
-        "img" : "assets/items/Ore.png",
+        "name" : "cardboard",
+        "niceName" : "Cardboard",
+        "img" : "assets/items/Cardboard.png",
         "probabilities" : {
-            "grassy" : 0.5,
-            "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
-            "cow" :  0.5
+            "grassy" : 0.2,
+            "desert" : 0,
+            "rocky" : 0.05,
+            "swamp" :  0.1,
+            "volcanic" :  0,
+            "cow" :  0.1
         }
     },   
     {
@@ -31,12 +164,12 @@
         "niceName" : "Goo",
         "img" : "assets/items/Goo.png",
         "probabilities" : {
-            "grassy" : 0.5,
-            "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
-            "cow" :  0.5
+            "grassy" : 0.2,
+            "desert" : 0.05,
+            "rocky" : 0.1,
+            "swamp" :  0.2,
+            "volcanic" :  0.1,
+            "cow" :  0.2
         }
     },
     {
@@ -44,12 +177,12 @@
         "niceName" : "Sand",
         "img" : "assets/items/Sand.png",
         "probabilities" : {
-            "grassy" : 0.5,
-            "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
-            "cow" :  0.5
+            "grassy" : 0.05,
+            "desert" : 0.3,
+            "rocky" : 0.05,
+            "swamp" :  0,
+            "volcanic" :  0.05,
+            "cow" :  0
         }
     },
     {
@@ -57,12 +190,12 @@
         "niceName" : "Carbon",
         "img" : "assets/items/Carbon.png",
         "probabilities" : {
-            "grassy" : 0.5,
-            "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
-            "cow" :  0.5
+            "grassy" : 0.05,
+            "desert" : 0.05,
+            "rocky" : 0.1,
+            "swamp" :  0.05,
+            "volcanic" :  0.2,
+            "cow" :  0.05
         }
     },
     {
@@ -70,12 +203,12 @@
         "niceName" : "Fibre",
         "img" : "assets/items/Fibre.png",
         "probabilities" : {
-            "grassy" : 0.5,
-            "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
-            "cow" :  0.5
+            "grassy" : 0.1,
+            "desert" : 0,
+            "rocky" : 0.05,
+            "swamp" :  0.05,
+            "volcanic" :  0,
+            "cow" :  0.2
         }
     },
     {
@@ -83,12 +216,12 @@
         "niceName" : "Rubber",
         "img" : "assets/items/Rubber.png",
         "probabilities" : {
-            "grassy" : 0.5,
-            "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
-            "cow" :  0.5
+            "grassy" : 0.05,
+            "desert" : 0.05,
+            "rocky" : 0.05,
+            "swamp" :  0.2,
+            "volcanic" :  0.1,
+            "cow" :  0.05
         }
     },
     {
@@ -96,12 +229,12 @@
         "niceName" : "Protein Paste",
         "img" : "assets/items/ProteinPaste.png",
         "probabilities" : {
-            "grassy" : 0.5,
-            "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
-            "cow" :  0.5
+            "grassy" : 0.2,
+            "desert" : 0,
+            "rocky" : 0.05,
+            "swamp" :  0.1,
+            "volcanic" :  0,
+            "cow" :  0.2
         }
     },
     {
@@ -109,12 +242,12 @@
         "niceName" : "Spice",
         "img" : "assets/items/Spice.png",
         "probabilities" : {
-            "grassy" : 0.5,
-            "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
-            "cow" :  0.5
+            "grassy" : 0,
+            "desert" : 0.1,
+            "rocky" : 0.05,
+            "swamp" :  0,
+            "volcanic" :  0,
+            "cow" :  0
         }
     },
     {
@@ -123,10 +256,10 @@
         "img" : "assets/items/Rooster.png",
         "probabilities" : {
             "grassy" : 0.5,
-            "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
+            "desert" : 0,
+            "rocky" : 0,
+            "swamp" :  0,
+            "volcanic" :  0,
             "cow" :  0.5
         }
     },
@@ -135,12 +268,12 @@
         "niceName" : "Plasma",
         "img" : "assets/items/Plasma.png",
         "probabilities" : {
-            "grassy" : 0.5,
-            "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
-            "cow" :  0.5
+            "grassy" : 0,
+            "desert" : 0,
+            "rocky" : 0,
+            "swamp" :  0,
+            "volcanic" :  0.1,
+            "cow" :  0
         }
     },
     {
@@ -148,12 +281,12 @@
         "niceName" : "Metal",
         "img" : "assets/items/Metal.png",
         "probabilities" : {
-            "grassy" : 0.5,
-            "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
-            "cow" :  0.5
+            "grassy" : 0.05,
+            "desert" : 0.05,
+            "rocky" : 0.1,
+            "swamp" :  0.05,
+            "volcanic" :  0.2,
+            "cow" :  0.05
         }
     },
     {
@@ -161,12 +294,12 @@
         "niceName" : "Glass",
         "img" : "assets/items/Glass.png",
         "probabilities" : {
-            "grassy" : 0.5,
-            "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
-            "cow" :  0.5
+            "grassy" : 0,
+            "desert" : 0.1,
+            "rocky" : 0,
+            "swamp" :  0,
+            "volcanic" :  0.1,
+            "cow" :  0
         }
     },
     {
@@ -174,18 +307,46 @@
         "niceName" : "Crystal",
         "img" : "assets/items/Crystal.png",
         "probabilities" : {
-            "grassy" : 0.5,
-            "desert" : 0.5,
-            "rocky" : 0.5,
-            "swamp" :  0.5,
-            "volcanic" :  0.5,
-            "cow" :  0.5
+            "grassy" : 0,
+            "desert" : 0,
+            "rocky" : 0.05,
+            "swamp" :  0,
+            "volcanic" :  0.05,
+            "cow" :  0
         }
     },
     {
         "name" : "cfibre",
         "niceName" : "Carbon Fibre",
         "img" : "assets/items/CarbonFibre.png",
+        "probabilities" : {
+            "grassy" : 0,
+            "desert" : 0,
+            "rocky" : 0.05,
+            "swamp" :  0,
+            "volcanic" :  0.05,
+            "cow" :  0
+        }
+    },
+    {
+        "name" : "bolts",
+        "niceName" : "Bolts",
+        "img" : "assets/items/Bolts.png",
+        "probabilities" : {
+            "grassy" : 0.1,
+            "desert" : 0,
+            "rocky" : 0,
+            "swamp" :  0.05,
+            "volcanic" :  0,
+            "cow" :  0.1
+        }
+    },
+
+
+    {
+        "name" : "bcockpit",
+        "niceName" : "Basic Cockpit",
+        "img" : "assets/ships/cb_cockpit.png",
         "probabilities" : {
             "grassy" : 0.5,
             "desert" : 0.5,
@@ -196,9 +357,48 @@
         }
     },
     {
-        "name" : "bolts",
-        "niceName" : "Bolts",
-        "img" : "assets/items/Bolts.png",
+        "name" : "barmaments",
+        "niceName" : "Basic Armaments",
+        "img" : "assets/ships/cb_engineering.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "bsciencebay",
+        "niceName" : "Basic Science Bay",
+        "img" : "assets/ships/cb_science.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "bcargobay",
+        "niceName" : "Basic Cargo Bay",
+        "img" : "assets/ships/cb_cargo.png",
+        "probabilities" : {
+            "grassy" : 0.5,
+            "desert" : 0.5,
+            "rocky" : 0.5,
+            "swamp" :  0.5,
+            "volcanic" :  0.5,
+            "cow" :  0.5
+        }
+    },
+    {
+        "name" : "bthrusters",
+        "niceName" : "Basic Thrusters",
+        "img" : "assets/ships/cb_engine.png",
         "probabilities" : {
             "grassy" : 0.5,
             "desert" : 0.5,

@@ -9,26 +9,47 @@ var Ship = function() {
     this.fuel = 100;
     
     // parts
-    
-    this.engine;
-    this.cockpit;
-    this.cargo;
-    this.science;
-    this.armaments;
+    this.parts = {
+        engine : null,
+        cargo : null,
+        science : null,
+        engineering : null,
+        cockpit : null
+    }
     
     this.inMenu = false;
     this.landed = false;
     this.landing = false;
+    
+    this.renderScale = 0.35;
+    this.renderHeight = 0;
+    this.renderWidth = 0;
 }
 Ship.prototype = new Player();
 
-Ship.prototype.init = function() {
-    
+Ship.prototype.init = function() 
+{
+    //debug throw in some cardboard stuff
+    this.parts.cockpit = new BaseObject( engine.generator.items.bcockpit );
+    //this.parts.cargo = new BaseObject( engine.generator.items.bcargobay );
+    this.parts.engine = new BaseObject( engine.generator.items.bthrusters );
 }
 
-Ship.prototype.checkClickIntersect = function(clickPos) {
-    // TODO - modules on ship change its bounding box
-    return (Math.abs(clickPos.x - this.position.x) < 0.5 && Math.abs(clickPos.y - this.position.y) < 0.5)
+Ship.prototype.isInBounds = function( pos ) 
+{
+    //get offset
+    var offset = new Vector2().subVectors( this.position, pos );
+    
+    //convert to local space
+    var rot = offset.toRotation();
+    rot -= this.rotation;// - Math.PI * 0.5;
+    offset.fromRotation( rot, offset.length() );
+    
+    if(this.bounds && this.bounds.contains( offset ))
+    {
+        return true;
+    }    
+    return false;
 }
 
 Ship.prototype.launch = function() {
@@ -54,5 +75,32 @@ Ship.prototype.wrapValues = function( bounds )
     
     //goal
     this.goal.x = wrap( this.goal.x, bounds.x, bounds.x + bounds.w );
-    this.goal.y = wrap( this.goal.y, bounds.y, bounds.y + bounds.h );
+    this.goal.y = wrap( this.goal.y, bounds.y, bounds.y + bounds.h );}
+
+Ship.prototype.hasPiece = function(name)
+ {
+    // TODO
+    return true;
+}
+
+Ship.prototype.construct = function( renderer )
+{
+    this.renderHeight = 0;
+    this.renderWidth = Number.MAX_VALUE;
+    for(var i in this.parts)
+    {
+        if(this.parts[i] == null) continue;
+        
+        this.renderHeight += this.parts[i].image.height - 22;
+        this.renderWidth = Math.min( this.renderWidth, this.parts[i].image.width );
+        this.parts[i].renderY = this.renderHeight;
+        
+    }
+    
+    this.bounds = new Rectangle(
+        -renderer.pixelToWorld( this.renderWidth * this.renderScale ) * 0.5,
+        -renderer.pixelToWorld( this.renderHeight * this.renderScale ) * 0.5,
+        renderer.pixelToWorld( this.renderWidth * this.renderScale ),
+        renderer.pixelToWorld( this.renderHeight * this.renderScale )
+    );
 }

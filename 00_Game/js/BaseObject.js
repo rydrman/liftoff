@@ -6,8 +6,11 @@ var BaseObject = function( item )
     var self = this;
     
     var loader = new AsyncLoader()
+    loader.onComplete = EMPTY_FUNCTION;
     loader.addImageCall( item.img, this.image );
     loader.runCalls();
+    
+    this.quantity = 1; // stacks
     
     //to know where it is
     //and how to draw it
@@ -18,6 +21,7 @@ var BaseObject = function( item )
     
     
 }
+
 BaseObject.prototype.init = function() 
 {
     
