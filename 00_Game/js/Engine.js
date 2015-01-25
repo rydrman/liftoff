@@ -52,13 +52,13 @@ Engine.prototype.begin = function()
     
     //initialize stuff
     this.renderer.init( canvas );
-    this.player.init();
+    this.player.init( this.timer );
     this.ui.init(canvas, this.player, null);
     
     //DEBUG create a ship
     this.player.ship = new Ship();
     this.player.inShip = true;
-    this.player.ship.init();
+    this.player.ship.init( this.timer );
     this.world.ships.push(this.player.ship);
     
     //set 
