@@ -22,7 +22,7 @@ Renderer.prototype.init = function( canvas )
     this.initialized = true;
 }
 
-Renderer.prototype.render = function( world, player, ship, timer )
+Renderer.prototype.render = function( world, player, ship, ui, timer )
 {
     this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
     
@@ -130,43 +130,100 @@ Renderer.prototype.render = function( world, player, ship, timer )
             this.ctx.translate(0, rad)
             this.ctx.rotate( Math.PI )
             this.ctx.scale( 0.5, 0.5 );
-            this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75);
+            try{
+                this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75);
+            }
+            catch(err)
+            {
+                console.warn("image does not exist: " + p.items[i].image.src);
+                p.items[i].image = missingImg;
+            }
             this.ctx.restore();
         }
         this.ctx.restore()
     }
     
+    var shipDrawn = this.renderUI( ui, ship );
     
+    if(!shipDrawn)
+    {
+        this.renderShip( ship );
+    }
+}
+
+Renderer.prototype.renderUI = function( ui, ship )
+{    
+    //draw inventory
     
-    // UI Components TEST
+    //draw ship menu
+    if( !ui.shipOpen ) 
+        return false;
     
-    /*
-    this.ctx.save();
-    
-    this.ctx.fillStyle = "#FFF";
-    this.ctx.arc(70, 70, 25, 2*Math.PI, false);
-    this.ctx.closePath();
-    this.ctx.clip();
-    this.ctx.fillStyle = '#000';
-    this.ctx.fillRect(40, 95, 50, -50);
-    this.ctx.fillStyle = '#13a8a4';
-    this.ctx.fillRect(40, 95, 60, map(player.oxygen, 0, 100, 0, -50));
-    
-    this.ctx.restore();
-    this.ctx.strokeStyle = "#ddd";
-    this.ctx.lineWidth = 2;
-    this.ctx.beginPath();
-    this.ctx.arc(70, 70, 25, 2*Math.PI, false);
-    this.ctx.stroke();
-    this.ctx.closePath();
-    */
-    
-    // Player Inventory
-    this.ctx.fillStyle = "#eee";
-    for (var i=0; i < player.inventory.length; i++) {
-        this.ctx.fillRect(200 + (75*i), this.canvas.height - 60, 50, 50);
+    //cockpit
+    this.ctx.drawImage(ui.backSquareImg, 
+                       ui.shipMenu.cockpit.x * this.canvas.width,
+                       ui.shipMenu.cockpit.y * this.canvas.height,
+                       ui.shipMenu.cockpit.w * this.canvas.width,
+                       ui.shipMenu.cockpit.h * this.canvas.height
+                      );
+    if(null != ship.parts.cockpit)
+    {
+        var center = ui.shipMenu.cockpit.center;
+        var scale = (ui.shipMenu.cockpit.w * this.canvas.width) / ship.parts.cockpit.image.width;
+        this.ctx.save();
+        this.ctx.translate( center.x * this.canvas.width, center.y * this.canvas.height );
+        this.ctx.scale( scale, scale );
+        this.ctx.drawImage(ship.parts.cockpit.image,
+                           -ship.parts.cockpit.image.width * 0.5,
+                           -ship.parts.cockpit.image.height * 0.5);
+        this.ctx.restore();
+    }
+    //engineering
+    this.ctx.drawImage(ui.backSquareImg, 
+                       ui.shipMenu.engineering.x * this.canvas.width,
+                       ui.shipMenu.engineering.y * this.canvas.height,
+                       ui.shipMenu.engineering.w * this.canvas.width,
+                       ui.shipMenu.engineering.h * this.canvas.height
+                      );
+    if(null != ship.parts.engineering)
+    {
+    }
+    //science
+    this.ctx.drawImage(ui.backSquareImg, 
+                       ui.shipMenu.science.x * this.canvas.width,
+                       ui.shipMenu.science.y * this.canvas.height,
+                       ui.shipMenu.science.w * this.canvas.width,
+                       ui.shipMenu.science.h * this.canvas.height
+                      );
+    if(null != ship.parts.science)
+    {
+    }
+    //cargo
+    this.ctx.drawImage(ui.backSquareImg, 
+                       ui.shipMenu.cargo.x * this.canvas.width,
+                       ui.shipMenu.cargo.y * this.canvas.height,
+                       ui.shipMenu.cargo.w * this.canvas.width,
+                       ui.shipMenu.cargo.h * this.canvas.height
+                      );
+    if(null != ship.parts.cargo)
+    {
+    }
+    //engine
+    this.ctx.drawImage(ui.backSquareImg, 
+                       ui.shipMenu.engine.x * this.canvas.width,
+                       ui.shipMenu.engine.y * this.canvas.height,
+                       ui.shipMenu.engine.w * this.canvas.width,
+                       ui.shipMenu.engine.h * this.canvas.height
+                      );
+    if(null != ship.parts.engine)
+    {
     }
     
+    return true;
+}
+
+Renderer.prototype.renderShip = function(ship)
+{
 }
 
 Renderer.prototype.resize = function( w, h )
