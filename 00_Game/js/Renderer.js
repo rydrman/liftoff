@@ -99,15 +99,16 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
     
     //draw planets
     this.ctx.fillStyle = "#F00";
-    var p, pos, rad;
+    var p, pos, rad, wrapped;
     for(var i in world.planets)
     {
         p = world.planets[i];
+        wrapped = this.wrapWorldCoords( p.position );
         
-        if( this.viewport.distanceTo( p.position ) > p.radius + 5 )
+        if( this.viewport.distanceTo( wrapped ) > p.radius + this.viewport.w )
             continue;
         
-        pos = this.project( this.wrapWorldCoords( p.position ) );
+        pos = this.project( wrapped );
         rad = this.worldToPixel( p.radius );
         
         this.ctx.save();
@@ -126,7 +127,7 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
             this.ctx.rotate( p.items[i].planetPosition );
             this.ctx.translate(0, rad)
             this.ctx.rotate( Math.PI )
-            this.ctx.scale( player.ship.renderScale, player.ship.renderScale );
+            //this.ctx.scale( 0.5, 0.5 );
             try{
                 this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75);
             }

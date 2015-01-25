@@ -81,7 +81,7 @@ Player.prototype.update = function( timer ) {
 
 Player.prototype.toggleShipStatus = function(ship) {
     this.inShip = !this.inShip;
-    this.ship = (ship) ? ship : null;
+    this.ship = (this.inShip) ? ship : null;
     this.goal.copy(ship.position)
     this.position.copy(ship.position);
     this.timer.startSubTick("oxygenTick");
