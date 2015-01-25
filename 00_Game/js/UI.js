@@ -2,8 +2,8 @@ var UI = function(canvas)
 {
    AsyncLoadable.call(this);
     
-    this.shipOpen = true;
-    this.craftOpen = true;
+    this.shipOpen = false;
+    this.craftOpen = false;
     
     //placements
     this.shipMenu = {

@@ -113,6 +113,14 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
         
         this.ctx.save();
         this.ctx.translate( pos.x, pos.y );
+        //draw atmosphere
+        if(p.atmosphere)
+        {
+            this.ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+            this.ctx.beginPath();
+            this.ctx.arc(0, 0, rad + this.worldToPixel(1), 0, Math.PI * 2, false );
+            this.ctx.fill();
+        }
         //draw shell
         this.ctx.fillStyle = p.color;
         this.ctx.beginPath();
@@ -128,18 +136,6 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
             this.ctx.translate(0, rad + this.worldToPixel(p.items[i].bounds.h * 0.125))
             this.ctx.rotate( Math.PI )
             this.ctx.scale( p.items[i].renderScale, p.items[i].renderScale );
-            this.ctx.save();
-            this.ctx.scale(this.zoom, this.zoom);
-            try{
-                this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.5);
-            }
-            catch(err)
-            {
-                console.warn("image does not exist: " + p.items[i].image.src);
-                p.items[i].image = missingImg;
-                p.items[i].imageDone();
-            }
-            this.ctx.restore();
             
             //debug collider
             if(Settings.debug)
@@ -154,6 +150,20 @@ Renderer.prototype.render = function( world, player, ship, ui, timer )
                                    this.worldToPixel( p.items[i].bounds.h ) );
                 this.ctx.restore();
             }
+            
+            //draw item
+            try{
+                this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.5);
+            }
+            catch(err)
+            {
+                console.warn("image does not exist: " + p.items[i].image.src);
+                p.items[i].image = missingImg;
+                p.items[i].imageDone();
+            }
+            //this.ctx.restore();
+            
+            
             
             this.ctx.restore();
         }

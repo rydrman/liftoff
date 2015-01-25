@@ -50,7 +50,7 @@ Generator.prototype.generate = function()
         if( planet == null )
             continue;
         
-        this.populatePlanet( planet );
+        this.populatePlanet( planet, (i == i) );
         
         world.planets.push( planet );
     }
@@ -63,8 +63,8 @@ Generator.prototype.spawnPlanet = function( world )
     //initial stuff
     var rad = Settings.planetMinRad + Math.random() * Settings.planetMaxRad,
         position = new Vector2(
-            20,//rad + Math.random() * (Settings.worldSize.x - rad*2),
-            20 //rad + Math.random() * (Settings.worldSize.y - rad*2)
+            rad + Math.random() * (Settings.worldSize.x - rad*2),
+            rad + Math.random() * (Settings.worldSize.y - rad*2)
         ),
         distSq;
 
@@ -118,9 +118,17 @@ Generator.prototype.spawnPlanet = function( world )
     return planet
 }
 
-Generator.prototype.populatePlanet = function( planet )
+Generator.prototype.populatePlanet = function( planet, base )
 {
-    var numItems = 1;//Math.floor( map(planet.radius, Settings.planetMinRad, Settings.planetMaxRad, 5, 20) );
+    if( base )
+    {
+        this.applyBase( planet );
+        return;
+    }
+    
+    planet.atmosphere = (Math.random() > 0.4) ? true : false;
+    
+    var numItems = Math.floor( map(planet.radius, Settings.planetMinRad, Settings.planetMaxRad, 5, 20) );
     
     //find possible resources
     var selectionList = [];
@@ -160,5 +168,32 @@ Generator.prototype.populatePlanet = function( planet )
             }
         }
         
+    }
+}
+
+Generator.prototype.applyBase = function(planet)
+{
+    var toPut = {
+        "tree" : 4,
+        "ore" : 2,
+        "goo" : 2,
+        "rooster" : 1,
+        "pomnitool" : 1
+    };
+    
+    planet.atmosphere = true;
+    
+    for(var i in toPut)
+    {
+        for(var j = 0; j < toPut[i]; j++)
+        {
+            var item = new BaseObject( this.items[i] );
+            item.planet = planet;
+
+            //place it on the planet
+            item.planetPosition = -Math.PI + Math.random() * Math.PI * 2; 
+
+            planet.addItem(item);
+        }
     }
 }
