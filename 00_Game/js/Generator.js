@@ -87,7 +87,7 @@ Generator.prototype.spawnPlanet = function( world )
         for(var j in world.planets)
         {
             distSq = new Vector2().subVectors(position, world.planets[j].position).lengthSqd();
-            if(distSq < Math.pow(rad + world.planets[j].radius, 2) )
+            if(distSq < Math.pow(rad + world.planets[j].radius + 5, 2) )
             {
                 accepted = false;
                 break;

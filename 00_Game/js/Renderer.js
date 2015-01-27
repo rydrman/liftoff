@@ -129,6 +129,54 @@ Renderer.prototype.render = function( world, player, ship, ui, draggedItem, time
         
     }
     
+    this.drawPlanets( world );
+    
+    
+    //drawShips, not player ship
+    for(var i in world.ships)
+    {
+        //TODO
+        if(world.ships[i] === player.ship) continue;
+        
+        this.renderShip( world.ships[i] );
+    }
+    
+    //draw player
+    if(!player.ship)
+    {
+        this.renderPlayer( player );
+    }
+    
+    this.drawItems( world );
+    
+    //ui and player ship
+    var shipDrawn = this.renderUI( ui, player);
+
+    if(!shipDrawn && player.ship)
+    {
+        this.renderShip( player.ship );
+    }
+    
+    
+    // render dragged item
+    if (draggedItem != null) {
+        this.ctx.drawImage(draggedItem.image,
+                           draggedItem.position.x - 25,
+                           draggedItem.position.y - 25,
+                           50, 50);
+    }
+    
+    if (gameover)
+        this.ctx.drawImage(ui.gameOverImg,
+                           ui.gameOver.x * this.canvas.width,
+                           ui.gameOver.y * this.canvas.height,
+                           ui.gameOver.w * this.canvas.width,
+                           ui.gameOver.h * this.canvas.height );
+    
+}
+
+Renderer.prototype.drawPlanets = function( world )
+{
     //draw planets
     this.ctx.fillStyle = "#F00";
     var p, pos, rad, wrapped;
@@ -158,17 +206,40 @@ Renderer.prototype.render = function( world, player, ship, ui, draggedItem, time
         this.ctx.beginPath();
         this.ctx.arc(0, 0, rad, 0, Math.PI * 2, false );
         this.ctx.fill();
+        
+        this.ctx.restore()
+    }
+}
+    
+Renderer.prototype.drawItems = function( world )
+{
+    //draw planets
+    this.ctx.fillStyle = "#F00";
+    var p, pos, rad, wrapped;
+    for(var i in world.planets)
+    {
+        p = world.planets[i];
+        wrapped = world.wrapCoords( this.viewport.center, p.position );
+
+        if( this.viewport.distanceTo( wrapped ) > p.radius + this.viewport.w )
+            continue;
+
+        pos = this.project( wrapped );
+        rad = this.worldToPixel( p.radius );
+
+        this.ctx.save();
+        this.ctx.translate( pos.x, pos.y );
         //draw items
         for(var i in p.items)
         {
             if(this.zoom < 2 || !p.items[i].image.complete) continue;
-            
+
             this.ctx.save();
             this.ctx.rotate( p.items[i].planetPosition );
             this.ctx.translate(0, rad + this.worldToPixel(p.items[i].bounds.h * 0.125))
             this.ctx.rotate( Math.PI )
             this.ctx.scale( p.items[i].renderScale, p.items[i].renderScale );
-            
+
             //debug collider
             if(Settings.debug)
             {
@@ -182,7 +253,7 @@ Renderer.prototype.render = function( world, player, ship, ui, draggedItem, time
                                    this.worldToPixel( p.items[i].bounds.h ) );
                 this.ctx.restore();
             }
-            
+
             //draw item
             try{
                 this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.5);
@@ -194,52 +265,15 @@ Renderer.prototype.render = function( world, player, ship, ui, draggedItem, time
                 p.items[i].imageDone();
             }
             //this.ctx.restore();
-            
-            
-            
+
+
+
             this.ctx.restore();
         }
         this.ctx.restore()
     }
-    
-    //drawShips, not player ship
-    for(var i in world.ships)
-    {
-        //TODO
-        if(world.ships[i] === player.ship) continue;
-        
-        this.renderShip( world.ships[i] );
-    }
-    
-    //draw player
-    if(!player.ship)
-    {
-        this.renderPlayer( player );
-    }
-    
-    //ui and player ship
-    var shipDrawn = this.renderUI( ui, player);
-
-    if(!shipDrawn && player.ship)
-    {
-        this.renderShip( player.ship );
-    }
-    // render dragged item
-    if (draggedItem != null) {
-        this.ctx.drawImage(draggedItem.image,
-                           draggedItem.position.x - 25,
-                           draggedItem.position.y - 25,
-                           50, 50);
-    }
-    
-    if (gameover)
-        this.ctx.drawImage(ui.gameOverImg,
-                           ui.gameOver.x * this.canvas.width,
-                           ui.gameOver.y * this.canvas.height,
-                           ui.gameOver.w * this.canvas.width,
-                           ui.gameOver.h * this.canvas.height );
-    
 }
+
 
 Renderer.prototype.renderPlayer = function( player )
 {
@@ -260,7 +294,7 @@ Renderer.prototype.renderPlayer = function( player )
     try{
         this.ctx.drawImage( player.image, 
                         this.worldToPixel( player.bounds.x ),
-                        this.worldToPixel( player.bounds.y - player.bounds.h * 0.1 ),
+                        this.worldToPixel( player.bounds.y - player.bounds.h * 0.125 ),
                         this.worldToPixel( player.bounds.w ),
                         this.worldToPixel( player.bounds.h )
                       );
