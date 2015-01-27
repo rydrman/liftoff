@@ -50,7 +50,7 @@ Generator.prototype.generate = function()
         if( planet == null )
             continue;
         
-        this.populatePlanet( planet, (i == i) );
+        this.populatePlanet( planet, (i == 0) );
         
         world.planets.push( planet );
     }

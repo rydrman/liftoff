@@ -22,6 +22,8 @@ var BaseObject = function( item )
     this.type = item.type ? item.type : "";
     this.actions = item.actions ? item.actions : [""];
     
+    this.consume = item.consume ? item.consume : {};
+    
     //breakble
     //this.breakable = item.breakable ? true : false;
     this.receivedActions = item.receivedActions ? item.receivedActions : [];

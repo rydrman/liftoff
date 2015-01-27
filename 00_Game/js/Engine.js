@@ -216,7 +216,39 @@ Engine.prototype.onRMouseDown = function( mousePos)
     var result = this.world.sample( worldPos );
     if (uiResult) 
     {
-        console.log ("UI ELEMENT CLICKED");
+        // if item is consumable, consume it
+        if (uiResult.name == "playerInv" && uiResult.slotNo != null) {
+            var item = this.player.getInventoryByIndex(uiResult.slotNo);
+            for (stat in item.consume) {
+                if (stat == "fuel" || stat == "damage") {
+                    if  (this.player.ship == null)
+                        continue;
+                    else
+                        this.player.ship[stat] += item.consume[stat];
+                } else {
+                    this.player[stat] += item.consume[stat];
+                }
+            }
+            // reduce quantity / remove
+            if (item.quantity > 1)
+                item.quantity --;
+            else
+                delete this.player.inventory[item.name];
+        } else if (uiResult.name == "shipInv" && uiResult.slotNo != null && this.player.ship != null) {
+            var item = this.player.ship.getInventoryByIndex(uiResult.slotNo);
+            for (stat in item.consume) {
+                if (stat == "fuel" || stat == "damage") {
+                    this.player.ship[stat] += item.consume[stat];
+                } else {
+                    this.player[stat] += item.consume[stat]
+                }
+            }
+            // reduce quantity / remove
+            if (item.quantity > 1)
+                item.quantity --;
+            else
+                delete this.player.ship.inventory[item.name];
+        }
     }
     else if (this.player.isInBounds(worldPos)) 
     {
