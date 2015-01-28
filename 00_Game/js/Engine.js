@@ -94,7 +94,7 @@ Engine.prototype.onMouseDown = function( mousePos )
     var checkUI = false;
     if ((this.ui.craftOpen || this.ui.shipOpen))
         checkUI = true;
-    var uiResult = this.ui.sample(mousePos, this.player);
+    var uiResult = this.ui.sample(mousePos, this.player, true);
     if (checkUI && !uiResult)
         return;
     
@@ -138,11 +138,11 @@ Engine.prototype.onMouseDown = function( mousePos )
         }
         else if(result instanceof Planet)
         {
-            console.log("planet clicked");
+            //console.log("planet clicked");
         }
         else if( result instanceof BaseObject )
         {
-            console.log("item clicked", result);
+            //console.log("item clicked", result);
             //item on a planet
             this.mouseLTarget = "world";
             // check if player is close enough to pick up object
@@ -211,7 +211,7 @@ Engine.prototype.onRMouseDown = function( mousePos)
     var worldPos = this.renderer.unProject( mousePos );
     
     //Check UI elements first
-    var uiResult = this.ui.sample(mousePos, this.player);
+    var uiResult = this.ui.sample(mousePos, this.player, true);
 
     var result = this.world.sample( worldPos );
     if (uiResult) 
@@ -287,9 +287,9 @@ Engine.prototype.onMouseMove = function(mousePos)
     
     var worldPos = this.renderer.unProject( mousePos );
 
-    var uiSample = this.ui.sample( mousePos, this.player );
+    var uiSample = this.ui.sample( mousePos, this.player, false);
     var wSample = this.world.sample( worldPos );
-    console.log(uiSample, wSample);
+
     if( false != uiSample )
     {
         //TODO ui sample
@@ -297,7 +297,7 @@ Engine.prototype.onMouseMove = function(mousePos)
     }
     else if(null != wSample)
     {
-        console.log( wSample );
+        //console.log( wSample );
         if(wSample instanceof BaseObject)
         {
             this.renderer.hoverText = {
@@ -325,7 +325,7 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
         if (this.draggedItem) {
                 this.draggedItem.position = mousePos;
         } else if (/*uiResult &&*/ this.mouseLTarget == "ui") {
-            console.log ("UI ELEMENT SUSTAINED");
+            //console.log ("UI ELEMENT SUSTAINED");
         }
         /*if (this.ship.isInBounds(worldPos)) {
             // Open Ship Menu
@@ -384,7 +384,7 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
 Engine.prototype.onMouseUp = function(mousePos) {
     // Get target if we need to
     if (this.draggedItem != null) {
-        var uiResult = this.ui.sample(mousePos);
+        var uiResult = this.ui.sample(mousePos, this.player, false);
         if (uiResult.name == "playerInv") {
             if (this.player.addToInventory(this.draggedItem))
                 this.draggedItem = null;

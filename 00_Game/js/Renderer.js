@@ -169,7 +169,7 @@ Renderer.prototype.render = function( world, player, ship, ui, draggedItem, time
     }
     else if (this.hoverText != null)
     {
-        this.ctx.font = "10px Arial sans-serif";
+        this.ctx.font = "20px " + Settings.fontFamily;
         this.ctx.fillText(this.hoverText.text, this.hoverText.position.x, this.hoverText.position.y);
     }
     
@@ -237,15 +237,15 @@ Renderer.prototype.drawItems = function( world )
         this.ctx.save();
         this.ctx.translate( pos.x, pos.y );
         //draw items
-        for(var i in p.items)
+        for(var j = p.items.length - 1; j >= 0; --j)
         {
-            if(this.zoom < 2 || !p.items[i].image.complete) continue;
+            if(this.zoom < 2 || !p.items[j].image.complete) continue;
 
             this.ctx.save();
-            this.ctx.rotate( p.items[i].planetPosition );
-            this.ctx.translate(0, rad + this.worldToPixel(p.items[i].bounds.h * 0.125))
+            this.ctx.rotate( p.items[j].planetPosition );
+            this.ctx.translate(0, rad + this.worldToPixel(p.items[j].bounds.h * 0.125))
             this.ctx.rotate( Math.PI )
-            this.ctx.scale( p.items[i].renderScale, p.items[i].renderScale );
+            this.ctx.scale( p.items[j].renderScale, p.items[j].renderScale );
 
             //debug collider
             if(Settings.debug)
@@ -254,20 +254,20 @@ Renderer.prototype.drawItems = function( world )
                 //this.ctx.translate( -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.75 ); 
                 this.ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
                 //this.ctx.fillRect( ship.bounds.x, ship.bounds.y, ship.bounds.w, ship.bounds.h );
-                this.ctx.fillRect( this.worldToPixel( p.items[i].bounds.x ), 
-                                   this.worldToPixel( p.items[i].bounds.y ), 
-                                   this.worldToPixel( p.items[i].bounds.w ), 
-                                   this.worldToPixel( p.items[i].bounds.h ) );
+                this.ctx.fillRect( this.worldToPixel( p.items[j].bounds.x ), 
+                                   this.worldToPixel( p.items[j].bounds.y ), 
+                                   this.worldToPixel( p.items[j].bounds.w ), 
+                                   this.worldToPixel( p.items[j].bounds.h ) );
                 this.ctx.restore();
             }
 
             //draw item
             try{
-                this.ctx.drawImage( p.items[i].image, -p.items[i].image.width * 0.5, -p.items[i].image.height * 0.5);
+                this.ctx.drawImage( p.items[j].image, -p.items[j].image.width * 0.5, -p.items[j].image.height * 0.5);
             }
             catch(err)
             {
-                console.warn("image does not exist: " + p.items[i].image.src);
+                console.warn("image does not exist: " + p.items[j].image.src);
                 p.items[i].image = missingImg;
                 p.items[i].imageDone();
             }

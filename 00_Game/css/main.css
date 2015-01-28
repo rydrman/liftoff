@@ -36,10 +36,6 @@ body{
 /*font for ui*/
 @font-face {
     font-family: ui-font;
-    src: url('ui-font.ttf');
+    src: url('../assets/fonts/simplicity.ttf');
 }
 
-@font-face {
-    font-family: hud-font;
-    src: url('hud-font.otf');
-}

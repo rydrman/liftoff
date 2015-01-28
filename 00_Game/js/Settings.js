@@ -19,7 +19,7 @@ var Settings = {
     aspectW : 16,
     aspectH : 9,
    
-    fontFamily: "Arial",
+    fontFamily: "ui-font",
     
     //for world generation
     worldSize : {

@@ -50,7 +50,7 @@ var UI = function(canvas)
         detailArea: new Rectangle( 935 / 1920, 625 / 1080, 800 / 1920, 150 / 1080),
         detailIcon: new Rectangle( 935 / 1920, 625 / 1080, 150 / 1920, 150 / 1080),
         detailTitle: new Vector2( 1100 / 1920, 650 / 1080 ),
-        detailFontSize: 20 / 1920,
+        detailFontSize: 25 / 1920,
         detailRequire: new Vector2( 1100 / 1920, 660 / 1080 ),
         
         buildButton: new Rectangle( 1575 / 1920, 675 / 1080, 145 / 1920, 60 / 1080)
@@ -196,7 +196,7 @@ UI.prototype.init = function(crafting)
     this.crafting = crafting;
 }
 
-UI.prototype.sample = function( mousePosCanvas, player )
+UI.prototype.sample = function( mousePosCanvas, player, act )
 {
     var relativePos = new Vector2( mousePosCanvas.x / Settings.renderWidth,
                                    mousePosCanvas.y / Settings.renderHeight );
@@ -204,6 +204,10 @@ UI.prototype.sample = function( mousePosCanvas, player )
     
     if(this.craftOpen)
     {
+        //background
+        if(!act && this.craftingMenu.background.contains(relativePos))
+            return true;
+        
         //check top buttons
         for(var i in this.craftingMenu.topRow)
         {
@@ -294,9 +298,12 @@ UI.prototype.sample = function( mousePosCanvas, player )
         return { name: "shipInv", slotNo: slot};
     }
     
-    this.shipOpen = false;
-    this.craftOpen = false;
-    this.currentShip = null;
+    if(act)
+    {
+        this.shipOpen = false;
+        this.craftOpen = false;
+        this.currentShip = null;
+    }
     return false;
     
 }
