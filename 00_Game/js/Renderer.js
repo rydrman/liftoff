@@ -219,6 +219,7 @@ Renderer.prototype.drawPlanets = function( world )
     
     this.ctx.font = "20px " + Settings.fontFamily;
     this.ctx.fillStyle = "#AAA";
+    this.ctx.textAlign = 'left';
     this.ctx.fillText("Pro tip: Right click the player to bring up the crafting menu", 10, this.canvas.height - 10);
 }
     
