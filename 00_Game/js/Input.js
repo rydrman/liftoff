@@ -66,7 +66,7 @@ Input.prototype.createEventHandlers = function()
     window.addEventListener("keyup", function(e){context.onKeyUp.call(context, e)} );
     
     //mouse events
-    window.addEventListener("mousemove", function(e){context.onMouseMove.call(context, e)} );
+    window.addEventListener("mousemove", function(e){console.log("mouseMovetop"); context.onMouseMove.call(context, e)} );
     window.addEventListener("mousedown", function(e){context.onMouseDown.call(context, e)} );
     window.addEventListener("mouseup", function(e){context.onMouseUp.call(context, e)} );
     document.addEventListener("pointerlockchange", function(e){context.onPointerLockChange.call(context, e)}, false );
@@ -226,6 +226,8 @@ Input.prototype.onMouseUp = function(e)
 Input.prototype.onMouseMove = function(e)
 {
     if(!e) e = window.Event;
+    
+    console.log("mouseMove");
     
     //get new mouse position
     var mouseDelta = new Vector2();

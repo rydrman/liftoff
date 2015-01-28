@@ -201,6 +201,7 @@ UI.prototype.sample = function( mousePosCanvas, player )
     var relativePos = new Vector2( mousePosCanvas.x / Settings.renderWidth,
                                    mousePosCanvas.y / Settings.renderHeight );
     
+    
     if(this.craftOpen)
     {
         //check top buttons
@@ -256,15 +257,22 @@ UI.prototype.sample = function( mousePosCanvas, player )
     }
     
     // Check against all UI elements
-    for (var i in this.shipMenu) {
-        if (this.shipMenu[i].contains(relativePos))
-            return {name: i}
+    if(this.shipOpen)
+    {
+        for (var i in this.shipMenu) 
+        {
+            if (this.shipMenu[i].contains(relativePos))
+                return {name: i}
+        }
+        for (var i in this.playerShipStats) 
+        {
+             if (this.playerShipStats[i].contains(relativePos))
+                 return {name: this.playerShipStats[i]};
+        }
     }
-    for (var i in this.playerShipStats) {
-         if (this.playerShipStats[i].contains(relativePos))
-             return {name: this.playerShipStats[i]};
-    }
-    if (this.playerInv.background.contains(relativePos)) {
+    
+    if (this.playerInv.background.contains(relativePos)) 
+    {
         // check all slots
         var slot = null;
         for (var i=0; i < this.playerInv.slots.length; i++) {
@@ -274,7 +282,8 @@ UI.prototype.sample = function( mousePosCanvas, player )
         }
         return { name: "playerInv", slotNo: slot};
     }
-    if (this.shipInv.background.contains(relativePos)) {
+    if (this.shipInv.background.contains(relativePos)) 
+    {
         // check all slots
         var slot = null;
         for (var i=0; i < this.shipInv.slots.length; i++) {

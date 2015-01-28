@@ -281,8 +281,35 @@ Engine.prototype.onRMouseDown = function( mousePos)
 
 }
 
-Engine.prototype.onMouseMove = function(mousePos) {
+Engine.prototype.onMouseMove = function(mousePos) 
+{
     this.timer.startSubTick("mouseMove");
+    
+    var worldPos = this.renderer.unProject( mousePos );
+
+    var uiSample = this.ui.sample( mousePos, this.player );
+    var wSample = this.world.sample( worldPos );
+    console.log(uiSample, wSample);
+    if( false != uiSample )
+    {
+        //TODO ui sample
+        this.renderer.hoverText = null;
+    }
+    else if(null != wSample)
+    {
+        console.log( wSample );
+        if(wSample instanceof BaseObject)
+        {
+            this.renderer.hoverText = {
+                position : mousePos,
+                text : wSample.niceName
+            };
+        }
+    }
+    else 
+    {
+        this.renderer.hoverText = null;
+    }
 }
 
 Engine.prototype.onMouseSustainedL = function(mousePos) {
@@ -353,6 +380,7 @@ Engine.prototype.onMouseSustainedL = function(mousePos) {
         }
     }
 }
+
 Engine.prototype.onMouseUp = function(mousePos) {
     // Get target if we need to
     if (this.draggedItem != null) {
@@ -416,8 +444,7 @@ Engine.prototype.update = function()
     this.timer.endSubTick("mouseMove");
     if (this.timer.subTicks["mouseMove"].deltaS > 1) 
     {
-        console.log("TODO: Hover Action on screen!");
-        
+        //console.log("TODO: Hover Action on screen!");
         // Follow same pattern - sample ui, then ship / player, then world 
     }
 

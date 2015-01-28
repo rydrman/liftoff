@@ -13,6 +13,8 @@ var Renderer = function()
     this.pixelRatioInv = 1 / this.pixelRatio;
     
     this.backgroundImg = new Image();
+    
+    this.hoverText = null;
 }
 
 Renderer.prototype = new AsyncLoadable();
@@ -164,6 +166,11 @@ Renderer.prototype.render = function( world, player, ship, ui, draggedItem, time
                            draggedItem.position.x - 25,
                            draggedItem.position.y - 25,
                            50, 50);
+    }
+    else if (this.hoverText != null)
+    {
+        this.ctx.font = "10px Arial sans-serif";
+        this.ctx.fillText(this.hoverText.text, this.hoverText.position.x, this.hoverText.position.y);
     }
     
     if (gameover)

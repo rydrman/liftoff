@@ -1,6 +1,7 @@
 var BaseObject = function( item ) 
 {
     this.name = item.name;
+    this.niceName = item.niceName;
     this.image = new Image();
     
     var self = this;
